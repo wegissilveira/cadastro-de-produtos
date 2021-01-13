@@ -1,0 +1,76 @@
+.Insert_product_container {
+    background-color: #2C2E3F;
+    height: fit-content;
+
+    position: fixed;
+    right: 0;
+    top: 0;
+    /* width: 100%; */
+    max-width: 30%;
+    width: 30%;
+}
+
+/* .Insert_product_container > div {
+    width: 90%;
+    margin-left: 5%;
+} */
+
+.Insert_product_container > div:first-of-type {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: #212330;
+    color: #fff;
+    height: 100px;
+}
+
+/* .Insert_product_subContainer > div:nth-of-type(2) {
+    color: #fff;
+    padding-left: 15px;
+    padding-right: 15px;
+} */
+
+.Insert_product_subContainer {
+    width: 90%;
+    margin-left: 5%;
+}
+
+.Insert_product_subContainer input {
+    height: 40px;
+    padding-left: 10px;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    border-bottom: 1px solid #fff;
+    color: #fff;
+}
+
+.Insert_product_subContainer > div:first-of-type {
+    display: flex;
+    flex-direction: column;
+}
+
+.Insert_product_subContainer > div:nth-of-type(2) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+    width: 100%;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    background-color: #3B3E51;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+}
+
+.Insert_product_subContainer > div:nth-of-type(2) svg {
+    padding: 5px 5px 0 5px;
+}
