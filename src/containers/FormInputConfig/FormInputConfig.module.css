@@ -5,17 +5,49 @@
     position: fixed;
     right: 0;
     top: 0;
-    /* width: 100%; */
-    max-width: 30%;
     width: 30%;
 }
 
-/* .Insert_product_container > div {
-    width: 90%;
-    margin-left: 5%;
-} */
+@media (max-width: 991.98px) {
+    .Insert_product_container {
+        width: 100%;
+        top: 0;
+        height: 100vh;
+        background-color: #2c2e3f96;
+    }
 
-.Insert_product_container > div:first-of-type {
+    .Insert_product_subContainer {
+        background-color: #2C2E3F;
+        position: absolute;
+        width: 70%;
+        left: 15%;
+        top: 30%;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .Insert_product_subContainer {
+        width: 90%;
+        left: 5%;
+        top: 30%;
+    }
+}
+
+.Insert_product_container > svg {
+    display: none;
+    position: absolute;
+    right: 40px;
+    top: 40px;
+    cursor: pointer;
+}
+
+@media (max-width: 991.98px) {
+    .Insert_product_container > svg {
+        display: inline-block;
+    }
+}
+
+.Insert_product_subContainer > div:first-of-type {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -25,18 +57,16 @@
     height: 100px;
 }
 
-/* .Insert_product_subContainer > div:nth-of-type(2) {
-    color: #fff;
-    padding-left: 15px;
-    padding-right: 15px;
-} */
+.Insert_product_subContainer > div:first-of-type h2 {
+    text-align: center;
+}
 
-.Insert_product_subContainer {
+.Insert_product_form {
     width: 90%;
     margin-left: 5%;
 }
 
-.Insert_product_subContainer input {
+.Insert_product_form input {
     height: 40px;
     padding-left: 10px;
     border: 0;
@@ -46,12 +76,19 @@
     color: #fff;
 }
 
-.Insert_product_subContainer > div:first-of-type {
+@media (max-width: 991.98px) {
+    .Insert_product_form input {
+        height: 50px;
+        font-size: 22px;
+    }
+}
+
+.Insert_product_form > div:first-of-type {
     display: flex;
     flex-direction: column;
 }
 
-.Insert_product_subContainer > div:nth-of-type(2) {
+.Insert_product_form > div:nth-of-type(2) {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -71,6 +108,12 @@
     -o-border-radius: 3px;
 }
 
-.Insert_product_subContainer > div:nth-of-type(2) svg {
+@media (max-width: 991.98px) {
+    .Insert_product_form > div:nth-of-type(2) {
+        font-size: 22px;
+    }
+}
+
+.Insert_product_form > div:nth-of-type(2) svg {
     padding: 5px 5px 0 5px;
 }

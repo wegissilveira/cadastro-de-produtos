@@ -9,7 +9,8 @@ import {
   faPlus,
   faMinus,
   faChevronCircleRight,
-  faSearch
+  faSearch,
+  faExternalLinkAlt
 } from '@fortawesome/free-solid-svg-icons'
 
 import { 
@@ -21,7 +22,8 @@ library.add(
   faMinus,
   faTrashAlt,
   faChevronCircleRight,
-  faSearch
+  faSearch,
+  faExternalLinkAlt
 )
 
 
