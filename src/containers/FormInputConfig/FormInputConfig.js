@@ -62,7 +62,8 @@ class FormInputConfig extends Component {
                 valid: true,
                 touched: true
             }
-        }
+        },
+        formIsValid: false
     }
 
     closeResponsiveFormHandler = () => {
@@ -77,10 +78,6 @@ class FormInputConfig extends Component {
         if (rules.required) {
             isValid = value.toString().trim() !== '' && value !== 0
         }
-
-
-        // console.log(value)
-        // console.log(rules)
 
         return isValid
     }
@@ -97,7 +94,7 @@ class FormInputConfig extends Component {
         }
 
         if (name === 'qtde' || name === 'valor') {
-            value = value.replace(/[^\d.]|\.(?=.*\.)/g, "")
+            value = value.replace(/^0|[^\d.]|\.(?=.*\.)/g, "")
         }
 
         updatedProductField.value = value
@@ -107,7 +104,15 @@ class FormInputConfig extends Component {
         updatedProduct[field] = updatedProductField
         updatedProduct.valorTotal.value = updatedProduct.qtde.value * updatedProduct.valor.value
 
-        this.setState({productForm: updatedProduct})
+        let formIsValid = true
+        for (let field in updatedProduct) {
+            formIsValid = updatedProduct[field].valid && formIsValid
+        }
+
+        this.setState({
+            productForm: updatedProduct,
+            formIsValid
+        })
     }
 
     submitFormHandler = e => {
@@ -145,7 +150,7 @@ class FormInputConfig extends Component {
                     icon="external-link-alt" 
                     color="red" 
                     size="3x"
-                    onClick={this.closeResponsiveForm}
+                    onClick={this.closeResponsiveFormHandler}
                 />
                 <div className={classes.Insert_product_subContainer}>
                     <div>
@@ -174,11 +179,10 @@ class FormInputConfig extends Component {
                             })}
                         </div>
                         
-                        <button>
+                        <button disabled={!this.state.formIsValid}>
                             <p>Inserir Produto</p>
                             <FontAwesomeIcon 
                                 icon="chevron-circle-right" 
-                                color="#8DFFC2"
                             />
                         </button>
                     </form>

@@ -3,6 +3,11 @@ form label {
     margin-top: 10px;
 }
 
+form label span {
+    color: red;
+    font-size: 12px;
+}
+
 .InputElement {
     height: 40px;
     padding-left: 10px;
