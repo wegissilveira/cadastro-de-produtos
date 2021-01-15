@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 import classes from './Layout.module.css'
 
-import FormInputConfig from '../../components/FormInputConfig/FormInputConfig'
+import FormInputConfig from '../FormInputConfig/FormInputConfig'
 import FormOutputConfig from '../FormOutputConfig/FormOutputConfig'
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
