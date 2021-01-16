@@ -5,14 +5,16 @@ import classes from './FormOutputConfig.module.css'
 import ProductComponent from '../../components/ProductComponent/ProductComponent'
 import ProductComponentMobile from '../../components/ProductComponentMobile/ProductComponentMobile'
 
-import productsData from '../../data/productsData'
+// import productsDataFn from '../../data/productsData'
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { connect } from 'react-redux'
 
 
 class FormOutputConfig extends Component {
 
     render () {
+
         return (
             <div className={classes.FormOutput_container}>
                 <div>
@@ -36,12 +38,19 @@ class FormOutputConfig extends Component {
                 
                 {/* ** */}
 
-                <ProductComponent products={productsData} />
+                <ProductComponent products={this.props.productsList} />
 
-                <ProductComponentMobile products={productsData}  />                
+                <ProductComponentMobile products={this.props.productsList}  />                
             </div>
         )
     }
 }
 
-export default FormOutputConfig
+
+const mapStateToProps = state => {
+    return {
+        productsList: state.productsDataState
+    }
+}
+
+export default connect(mapStateToProps)(FormOutputConfig)

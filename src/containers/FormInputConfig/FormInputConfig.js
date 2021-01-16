@@ -3,10 +3,12 @@ import React, { Component } from 'react'
 import classes from './FormInputConfig.module.css'
 
 import Input from '../../components/UI/Input/Input'
+import * as actionTypes from '../../store/actions/actionTypes'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { connect } from 'react-redux'
 
-import productsDataFn from '../../data/productsDataProv'
+import productsDataFn from '../../data/productsData'
 
 class FormInputConfig extends Component {
 
@@ -145,6 +147,7 @@ class FormInputConfig extends Component {
 
     submitProductHandler = product => {
         localStorage.setItem('products_list', JSON.stringify(product))
+        this.props.onProductsListState()
     }
 
     formatFormHandler = e => {
@@ -155,7 +158,7 @@ class FormInputConfig extends Component {
         productForm.qtde.value = Number(productForm.qtde.value)
         productForm.valor.value = Number(productForm.valor.value)
 
-        const productsList = productsDataFn()
+        const productsList = this.props.productsList
         productForm.id.value = this.addIdHandler(productsList)
 
         const productValues = {}
@@ -263,10 +266,24 @@ class FormInputConfig extends Component {
                 </div>
             </div>
         )
-    }
-
-    
+    } 
     
 }
 
-export default FormInputConfig
+const mapStateToProps = state => {
+    return {
+        productsList: state.productsDataState
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onProductsListState: () => dispatch({
+                type: actionTypes.ADD_PRODUCT, 
+                value: productsDataFn()
+            })
+    }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(FormInputConfig)
