@@ -6,10 +6,19 @@ import Input from '../../components/UI/Input/Input'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
+import productsDataFn from '../../data/productsDataProv'
+
 class FormInputConfig extends Component {
 
     state = {
         productForm: {
+            id: {
+                elementType: false,
+                value: '',
+                validation: {},
+                valid: true,
+                touched: false
+            },
             nome: {
                 elementType: 'input',
                 elementConfig: {
@@ -60,7 +69,7 @@ class FormInputConfig extends Component {
                 value: 0,
                 validation: {},
                 valid: true,
-                touched: true
+                touched: false
             }
         },
         formIsValid: false
@@ -71,8 +80,27 @@ class FormInputConfig extends Component {
     }
 
 
-    checkFormValidityHandler(value, rules) {
 
+    addIdHandler = products => {    
+        const ids = []
+        products.forEach(product => {
+            ids.push(product.id)
+        })
+
+        const sparse = ids.reduce((sparse, i) => (sparse[i]=1,sparse), [])
+        const x = [...sparse.keys()].filter(i => i && !sparse[i])
+
+        let new_id
+        if (x.length > 0) {
+            new_id = Math.min(...x)
+        } else {
+            new_id = Math.max(...ids) + 1
+        }
+
+        return new_id
+    }
+
+    checkFormValidityHandler(value, rules) {
         let isValid = false
 
         if (rules.required) {
@@ -115,16 +143,62 @@ class FormInputConfig extends Component {
         })
     }
 
-    submitFormHandler = e => {
+    submitProductHandler = product => {
+        localStorage.setItem('products_list', JSON.stringify(product))
+    }
+
+    formatFormHandler = e => {
         e.preventDefault()
 
         let productForm = {...this.state.productForm}
-
+        
         productForm.qtde.value = Number(productForm.qtde.value)
         productForm.valor.value = Number(productForm.valor.value)
 
-        console.log(productForm)
-        // console.log(this.state.productForm)
+        const productsList = productsDataFn()
+        productForm.id.value = this.addIdHandler(productsList)
+
+        const productValues = {}
+        for (let key in productForm) {
+            productValues[key] = productForm[key].value
+        }
+
+        productsList.push(productValues)
+
+        // const productsData = [
+        //     {
+        //         id: 1,
+        //         nome: 'Produto 1',
+        //         qtde: 10,
+        //         valor: 12.00
+        //     },
+        //     {
+        //         id: 5,
+        //         nome: 'Produto 2',
+        //         qtde: 100,
+        //         valor: 12.00
+        //     },
+        //     {
+        //         id: 4,
+        //         nome: 'Produto 4',
+        //         qtde: 100,
+        //         valor: 12.00
+        //     },
+        //     {
+        //         id: 2,
+        //         nome: 'Produto 5',
+        //         qtde: 80,
+        //         valor: 12.50
+        //     },
+        //     {
+        //         id: 7,
+        //         nome: 'Produto 5',
+        //         qtde: 80,
+        //         valor: 12.50
+        //     },
+        // ]
+
+        this.submitProductHandler(productsList)
     }
 
 
@@ -157,7 +231,7 @@ class FormInputConfig extends Component {
                         <h2>Registre Um Novo Produto</h2>
                     </div>
                     <form 
-                        onSubmit={this.submitFormHandler} 
+                        onSubmit={this.formatFormHandler} 
                         className={classes.Insert_product_form}
                     >
                         <div>
