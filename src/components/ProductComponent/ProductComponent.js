@@ -34,7 +34,8 @@ const ProductComponent = props => {
                                 <p>{(product.valor * product.qtde).toFixed(2)}</p>
                                 <FontAwesomeIcon 
                                     icon={["far", "trash-alt"]} 
-                                    color="red"    
+                                    color="red"  
+                                    onClick={() => props.removeProduct(product.id)}  
                                 />
                             </div>
                 })

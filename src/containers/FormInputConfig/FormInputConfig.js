@@ -3,7 +3,8 @@ import React, { Component } from 'react'
 import classes from './FormInputConfig.module.css'
 
 import Input from '../../components/UI/Input/Input'
-import * as actionTypes from '../../store/actions/actionTypes'
+// import * as actionTypes from '../../store/actions/actionTypes'
+import * as productActions from '../../store/actions/index'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { connect } from 'react-redux'
@@ -77,11 +78,14 @@ class FormInputConfig extends Component {
         formIsValid: false
     }
 
+
+    componentDidMount() {
+        this.props.onInitProducts()
+    }
+
     closeResponsiveFormHandler = () => {
         this.props.toggleForm()
     }
-
-
 
     addIdHandler = products => {    
         const ids = []
@@ -167,6 +171,7 @@ class FormInputConfig extends Component {
         }
 
         productsList.push(productValues)
+        console.log(productsList)
 
         // const productsData = [
         //     {
@@ -278,10 +283,12 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onProductsListState: () => dispatch({
-                type: actionTypes.ADD_PRODUCT, 
-                value: productsDataFn()
-            })
+        // onProductsListState: () => dispatch({
+        //         type: actionTypes.ADD_PRODUCT, 
+        //         value: productsDataFn()
+        //     })
+        onInitProducts: () => 
+            dispatch(productActions.initProducts())
     }
 }
 

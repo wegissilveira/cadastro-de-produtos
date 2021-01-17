@@ -4,14 +4,26 @@ import classes from './FormOutputConfig.module.css'
 
 import ProductComponent from '../../components/ProductComponent/ProductComponent'
 import ProductComponentMobile from '../../components/ProductComponentMobile/ProductComponentMobile'
+import * as actionTypes from '../../store/actions/actionTypes'
 
-// import productsDataFn from '../../data/productsData'
+import productsDataFn from '../../data/productsData'
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { connect } from 'react-redux'
 
 
 class FormOutputConfig extends Component {
+
+
+    removeProductHandler = id => {
+        const productsList = 
+            this.props.productsList.filter(product => 
+                product.id !== id
+            )
+
+        localStorage.setItem('products_list', JSON.stringify(productsList))
+        this.props.onProductsListState()
+    }
 
     render () {
 
@@ -38,9 +50,14 @@ class FormOutputConfig extends Component {
                 
                 {/* ** */}
 
-                <ProductComponent products={this.props.productsList} />
+                <ProductComponent 
+                    products={this.props.productsList} 
+                    removeProduct={(id) => this.removeProductHandler(id)}
+                />
 
-                <ProductComponentMobile products={this.props.productsList}  />                
+                <ProductComponentMobile 
+                    products={this.props.productsList}  
+                />                
             </div>
         )
     }
@@ -53,4 +70,13 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps)(FormOutputConfig)
+const mapDispatchToProps = dispatch => {
+    return {
+        onProductsListState: () => dispatch({
+                type: actionTypes.ADD_PRODUCT, 
+                value: productsDataFn()
+            })
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(FormOutputConfig)
