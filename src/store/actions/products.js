@@ -1,14 +1,5 @@
 import * as actionTypes from './actionTypes'
 
-import productsDataFn from '../../data/productsData'
-
-export const setProduct = products => {
-    return {
-        type: actionTypes.SET_PRODUCT,
-        products: products
-    }
-}
-
 export const getProducts = products => {
     return {
         type: actionTypes.GET_PRODUCT,
@@ -16,15 +7,22 @@ export const getProducts = products => {
     }
 }
 
-// export const removeProduct = products => {
-//     return {
-//         type: actionTypes.SET_PRODUCT,
-//         products: products
-//     }
-// }
+export const postProducts = products => {
+    return dispatch => {
+        localStorage.setItem('products_list', JSON.stringify(products))
+        dispatch(initProducts())
+    }
+}
 
 export const initProducts = () => {
     return dispatch => {
-        dispatch(getProducts(productsDataFn()))
+        let productsData = []
+        const productsList_storage = JSON.parse(localStorage.getItem('products_list'))
+
+        if (productsList_storage !== null) {
+            productsData = productsList_storage
+        }
+        
+        dispatch(getProducts(productsData))
     }
 }

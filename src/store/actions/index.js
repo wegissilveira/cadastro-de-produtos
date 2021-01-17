@@ -1,5 +1,5 @@
 export {
-    setProduct,
+    postProducts,
     getProducts,
     initProducts
 } from './products'

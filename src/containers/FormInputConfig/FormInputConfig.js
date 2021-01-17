@@ -3,13 +3,11 @@ import React, { Component } from 'react'
 import classes from './FormInputConfig.module.css'
 
 import Input from '../../components/UI/Input/Input'
-// import * as actionTypes from '../../store/actions/actionTypes'
 import * as productActions from '../../store/actions/index'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { connect } from 'react-redux'
 
-import productsDataFn from '../../data/productsData'
 
 class FormInputConfig extends Component {
 
@@ -150,8 +148,7 @@ class FormInputConfig extends Component {
     }
 
     submitProductHandler = product => {
-        localStorage.setItem('products_list', JSON.stringify(product))
-        this.props.onProductsListState()
+        this.props.onPostProducts(product)
     }
 
     formatFormHandler = e => {
@@ -171,40 +168,6 @@ class FormInputConfig extends Component {
         }
 
         productsList.push(productValues)
-        console.log(productsList)
-
-        // const productsData = [
-        //     {
-        //         id: 1,
-        //         nome: 'Produto 1',
-        //         qtde: 10,
-        //         valor: 12.00
-        //     },
-        //     {
-        //         id: 5,
-        //         nome: 'Produto 2',
-        //         qtde: 100,
-        //         valor: 12.00
-        //     },
-        //     {
-        //         id: 4,
-        //         nome: 'Produto 4',
-        //         qtde: 100,
-        //         valor: 12.00
-        //     },
-        //     {
-        //         id: 2,
-        //         nome: 'Produto 5',
-        //         qtde: 80,
-        //         valor: 12.50
-        //     },
-        //     {
-        //         id: 7,
-        //         nome: 'Produto 5',
-        //         qtde: 80,
-        //         valor: 12.50
-        //     },
-        // ]
 
         this.submitProductHandler(productsList)
     }
@@ -212,7 +175,7 @@ class FormInputConfig extends Component {
 
 
     render () {
-
+        
         const productForm = []
         for (let key in this.state.productForm) {
             productForm.push({
@@ -283,10 +246,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        // onProductsListState: () => dispatch({
-        //         type: actionTypes.ADD_PRODUCT, 
-        //         value: productsDataFn()
-        //     })
+        onPostProducts: products =>
+            dispatch(productActions.postProducts(products)),
         onInitProducts: () => 
             dispatch(productActions.initProducts())
     }
