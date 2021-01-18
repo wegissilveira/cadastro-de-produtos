@@ -21,8 +21,41 @@ class FormOutputConfig extends Component {
         this.props.onPostProducts(productsList)
     }
 
-    render () {
+    
+    updateQtdeHandler = (arg, id) => {
+
+        let productsList = this.props.productsList.map(product => {
+            return {...product}
+        })
         
+        let qtde = null
+
+        productsList.forEach((product, i) => {
+            if (product.id === id) {
+                if (arg === 'up') {
+                    productsList[i].qtde = product.qtde+1
+                    productsList[i].valorTotal = product.qtde * product.valor
+                }
+
+                if (arg === 'down') {
+                    productsList[i].qtde = product.qtde-1
+                    productsList[i].valorTotal = product.qtde * product.valor
+                }
+
+                qtde = productsList[i].qtde
+            }
+        })
+
+        if (qtde > 0) {
+            this.props.onPostProducts(productsList)
+        } else {
+            this.removeProductHandler(id)
+        }
+        
+    }
+
+
+    render () {
         return (
             <div className={classes.FormOutput_container}>
                 <div>
@@ -49,6 +82,7 @@ class FormOutputConfig extends Component {
                 <ProductComponent 
                     products={this.props.productsList} 
                     removeProduct={(id) => this.removeProductHandler(id)}
+                    updateProduct={(arg, id) => this.updateQtdeHandler(arg, id)}
                 />
 
                 <ProductComponentMobile 

@@ -21,17 +21,18 @@ const ProductComponent = props => {
                                 <div className={classes.Product_change_qtde}>
                                     <FontAwesomeIcon 
                                         icon="minus"
-                                            color="rgb(126, 125, 125)" 
-                                        />
+                                        color="rgb(126, 125, 125)" 
+                                        onClick={() => props.updateProduct('down', product.id)}
+                                    />
                                     <p>{product.qtde}</p>
                                     <FontAwesomeIcon 
                                         icon="plus" 
                                         color="rgb(126, 125, 125)" 
+                                        onClick={() => props.updateProduct('up', product.id)}
                                     />
                                 </div>
                                 <p>{product.valor}</p>
-                                {/* <p>$1200,00</p> */}
-                                <p>{(product.valor * product.qtde).toFixed(2)}</p>
+                                <p>{(product.qtde * product.valor).toFixed(2)}</p>
                                 <FontAwesomeIcon 
                                     icon={["far", "trash-alt"]} 
                                     color="red"  
