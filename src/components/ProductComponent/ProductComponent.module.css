@@ -1,3 +1,53 @@
+
+.FormOutput_header {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #DDDEDF;
+    color: rgb(126, 125, 125);
+}
+
+.FormOutput_header > * {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-basis: 21.25%;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+
+.FormOutput_header > * > p {
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
+.FormOutput_header > * {
+    text-align: center;
+}
+
+.FormOutput_header > * svg {
+    cursor: pointer;
+}
+
+.FormOutput_header > div:first-of-type,
+.FormOutput_header > p {
+    flex-basis: 5%;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+
+.FormOutput_header > div:first-of-type {
+    flex-basis: 10%;
+}
+
+@media (max-width: 767.98px) {
+    .FormOutput_header {
+        display: none;
+    }
+}
+
+/* ** */
+
 @media (max-width: 767.98px) {
     .Products_list_container {
         display: none;
@@ -12,12 +62,12 @@
 }
 
 .Product_container > * {
-    flex-basis: 22.5%;
+    flex-basis: 21.25%;
     flex-grow: 0;
     flex-shrink: 0;
 }
 
-.Product_container > *:not(:first-of-type) {
+.Product_container > * {
     text-align: center;
 }
 
@@ -26,6 +76,10 @@
     flex-basis: 5%;
     flex-grow: 0;
     flex-shrink: 0;
+}
+
+.Product_container > p:first-of-type {
+    flex-basis: 10%;
 }
 
 .Product_container > svg {
@@ -51,6 +105,10 @@
     -moz-border-radius: 50%;
     -ms-border-radius: 50%;
     -o-border-radius: 50%;
+}
+
+.Product_change_qtde > svg:active {
+    background-color: #ccc;
 }
 
 .Product_container > div > p:nth-of-type(2) {

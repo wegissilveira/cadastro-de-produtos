@@ -1,5 +1,6 @@
 export {
     postProducts,
     getProducts,
-    initProducts
+    initProducts,
+    setOrder
 } from './products'

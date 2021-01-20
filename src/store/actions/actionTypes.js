@@ -1,4 +1,5 @@
 export const INIT_PRODUCT = 'ADD_PRODUCT'
 export const SET_PRODUCT = 'SET_PRODUCT'
 export const GET_PRODUCT = 'GET_PRODUCT'
+// export const SET_ORDER = 'SET_ORDER'
 // export const REMOVE_PRODUCT = 'REMOVE_PRODUCT'

@@ -10,7 +10,9 @@ import {
   faMinus,
   faChevronCircleRight,
   faSearch,
-  faExternalLinkAlt
+  faExternalLinkAlt,
+  faSortAmountDownAlt,
+  faSortAmountUp
 } from '@fortawesome/free-solid-svg-icons'
 
 import { 
@@ -23,7 +25,9 @@ library.add(
   faTrashAlt,
   faChevronCircleRight,
   faSearch,
-  faExternalLinkAlt
+  faExternalLinkAlt,
+  faSortAmountDownAlt,
+  faSortAmountUp
 )
 
 

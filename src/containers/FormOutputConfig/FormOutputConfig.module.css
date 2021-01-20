@@ -61,33 +61,4 @@
         width: 90%;
     }
 }
-
-.FormOutput_header {
-    display: flex;
-    align-items: center;
-    border-bottom: 1px solid #DDDEDF;
-    color: rgb(126, 125, 125);
-}
-
-.FormOutput_header > * {
-    flex-basis: 22.5%;
-    flex-grow: 0;
-    flex-shrink: 0;
-}
-
-.FormOutput_header > *:not(:first-of-type) {
-    text-align: center;
-}
-
-.FormOutput_header > p:first-of-type,
-.FormOutput_header > p:last-of-type {
-    flex-basis: 5%;
-    flex-grow: 0;
-    flex-shrink: 0;
-}
-
-@media (max-width: 767.98px) {
-    .FormOutput_header {
-        display: none;
-    }
-}
+/*  */

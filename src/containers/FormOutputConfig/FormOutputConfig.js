@@ -12,6 +12,7 @@ import { connect } from 'react-redux'
 
 class FormOutputConfig extends Component {
     
+    
     removeProductHandler = id => {
         const productsList = 
             this.props.productsList.filter(product => 
@@ -51,8 +52,14 @@ class FormOutputConfig extends Component {
         } else {
             this.removeProductHandler(id)
         }
-        
     }
+
+
+    orderListHandler = (order, direction) => {
+        this.props.onSetOrder([direction, order])
+    }
+
+
 
 
     render () {
@@ -68,14 +75,6 @@ class FormOutputConfig extends Component {
                     />
                     <input placeholder="Busca por produtos" />
                 </div>
-                <div className={classes.FormOutput_header}>
-                    <p>ID</p>
-                    <p>Nome</p>
-                    <p>Quantidade</p>
-                    <p>Valor Unitário</p>
-                    <p>Valor Total</p>
-                    <p></p>
-                </div>
                 
                 {/* ** */}
 
@@ -83,6 +82,7 @@ class FormOutputConfig extends Component {
                     products={this.props.productsList} 
                     removeProduct={(id) => this.removeProductHandler(id)}
                     updateProduct={(arg, id) => this.updateQtdeHandler(arg, id)}
+                    orderList={(ord, dir) => this.orderListHandler(ord, dir)}
                 />
 
                 <ProductComponentMobile 
@@ -96,14 +96,17 @@ class FormOutputConfig extends Component {
 
 const mapStateToProps = state => {
     return {
-        productsList: state.productsDataState
+        productsList: state.productsDataState,
+        listsOrder: state.order
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
         onPostProducts: products =>
-            dispatch(productActions.postProducts(products))
+            dispatch(productActions.postProducts(products)),
+        onSetOrder: order =>
+            dispatch(productActions.setOrder(order))
     }
 }
 
