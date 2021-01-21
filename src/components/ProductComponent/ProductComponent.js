@@ -7,6 +7,22 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 const ProductComponent = props => {
 
+
+    let products = []
+
+    props.products.forEach(item => {
+        const searchKey = new RegExp(props.searchValue, 'gi')
+
+        if (props.searchOn) {
+            if (item.nome.match(searchKey)) {
+                products.push(item)
+            }
+        } else {
+            products.push(item)
+        }
+    })
+
+
     return (
         <Fragment>
             <div className={classes.FormOutput_header}>
@@ -70,7 +86,7 @@ const ProductComponent = props => {
 
             <div className={classes.Products_list_container}>
                 {
-                    props.products.map(product => {
+                    products.map(product => {
                         return <div 
                                     key={product.id}
                                     className={classes.Product_container}

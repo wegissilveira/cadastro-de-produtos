@@ -11,6 +11,13 @@ import { connect } from 'react-redux'
 
 
 class FormOutputConfig extends Component {
+
+    state = {
+        inputValue: '',
+        isSearchOn: false,
+        errorMsg: null,
+        minCharLength: 3
+    }
     
     
     removeProductHandler = id => {
@@ -54,9 +61,37 @@ class FormOutputConfig extends Component {
         }
     }
 
-
     orderListHandler = (order, direction) => {
         this.props.onSetOrder([direction, order])
+    }
+
+    searchProductHandler = e => {
+        let inputValue = e.currentTarget.parentNode.childNodes[1].value
+        let isSearchOn
+        let errorMsg
+
+        if (inputValue !== '') {
+
+            if (inputValue.length >= this.state.minCharLength) {
+                isSearchOn = true
+                errorMsg = null
+            } else {
+                inputValue = ''
+                isSearchOn = false
+                errorMsg = '*Insira ao menos 3 caracteres para iniciar a busca'
+            }
+            
+        } else {
+            isSearchOn = false
+            errorMsg = null
+        }
+
+        this.setState({
+            inputValue,
+            isSearchOn,
+            errorMsg
+        })
+
     }
 
 
@@ -69,11 +104,17 @@ class FormOutputConfig extends Component {
                     <h2>Lista De Produtos</h2>
                 </div>
                 <div className={classes.Search_container}>
-                    <FontAwesomeIcon 
-                        icon="search" 
-                        color="rgb(126, 125, 125)"
-                    />
-                    <input placeholder="Busca por produtos" />
+                    <div>
+                        <FontAwesomeIcon 
+                            icon="search" 
+                            color="rgb(126, 125, 125)"
+                        />
+                        <input 
+                            placeholder="Busca por produtos" 
+                            onChange={this.searchProductHandler}
+                        />
+                    </div>
+                    <span>{this.state.errorMsg}</span>
                 </div>
                 
                 {/* ** */}
@@ -83,6 +124,8 @@ class FormOutputConfig extends Component {
                     removeProduct={(id) => this.removeProductHandler(id)}
                     updateProduct={(arg, id) => this.updateQtdeHandler(arg, id)}
                     orderList={(ord, dir) => this.orderListHandler(ord, dir)}
+                    searchValue={this.state.inputValue}
+                    searchOn={this.state.isSearchOn}
                 />
 
                 <ProductComponentMobile 
