@@ -8,7 +8,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 const ProductComponent = props => {
 
-
     let products = []
 
     props.products.forEach(item => {
@@ -25,32 +24,26 @@ const ProductComponent = props => {
 
     
     const editDraggableItem = e => {
-        
         e.currentTarget.style.backgroundColor = 'tomato'
     }
 
+    let currentIndex
+    let currentId
     let selectedNodePos = 0
     let currentNode 
-    const dragStartHandler = (e, id) => {
-        // console.log(e, id)
+
+    const dragStartHandler = (e, id, idx) => {
+        currentIndex = idx
+        currentId = id
         currentNode = e.currentTarget
         e.dataTransfer.setData('id', id)
-        // let selectedNode = document.getElementById(currentNode.id)
-
-        // setTimeout(() => {
-        //     currentNode.parentNode.removeChild(selectedNode)
-        // }, 300)
-        // console.log(currentNode.parentNode)
-        // console.log(currentNode.parentNode.children)
     }
 
     const dragOverHandler = e => {
         let parent = e.currentTarget
-        // console.log('over')
         e.preventDefault()
 
         whereAmI(e.clientY, parent)
-        // console.log('y: '+e.clientY)
     }
 
     function resetNodes(nodes) {
@@ -61,9 +54,6 @@ const ProductComponent = props => {
 
     const whereAmI = (currentYPos, nodes) => {
         establishNodePositions(nodes)
-
-        // console.log(nodes)
-        // console.log(nodes.children)
     
         //identify the node right over the selected one
         let nodeAbove
@@ -91,30 +81,34 @@ const ProductComponent = props => {
             nodeBelow.style.marginTop = '3em'
             nodeBelow.style.transition = '1.8s'
         }        
-
-        // console.log(nodeAbove)
     }
 
+    
+
     const dropHandler = e => {
-        console.log('drop')
         let parent = e.currentTarget
         parent.insertBefore(currentNode, parent.children[selectedNodePos])
 
         resetNodes(parent)
 
-        
+        removeBg()
 
-        setTimeout(() => {
-            currentNode.style.backgroundColor = 'transparent'
-            currentNode.style.transition = '1s'
-        }, 200)
+        let newProducts = products.map(item => {
+            return {...item}
+        })
 
-        // console.log(document.getElementsByClassName(currentNode.className))
+        products = newProducts.filter((item, i) => item.id !== currentId)
+        products.splice(
+            currentIndex < selectedNodePos ? 
+                selectedNodePos - 1 : 
+                selectedNodePos, 
+            0, newProducts[currentIndex]
+        )
+
+        props.orderList(null, null, true, products)
     }
 
     const establishNodePositions = nodes => {
-        // console.log(document.getElementById(nodes[0]['id']))
-        // console.log(nodes.children)
         for (let i = 0; i < nodes.children.length; i++) {
           const element = document.getElementById(nodes.children[i]['id'])
           const position = element.getBoundingClientRect()
@@ -125,7 +119,12 @@ const ProductComponent = props => {
         }
     }
 
-  
+    const removeBg = () => {
+        setTimeout(() => {
+            currentNode.style.backgroundColor = 'transparent'
+            currentNode.style.transition = '1s'
+        }, 200)
+    }
 
 
 
@@ -202,7 +201,7 @@ const ProductComponent = props => {
                                     className={classes.Product_container}
                                     id={index}
                                     draggable
-                                    onDragStart={e => dragStartHandler(e, product.id)}
+                                    onDragStart={e => dragStartHandler(e, product.id, index)}
                                     onMouseDown={e => editDraggableItem(e)}
                                 >
                                     <p>{product.id}</p>

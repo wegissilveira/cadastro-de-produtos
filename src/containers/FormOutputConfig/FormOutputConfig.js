@@ -61,8 +61,8 @@ class FormOutputConfig extends Component {
         }
     }
 
-    orderListHandler = (order, direction, ul) => {
-        this.props.onSetOrder([direction, order], ul)
+    orderListHandler = (order, direction, ul, products) => {
+        this.props.onSetOrder([direction, order], ul, products)
     }
 
     searchProductHandler = e => {
@@ -123,7 +123,7 @@ class FormOutputConfig extends Component {
                     products={this.props.productsList} 
                     removeProduct={(id) => this.removeProductHandler(id)}
                     updateProduct={(arg, id) => this.updateQtdeHandler(arg, id)}
-                    orderList={(ord, dir, ul) => this.orderListHandler(ord, dir, ul)}
+                    orderList={(ord, dir, ul, products) => this.orderListHandler(ord, dir, ul, products)}
                     searchValue={this.state.inputValue}
                     searchOn={this.state.isSearchOn}
                 />
@@ -148,8 +148,8 @@ const mapDispatchToProps = dispatch => {
     return {
         onPostProducts: products =>
             dispatch(productActions.postProducts(products)),
-        onSetOrder: (order, ul) =>
-            dispatch(productActions.setOrder(order, ul))
+        onSetOrder: (order, ul, products) =>
+            dispatch(productActions.setOrder(order, ul, products))
     }
 }
 
