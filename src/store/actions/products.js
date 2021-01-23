@@ -14,9 +14,10 @@ export const postProducts = products => {
     }
 }
 
-export const setOrder = order => {
+export const setOrder = (order, ul) => {
     return dispatch => {
         localStorage.setItem('list_ordering', JSON.stringify(order))
+        localStorage.setItem('unordered_list', JSON.stringify(ul))
         dispatch(initProducts())
     }
 }
