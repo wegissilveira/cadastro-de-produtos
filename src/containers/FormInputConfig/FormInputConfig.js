@@ -98,7 +98,7 @@ class FormInputConfig extends Component {
         if (x.length > 0) {
             new_id = Math.min(...x)
         } else {
-            new_id = Math.max(...ids) + 1
+            new_id = ids.length === 0 ? 1 : Math.max(...ids) + 1
         }
 
         return new_id
@@ -230,7 +230,9 @@ class FormInputConfig extends Component {
                                 icon="chevron-circle-right" 
                             />
                         </button>
+                        
                     </form>
+                    <button onClick={this.props.toggleToastifyFn}>TESTE</button>
                 </div>
             </div>
         )

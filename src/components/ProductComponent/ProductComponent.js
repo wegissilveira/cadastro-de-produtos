@@ -22,20 +22,21 @@ const ProductComponent = props => {
         }
     })
 
-    
+    let currentNode 
     const editDraggableItem = e => {
         e.currentTarget.style.backgroundColor = 'tomato'
+        currentNode = e.currentTarget
     }
 
     let currentIndex
     let currentId
     let selectedNodePos = 0
-    let currentNode 
+    // let currentNode 
 
     const dragStartHandler = (e, id, idx) => {
         currentIndex = idx
         currentId = id
-        currentNode = e.currentTarget
+        // currentNode = e.currentTarget
         e.dataTransfer.setData('id', id)
     }
 
@@ -82,8 +83,6 @@ const ProductComponent = props => {
             nodeBelow.style.transition = '1.8s'
         }        
     }
-
-    
 
     const dropHandler = e => {
         let parent = e.currentTarget
@@ -192,7 +191,7 @@ const ProductComponent = props => {
             <div 
                 className={classes.Products_list_container} 
                 onDragOver={e => dragOverHandler(e)}
-                onDrop={e => dropHandler(e)}
+                onDragEnd={e => dropHandler(e)}
             >
                 {
                     products.map((product, index) => {
@@ -203,6 +202,7 @@ const ProductComponent = props => {
                                     draggable
                                     onDragStart={e => dragStartHandler(e, product.id, index)}
                                     onMouseDown={e => editDraggableItem(e)}
+                                    onMouseUp={removeBg}
                                 >
                                     <p>{product.id}</p>
                                     <p>{product.nome}</p>

@@ -7,10 +7,10 @@ export const getProducts = products => {
     }
 }
 
-export const postProducts = products => {
+export const postProducts = (products, origin) => {
     return dispatch => {
         localStorage.setItem('products_list', JSON.stringify(products))
-        dispatch(initProducts())
+        dispatch(initProducts(origin))
     }
 }
 
@@ -49,21 +49,35 @@ const orderList = (productsData, order, direction, ul) => {
     }    
 
     return productsList
-
 }
 
-export const initProducts = () => {
+export const initProducts = origin => {
     return dispatch => {
         let productsData = []
-        const productsList_storage = JSON.parse(localStorage.getItem('products_list'))
-        const list_ordering = JSON.parse(localStorage.getItem('list_ordering'))
-        const unordered_list = JSON.parse(localStorage.getItem('unordered_list'))
+        // const productsList_storage = JSON.parse(localStorage.getItem('products_list'))
+
+        let productsList_storage
+        let list_ordering
+        let unordered_list
+        try {
+            productsList_storage = JSON.parse(localStorage.getItem('products_list'))
+            list_ordering = JSON.parse(localStorage.getItem('list_ordering'))
+            unordered_list = JSON.parse(localStorage.getItem('unordered_list'))
+        } catch(e) {
+            productsList_storage = null
+            list_ordering = null
+            
+            console.log('error:')
+            console.log(e)
+        }
 
         if (productsList_storage !== null) {
             productsData = productsList_storage
         }
 
-        // productsData = orderList(productsData, list_ordering[1], list_ordering[0], unordered_list)
+        if (list_ordering !== null && origin !== 'updQtde') {
+            productsData = orderList(productsData, list_ordering[1], list_ordering[0], unordered_list)
+        }
         
         dispatch(getProducts(productsData))
     }

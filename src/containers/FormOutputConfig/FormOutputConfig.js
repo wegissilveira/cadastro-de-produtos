@@ -4,6 +4,7 @@ import classes from './FormOutputConfig.module.css'
 
 import ProductComponent from '../../components/ProductComponent/ProductComponent'
 import ProductComponentMobile from '../../components/ProductComponentMobile/ProductComponentMobile'
+import Toastify from '../../components/UI/Toastify/Toastify'
 import * as productActions from '../../store/actions/index'
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
@@ -55,9 +56,11 @@ class FormOutputConfig extends Component {
         })
 
         if (qtde > 0) {
-            this.props.onPostProducts(productsList)
+            this.props.onPostProducts(productsList, 'updQtde')
         } else {
-            this.removeProductHandler(id)
+            const remove = window.confirm('Quantidade deve ser maior que 0. \nO produto será excluído!')
+
+            if (remove === true) this.removeProductHandler(id)
         }
     }
 
@@ -130,7 +133,8 @@ class FormOutputConfig extends Component {
 
                 <ProductComponentMobile 
                     products={this.props.productsList}  
-                />                
+                />    
+                {/* <Toastify />             */}
             </div>
         )
     }
@@ -146,8 +150,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onPostProducts: products =>
-            dispatch(productActions.postProducts(products)),
+        onPostProducts: (products, origin) =>
+            dispatch(productActions.postProducts(products, origin)),
         onSetOrder: (order, ul, products) =>
             dispatch(productActions.setOrder(order, ul, products))
     }
