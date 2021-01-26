@@ -17,7 +17,8 @@ const Toastify = props => {
     }, 3000);
 
     const bgColor = props.toastifyDetails[0]
-    const msg = props.toastifyDetails[1]
+    const header = props.toastifyDetails[1]
+    const msg = props.toastifyDetails[2]
 
 
     return (
@@ -28,7 +29,8 @@ const Toastify = props => {
             }} 
             className={classes.Toastify_container}
         >
-            <h1>{msg}</h1>
+            <h3>{header}</h3>
+            <p>{msg}</p>
         </div>
     )
 }

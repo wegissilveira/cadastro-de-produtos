@@ -2,15 +2,15 @@ import * as actionTypes from './actionTypes'
 
 
 let errorMsg = [
-    'green', 
-    'Sucesso!'
+    '', 
+    ''
 ]
 
-export const getProducts = products => {
+export const getProducts = (products) => {    
     return {
         type: actionTypes.GET_PRODUCT,
         products: products
-    }
+    }   
 }
 
 export const setToastify = (toastifyDetails, open = true) => {
@@ -27,12 +27,9 @@ export const postProducts = (products, origin) => {
         try {
             localStorage.setItem('products_list', JSON.stringify(products))
         } catch (e) {
-            console.log('error POST:')
-            // console.log(e)
-            errorMsg = ['red', 'Algo saiu errado!']
+            errorMsg = ['red', 'Algo saiu errado!', 'O produto não foi inserido.']
         }
-        // console.log('error .....:')
-        dispatch(setToastify(errorMsg))
+
         dispatch(initProducts(origin))
     }
 }
@@ -43,12 +40,8 @@ export const setOrder = (order, ul, products) => {
             localStorage.setItem('list_ordering', JSON.stringify(order))
             localStorage.setItem('unordered_list', JSON.stringify(ul))
         } catch (e) {
-            console.log('error:')
-            // console.log(e)
-            errorMsg = ['red', 'Algo saiu errado!']
+            errorMsg = ['red', 'Algo saiu errado!', 'Atualize a página e tente novamente.']
         }
-
-        dispatch(setToastify(errorMsg))
         
         ul !== true ? 
             dispatch(initProducts()) :
@@ -90,6 +83,7 @@ export const initProducts = origin => {
         let productsList_storage
         let list_ordering
         let unordered_list
+        
         try {
             productsList_storage = JSON.parse(localStorage.getItem('products_list'))
             list_ordering = JSON.parse(localStorage.getItem('list_ordering'))
@@ -97,10 +91,10 @@ export const initProducts = origin => {
         } catch(e) {
             productsList_storage = null
             list_ordering = null
-            
-            console.log('error INIT:')
-            // console.log(e)
-            errorMsg = ['red', 'Algo saiu errado!']
+
+            if (errorMsg[1] === '') {
+                errorMsg = ['red', 'Algo saiu errado!', 'Os produtos não foram carregados.']
+            }
         }
 
         if (productsList_storage !== null) {

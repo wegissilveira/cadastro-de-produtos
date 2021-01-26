@@ -4,7 +4,7 @@ const initialState = {
     productsDataState: [],
     toastify: [
         'green', 
-        'Frase teste'
+        ''
     ],
     toastifyOpen: false
 }
