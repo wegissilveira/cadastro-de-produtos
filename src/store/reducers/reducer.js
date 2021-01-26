@@ -1,7 +1,12 @@
 import * as actionTypes from '../actions/actionTypes'
 
 const initialState = {
-    productsDataState: []
+    productsDataState: [],
+    toastify: [
+        'green', 
+        'Frase teste'
+    ],
+    toastifyOpen: false
 }
 
 const reducer = ((state = initialState, action) => {
@@ -11,6 +16,12 @@ const reducer = ((state = initialState, action) => {
             return {
                 ...state,
                 productsDataState: action.products
+            }
+        case actionTypes.SET_TOASTIFY:
+            return {
+                ...state,
+                toastify: action.toastify,
+                toastifyOpen: action.open
             }
         default:
             return state

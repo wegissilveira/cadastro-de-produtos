@@ -6,7 +6,10 @@ import FormInputConfig from '../FormInputConfig/FormInputConfig'
 import FormOutputConfig from '../FormOutputConfig/FormOutputConfig'
 import Toastify from '../../components/UI/Toastify/Toastify'
 
+import * as productActions from '../../store/actions/index'
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { connect } from 'react-redux'
 
 class Layout extends Component {
 
@@ -27,16 +30,12 @@ class Layout extends Component {
     }
 
     toggleToastifyHandler = () => {
-
-        let open
-
-        open = this.state.openToastify === true ? false : true
-
-        this.setState({openToastify: open})
+        this.props.onSetToastify('_', false)
     }
 
 
     render () {
+        console.log(this.props.toastifyOpen)
         return (
             <div className={classes.Layout_container}>
                 <FormOutputConfig />
@@ -54,10 +53,29 @@ class Layout extends Component {
                         size="2x"
                     />
                 </div>
-                <Toastify open={this.state.openToastify} />
+                <Toastify 
+                    open={this.props.toastifyOpen} 
+                    toastifyDetails={this.props.toastify}
+                    toggleToastifyFn={this.toggleToastifyHandler}
+
+                />
             </div>
         )
     }
 }
 
-export default Layout
+const mapStateToProps = state => {
+    return {
+        toastify: state.toastify,
+        toastifyOpen: state.toastifyOpen
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onSetToastify: (_, open) =>
+            dispatch(productActions.setToastify(_, open))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Layout)

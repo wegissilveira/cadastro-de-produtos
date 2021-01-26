@@ -4,8 +4,6 @@ import classes from './Toastify.module.css'
 
 const Toastify = props => {
 
-    // let [translateX, setTranslateX] = React.useState(-110)
-
     let translateX = -110
 
     if (props.open === true) {
@@ -14,15 +12,23 @@ const Toastify = props => {
         translateX = -110
     }
 
-    // if (props.open === )
+    setTimeout(() => {
+        props.toggleToastifyFn()
+    }, 3000);
+
+    const bgColor = props.toastifyDetails[0]
+    const msg = props.toastifyDetails[1]
 
 
     return (
         <div 
-            style={{transform: `translateX(${translateX}%)`}} 
+            style={{
+                transform: `translateX(${translateX}%)`,
+                backgroundColor: bgColor,
+            }} 
             className={classes.Toastify_container}
         >
-            <h1>TESTE</h1>
+            <h1>{msg}</h1>
         </div>
     )
 }

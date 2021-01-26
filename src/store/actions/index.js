@@ -2,5 +2,6 @@ export {
     postProducts,
     getProducts,
     initProducts,
-    setOrder
+    setOrder,
+    setToastify
 } from './products'

@@ -1,5 +1,11 @@
 import * as actionTypes from './actionTypes'
 
+
+let errorMsg = [
+    'green', 
+    'Sucesso!'
+]
+
 export const getProducts = products => {
     return {
         type: actionTypes.GET_PRODUCT,
@@ -7,17 +13,43 @@ export const getProducts = products => {
     }
 }
 
+export const setToastify = (toastifyDetails, open = true) => {
+    return {
+        type: actionTypes.SET_TOASTIFY,
+        toastify: toastifyDetails,
+        open: open
+    }
+}
+
 export const postProducts = (products, origin) => {
     return dispatch => {
-        localStorage.setItem('products_list', JSON.stringify(products))
+        
+        try {
+            localStorage.setItem('products_list', JSON.stringify(products))
+        } catch (e) {
+            console.log('error POST:')
+            // console.log(e)
+            errorMsg = ['red', 'Algo saiu errado!']
+        }
+        // console.log('error .....:')
+        dispatch(setToastify(errorMsg))
         dispatch(initProducts(origin))
     }
 }
 
 export const setOrder = (order, ul, products) => {
     return dispatch => {
-        localStorage.setItem('list_ordering', JSON.stringify(order))
-        localStorage.setItem('unordered_list', JSON.stringify(ul))
+        try {
+            localStorage.setItem('list_ordering', JSON.stringify(order))
+            localStorage.setItem('unordered_list', JSON.stringify(ul))
+        } catch (e) {
+            console.log('error:')
+            // console.log(e)
+            errorMsg = ['red', 'Algo saiu errado!']
+        }
+
+        dispatch(setToastify(errorMsg))
+        
         ul !== true ? 
             dispatch(initProducts()) :
             dispatch(postProducts(products))
@@ -54,7 +86,6 @@ const orderList = (productsData, order, direction, ul) => {
 export const initProducts = origin => {
     return dispatch => {
         let productsData = []
-        // const productsList_storage = JSON.parse(localStorage.getItem('products_list'))
 
         let productsList_storage
         let list_ordering
@@ -67,8 +98,9 @@ export const initProducts = origin => {
             productsList_storage = null
             list_ordering = null
             
-            console.log('error:')
-            console.log(e)
+            console.log('error INIT:')
+            // console.log(e)
+            errorMsg = ['red', 'Algo saiu errado!']
         }
 
         if (productsList_storage !== null) {
@@ -79,6 +111,7 @@ export const initProducts = origin => {
             productsData = orderList(productsData, list_ordering[1], list_ordering[0], unordered_list)
         }
         
+        dispatch(setToastify(errorMsg))
         dispatch(getProducts(productsData))
     }
 }

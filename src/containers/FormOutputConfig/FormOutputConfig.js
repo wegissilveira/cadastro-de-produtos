@@ -4,7 +4,6 @@ import classes from './FormOutputConfig.module.css'
 
 import ProductComponent from '../../components/ProductComponent/ProductComponent'
 import ProductComponentMobile from '../../components/ProductComponentMobile/ProductComponentMobile'
-import Toastify from '../../components/UI/Toastify/Toastify'
 import * as productActions from '../../store/actions/index'
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
@@ -134,7 +133,6 @@ class FormOutputConfig extends Component {
                 <ProductComponentMobile 
                     products={this.props.productsList}  
                 />    
-                {/* <Toastify />             */}
             </div>
         )
     }
