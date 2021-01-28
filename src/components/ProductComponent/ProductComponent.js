@@ -4,7 +4,9 @@ import classes from './ProductComponent.module.css'
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
-// import TestComponent from '../TestComponent/TestComponent'
+import TestComponent from '../TestComponent/TestComponent'
+
+import ProductComponentMobile from '../ProductComponentMobile/ProductComponentMobile'
 
 const ProductComponent = props => {
 
@@ -22,6 +24,7 @@ const ProductComponent = props => {
         }
     })
 
+    /* *Drag and drop logic* */
     let currentNode 
     const editDraggableItem = e => {
         e.currentTarget.style.backgroundColor = 'tomato'
@@ -47,7 +50,7 @@ const ProductComponent = props => {
         whereAmI(e.clientY, parent)
     }
 
-    function resetNodes(nodes) {
+    const resetNodes = nodes => {
         for (let i = 0; i < nodes.children.length; i++) {
           document.getElementById(nodes.children[i]['id']).style.marginTop = '20px'
         }
@@ -124,65 +127,109 @@ const ProductComponent = props => {
             currentNode.style.transition = '1s'
         }, 200)
     }
+    /* ** */
+
+    let [listDirection, setListDirection] = React.useState()
+
+    React.useEffect(() => {
+        setListDirection(props.productsOrder)
+    }, [props.productsOrder])
+
+    const orderListHandler = (order, direction, e) => {
+        props.orderList(order, direction, false)
+
+        let arrowOrder = e.currentTarget
+        Array.from(arrowOrder.parentNode.parentNode.children)
+            .forEach(item => {
+                Array.from(item.children)
+                    .forEach(subItem => {
+                        if (subItem.tagName) {
+                            subItem.style.color = 'rgb(126, 125, 125)'
+                        }
+                    })
+            })
+
+        arrowOrder.style.color = 'green'
+    }
+    
+    const orderHeaderContainer = document.getElementById('orderHeader')
+    if (orderHeaderContainer !== null) {
+        Array.from(orderHeaderContainer.childNodes)
+            .forEach(title => {
+                if (props.productsOrder[1] === title.id) {
+                    Array.from(title.children) 
+                        .forEach(arrow => {
+                            if (arrow.tagName === 'svg') {
+                                arrow.classList[1].match(props.productsOrder[0]) ? 
+                                    arrow.style.color = 'green' :
+                                    arrow.style.color = 'rgb(126, 125, 125)'
+                            }
+                        })
+                }
+            })
+    }
 
 
 
     return (
         <Fragment>
-            <div className={classes.FormOutput_header}>
-                <div>
+            <div 
+                id='orderHeader'
+                className={classes.FormOutput_header}
+            >
+                <div id="id">
                     <FontAwesomeIcon 
                         icon="sort-amount-up" 
-                        onClick={() => props.orderList('id', 'up', false)}
+                        onClick={e => orderListHandler('id', 'up', e)}
                     />
                     <p>ID</p>
                     <FontAwesomeIcon 
                         icon="sort-amount-down-alt" 
-                        onClick={() => props.orderList('id', 'down', false)}
+                        onClick={e => orderListHandler('id', 'down', e)}
                     />
                 </div>
-                <div>
+                <div id="nome">
                     <FontAwesomeIcon 
                         icon="sort-amount-up" 
-                        onClick={() => props.orderList('nome', 'up', false)}
+                        onClick={e => orderListHandler('nome', 'up', e)}
                     />
                     <p>Nome</p>
                     <FontAwesomeIcon 
                         icon="sort-amount-down-alt" 
-                        onClick={() => props.orderList('nome', 'down', false)}
+                        onClick={e => orderListHandler('nome', 'down', e)}
                     />
                 </div>
-                <div>
+                <div id="qtde">
                     <FontAwesomeIcon 
                         icon="sort-amount-up" 
-                        onClick={() => props.orderList('qtde', 'up', false)}
+                        onClick={e => orderListHandler('qtde', 'up', e)}
                     />
                     <p>Quantidade</p>
                     <FontAwesomeIcon 
                         icon="sort-amount-down-alt" 
-                        onClick={() => props.orderList('qtde', 'down', false)}
+                        onClick={e => orderListHandler('qtde', 'down', e)}
                     />
                 </div>
-                <div>
+                <div id="valor">
                     <FontAwesomeIcon 
                         icon="sort-amount-up" 
-                        onClick={() => props.orderList('valor', 'up', false)}
+                        onClick={e => orderListHandler('valor', 'up', e)}
                     />
                     <p>Valor Unitário</p>
                     <FontAwesomeIcon 
                         icon="sort-amount-down-alt" 
-                        onClick={() => props.orderList('valor', 'down', false)}
+                        onClick={e => orderListHandler('valor', 'down', e)}
                     />
                 </div>
-                <div>
+                <div id="valorTotal">
                     <FontAwesomeIcon 
                         icon="sort-amount-up" 
-                        onClick={() => props.orderList('valorTotal', 'up', false)}
+                        onClick={e => orderListHandler('valorTotal', 'up', e)}
                     />
                     <p>Valor Total</p>
                     <FontAwesomeIcon 
                         icon="sort-amount-down-alt" 
-                        onClick={() => props.orderList('valorTotal', 'down', false)}
+                        onClick={e => orderListHandler('valorTotal', 'down', e)}
                     />
                 </div>
                 <p></p>
@@ -231,6 +278,20 @@ const ProductComponent = props => {
                 }
                 
             </div>
+            {/* <TestComponent 
+                products={products}
+                productsOrder={props.productsOrder}
+                removeProduct={props.removeProduct}
+                updateProduct={props.updateProduct}
+                orderList={props.orderList}
+            /> */}
+            <ProductComponentMobile
+                products={products}
+                orderList={props.orderList}
+                productsOrder={props.productsOrder}
+                updateProduct={props.updateProduct}
+                removeProduct={props.removeProduct}
+            />
         </Fragment>
     )
 }

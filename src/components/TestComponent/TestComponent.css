@@ -1,20 +1,117 @@
-* {
-    box-sizing: border-box;
+
+.FormOutput_header {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #DDDEDF;
+  color: rgb(126, 125, 125);
+}
+
+.FormOutput_header > * {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-basis: 21.25%;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+.FormOutput_header > * > p {
+  margin-left: 8px;
+  margin-right: 8px;
+}
+
+.FormOutput_header > * {
+  text-align: center;
+}
+
+.FormOutput_header > * svg {
+  cursor: pointer;
+}
+
+.FormOutput_header > div:first-of-type,
+.FormOutput_header > p {
+  flex-basis: 5%;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+.FormOutput_header > div:first-of-type {
+  flex-basis: 10%;
+}
+
+@media (max-width: 767.98px) {
+  .FormOutput_header {
+      display: none;
   }
-  html,
-  body,
-  #root {
-    width: 100%;
-    height: 100%;
-    padding-top: 40px;
+}
+
+/* ** */
+
+@media (max-width: 767.98px) {
+  .Products_list_container {
+      display: none;
   }
-  h1 {
-    background-color: white;
-    color: #222222;
-    font-size: 16px;
-    font-weight: 800;
-    margin-right: 30%;
-    margin-left: 30%;
-    padding: 10px;
-    cursor: move;
-  }
+}
+
+.Product_container {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+.Product_container > * {
+  flex-basis: 21.25%;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+.Product_container > * {
+  text-align: center;
+}
+
+.Product_container > p:first-of-type,
+.Product_container > svg {
+  flex-basis: 5%;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+.Product_container > p:first-of-type {
+  flex-basis: 10%;
+}
+
+.Product_container > svg {
+  cursor: pointer;
+}
+
+.Product_container > div {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.Product_change_qtde > svg {
+  padding: 10px;
+  border: 1px solid #DDDEDF;
+  height: 20px;
+  width: 20px!important;
+  text-align: center;
+  cursor: pointer;
+  
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+}
+
+.Product_change_qtde > svg:active {
+  background-color: #ccc;
+}
+
+.Product_container > div > p:nth-of-type(2) {
+  padding-top: 10px;
+}
+

@@ -26,7 +26,7 @@ class FormOutputConfig extends Component {
                 product.id !== id
             )
 
-        this.props.onPostProducts(productsList)
+        this.props.onPostProducts(productsList, 'remove')
     }
 
     
@@ -100,6 +100,7 @@ class FormOutputConfig extends Component {
 
 
     render () {
+        
         return (
             <div className={classes.FormOutput_container}>
                 <div>
@@ -123,6 +124,7 @@ class FormOutputConfig extends Component {
 
                 <ProductComponent 
                     products={this.props.productsList} 
+                    productsOrder={this.props.listOrder}
                     removeProduct={(id) => this.removeProductHandler(id)}
                     updateProduct={(arg, id) => this.updateQtdeHandler(arg, id)}
                     orderList={(ord, dir, ul, products) => this.orderListHandler(ord, dir, ul, products)}
@@ -130,9 +132,9 @@ class FormOutputConfig extends Component {
                     searchOn={this.state.isSearchOn}
                 />
 
-                <ProductComponentMobile 
+                {/* <ProductComponentMobile 
                     products={this.props.productsList}  
-                />    
+                />     */}
             </div>
         )
     }
@@ -142,7 +144,7 @@ class FormOutputConfig extends Component {
 const mapStateToProps = state => {
     return {
         productsList: state.productsDataState,
-        listsOrder: state.order
+        listOrder: state.listOrder
     }
 }
 

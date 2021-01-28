@@ -35,7 +35,6 @@ class Layout extends Component {
 
 
     render () {
-        console.log(this.props.toastifyOpen)
         return (
             <div className={classes.Layout_container}>
                 <FormOutputConfig />

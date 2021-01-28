@@ -2,6 +2,7 @@ import * as actionTypes from '../actions/actionTypes'
 
 const initialState = {
     productsDataState: [],
+    listOrder: ['id','down'],
     toastify: [
         'green', 
         ''
@@ -15,7 +16,8 @@ const reducer = ((state = initialState, action) => {
         case actionTypes.GET_PRODUCT:
             return {
                 ...state,
-                productsDataState: action.products
+                productsDataState: action.products,
+                listOrder: action.listOrder
             }
         case actionTypes.SET_TOASTIFY:
             return {

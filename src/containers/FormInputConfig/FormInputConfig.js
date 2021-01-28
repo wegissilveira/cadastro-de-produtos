@@ -78,7 +78,7 @@ class FormInputConfig extends Component {
 
 
     componentDidMount() {
-        this.props.onInitProducts()
+        this.props.onInitProducts('load')
     }
 
     closeResponsiveFormHandler = () => {
@@ -149,6 +149,7 @@ class FormInputConfig extends Component {
 
     submitProductHandler = product => {
         this.props.onPostProducts(product)
+        this.cleanForm()
     }
 
     formatFormHandler = e => {
@@ -170,6 +171,16 @@ class FormInputConfig extends Component {
         productsList.push(productValues)
 
         this.submitProductHandler(productsList)
+    }
+
+    cleanForm = () => {
+        let productForm = {...this.state.productForm}
+
+        for (let key in productForm) {
+            productForm[key].value = ''
+        }
+
+        this.setState({productForm})
     }
 
 
@@ -232,7 +243,7 @@ class FormInputConfig extends Component {
                         </button>
                         
                     </form>
-                    <button onClick={this.props.toggleToastifyFn}>TESTE</button>
+                    {/* <button onClick={this.props.toggleToastifyFn}>TESTE</button> */}
                 </div>
             </div>
         )
@@ -250,8 +261,8 @@ const mapDispatchToProps = dispatch => {
     return {
         onPostProducts: products =>
             dispatch(productActions.postProducts(products)),
-        onInitProducts: () => 
-            dispatch(productActions.initProducts())
+        onInitProducts: origin => 
+            dispatch(productActions.initProducts(origin))
     }
 }
 

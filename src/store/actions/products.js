@@ -6,10 +6,11 @@ let errorMsg = [
     ''
 ]
 
-export const getProducts = (products) => {    
+export const getProducts = (products, productsOrder) => { 
     return {
         type: actionTypes.GET_PRODUCT,
-        products: products
+        products: products,
+        listOrder: productsOrder
     }   
 }
 
@@ -26,8 +27,13 @@ export const postProducts = (products, origin) => {
         
         try {
             localStorage.setItem('products_list', JSON.stringify(products))
+            origin === 'remove' ?
+                errorMsg = ['green', 'Produto removido com sucesso!', ''] :
+                errorMsg = ['green', 'Produto inserido com sucesso!', '']
         } catch (e) {
-            errorMsg = ['red', 'Algo saiu errado!', 'O produto não foi inserido.']
+            origin === 'remove' ?
+                errorMsg = ['red', 'Algo saiu errado!', 'O produto não foi removido.'] :
+                errorMsg = ['red', 'Algo saiu errado!', 'O produto não foi inserido.']
         }
 
         dispatch(initProducts(origin))
@@ -44,8 +50,8 @@ export const setOrder = (order, ul, products) => {
         }
         
         ul !== true ? 
-            dispatch(initProducts()) :
-            dispatch(postProducts(products))
+            dispatch(initProducts('updOrder')) :
+            dispatch(postProducts(products, 'updOrder'))
     }
 }
 
@@ -83,6 +89,7 @@ export const initProducts = origin => {
         let productsList_storage
         let list_ordering
         let unordered_list
+        let error = false
         
         try {
             productsList_storage = JSON.parse(localStorage.getItem('products_list'))
@@ -91,6 +98,7 @@ export const initProducts = origin => {
         } catch(e) {
             productsList_storage = null
             list_ordering = null
+            error = true
 
             if (errorMsg[1] === '') {
                 errorMsg = ['red', 'Algo saiu errado!', 'Os produtos não foram carregados.']
@@ -105,7 +113,12 @@ export const initProducts = origin => {
             productsData = orderList(productsData, list_ordering[1], list_ordering[0], unordered_list)
         }
         
-        dispatch(setToastify(errorMsg))
-        dispatch(getProducts(productsData))
+        if (origin !== 'updQtde' && origin !== 'updOrder') {
+            if (origin !== 'load' || error === true) {
+                dispatch(setToastify(errorMsg))
+            }
+        }
+        
+        dispatch(getProducts(productsData, list_ordering))
     }
 }
