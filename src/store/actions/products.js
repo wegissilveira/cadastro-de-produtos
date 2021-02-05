@@ -1,10 +1,7 @@
 import * as actionTypes from './actionTypes'
 
 
-let errorMsg = [
-    '', 
-    ''
-]
+let errorMsg = ['', '']
 
 export const getProducts = (products, productsOrder) => { 
     return {

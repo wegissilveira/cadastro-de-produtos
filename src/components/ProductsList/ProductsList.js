@@ -1,28 +1,10 @@
 import React, { Fragment } from 'react'
 
-import classes from './ProductComponent.module.css'
+import classes from './ProductsList.module.css'
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
-import TestComponent from '../TestComponent/TestComponent'
-
-import ProductComponentMobile from '../ProductComponentMobile/ProductComponentMobile'
-
-const ProductComponent = props => {
-
-    let products = []
-
-    props.products.forEach(item => {
-        const searchKey = new RegExp(props.searchValue, 'gi')
-
-        if (props.searchOn) {
-            if (item.nome.match(searchKey)) {
-                products.push(item)
-            }
-        } else {
-            products.push(item)
-        }
-    })
+const ProductsList = props => {
 
     /* *Drag and drop logic* */
     let currentNode 
@@ -95,11 +77,11 @@ const ProductComponent = props => {
 
         removeBg()
 
-        let newProducts = products.map(item => {
+        let newProducts = props.products.map(item => {
             return {...item}
         })
 
-        products = newProducts.filter((item, i) => item.id !== currentId)
+        let products = newProducts.filter((item, i) => item.id !== currentId)
         products.splice(
             currentIndex < selectedNodePos ? 
                 selectedNodePos - 1 : 
@@ -129,12 +111,6 @@ const ProductComponent = props => {
     }
     /* ** */
 
-    let [listDirection, setListDirection] = React.useState()
-
-    React.useEffect(() => {
-        setListDirection(props.productsOrder)
-    }, [props.productsOrder])
-
     const orderListHandler = (order, direction, e) => {
         props.orderList(order, direction, false)
 
@@ -152,7 +128,7 @@ const ProductComponent = props => {
         arrowOrder.style.color = 'green'
     }
     
-    const orderHeaderContainer = document.getElementById('orderHeader')
+    const orderHeaderContainer = document.getElementById('orderContainer')
     if (orderHeaderContainer !== null) {
         Array.from(orderHeaderContainer.childNodes)
             .forEach(title => {
@@ -174,7 +150,7 @@ const ProductComponent = props => {
     return (
         <Fragment>
             <div 
-                id='orderHeader'
+                id='orderContainer'
                 className={classes.FormOutput_header}
             >
                 <div id="id">
@@ -241,7 +217,7 @@ const ProductComponent = props => {
                 onDragEnd={e => dropHandler(e)}
             >
                 {
-                    products.map((product, index) => {
+                    props.products.map((product, index) => {
                         return <div 
                                     key={product.id}
                                     className={classes.Product_container}
@@ -278,22 +254,8 @@ const ProductComponent = props => {
                 }
                 
             </div>
-            {/* <TestComponent 
-                products={products}
-                productsOrder={props.productsOrder}
-                removeProduct={props.removeProduct}
-                updateProduct={props.updateProduct}
-                orderList={props.orderList}
-            /> */}
-            <ProductComponentMobile
-                products={products}
-                orderList={props.orderList}
-                productsOrder={props.productsOrder}
-                updateProduct={props.updateProduct}
-                removeProduct={props.removeProduct}
-            />
         </Fragment>
     )
 }
 
-export default ProductComponent
+export default ProductsList

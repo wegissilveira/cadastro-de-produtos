@@ -1,11 +1,11 @@
 import React from 'react'
 
-import classes from './ProductComponentMobile.module.css'
+import classes from './ProductListMobile.module.css'
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 
-const ProductComponentMobile = props => {
+const ProductListMobile = props => {
     
     let [listOrder, setListOrder] = React.useState()
 
@@ -28,7 +28,7 @@ const ProductComponentMobile = props => {
         arrowOrder.style.color = 'white'
     }
 
-    const orderBtnsContainer = document.getElementById('orderContainer')
+    const orderBtnsContainer = document.getElementById('orderMobileContainer')
     let orderListIcon
 
     if (orderBtnsContainer !== null) {
@@ -55,7 +55,7 @@ const ProductComponentMobile = props => {
             <h3>Ordenar por: &nbsp;
                 {orderListIcon}
             </h3>
-            <div id='orderContainer'>
+            <div id='orderMobileContainer'>
                 <p id='id' onClick={e => orderListHandler('id', e)}>ID</p>
                 <p id='nome' onClick={e => orderListHandler('nome', e)} >Nome</p>
                 <p id='qtde' onClick={e => orderListHandler('qtde', e)} >Quantidade</p>
@@ -115,4 +115,4 @@ const ProductComponentMobile = props => {
     )
 }
 
-export default ProductComponentMobile
+export default ProductListMobile

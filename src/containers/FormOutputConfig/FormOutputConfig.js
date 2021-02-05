@@ -2,8 +2,7 @@ import React, { Component } from 'react'
 
 import classes from './FormOutputConfig.module.css'
 
-import ProductComponent from '../../components/ProductComponent/ProductComponent'
-import ProductComponentMobile from '../../components/ProductComponentMobile/ProductComponentMobile'
+import ProductsComponent from '../../components/ProductsComponent/ProductsComponent'
 import * as productActions from '../../store/actions/index'
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
@@ -122,7 +121,7 @@ class FormOutputConfig extends Component {
                 
                 {/* ** */}
 
-                <ProductComponent 
+                <ProductsComponent 
                     products={this.props.productsList} 
                     productsOrder={this.props.listOrder}
                     removeProduct={(id) => this.removeProductHandler(id)}
@@ -131,10 +130,6 @@ class FormOutputConfig extends Component {
                     searchValue={this.state.inputValue}
                     searchOn={this.state.isSearchOn}
                 />
-
-                {/* <ProductComponentMobile 
-                    products={this.props.productsList}  
-                />     */}
             </div>
         )
     }
