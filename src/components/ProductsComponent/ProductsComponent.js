@@ -4,7 +4,7 @@ import classes from './ProductsComponent.module.css'
 
 import ProductsList from '../ProductsList/ProductsList'
 
-import ProductListMobile from '../ProductComponentMobile/ProductListMobile'
+import ProductListMobile from '../ProductListMobile/ProductListMobile'
 
 const ProductsComponent = props => {
 

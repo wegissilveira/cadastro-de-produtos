@@ -22,6 +22,7 @@ const ProductListMobile = props => {
             .forEach(item => {
                 item.style.backgroundColor = '#f1f1f8'
                 item.style.color = 'rgb(126, 125, 125)'
+                item.style.border = '1px solid #f1f1f8'
             })
 
         arrowOrder.style.backgroundColor = 'green'
@@ -37,6 +38,7 @@ const ProductListMobile = props => {
                 if (listOrder[1] === btn.id) {
                     btn.style.backgroundColor = 'green'
                     btn.style.color = 'white'
+                    btn.style.border = '1px solid green'
                 }
             })
 
@@ -55,7 +57,7 @@ const ProductListMobile = props => {
             <h3>Ordenar por: &nbsp;
                 {orderListIcon}
             </h3>
-            <div id='orderMobileContainer'>
+            <div id='orderMobileContainer' className={classes.Products_Order_list}>
                 <p id='id' onClick={e => orderListHandler('id', e)}>ID</p>
                 <p id='nome' onClick={e => orderListHandler('nome', e)} >Nome</p>
                 <p id='qtde' onClick={e => orderListHandler('qtde', e)} >Quantidade</p>
@@ -65,8 +67,10 @@ const ProductListMobile = props => {
 
             {
                 props.products.map(product => {
-                    return <div key={product.id}>
-                                <div className={classes.Product_container_mobile}>
+                    return <div key={product.id} 
+                                className={classes.Product_container_mobile}
+                            >
+                                <div className={classes.Product_subContainer_mobile}>
                                     <div>
                                         <p>ID: &nbsp;</p>
                                         <span>{product.id}</span>

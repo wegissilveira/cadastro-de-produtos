@@ -20,19 +20,19 @@
     .Insert_product_subContainer {
         background-color: #2C2E3F;
         position: absolute;
-        width: 70%;
-        left: 15%;
-        top: 30%;
+        width: 90%;
+        left: 5%;
+        top: 20%;
     }
 }
 
-@media (max-width: 991.98px) {
+/* @media (max-width: 991.98px) {
     .Insert_product_subContainer {
         width: 90%;
         left: 5%;
         top: 30%;
     }
-}
+} */
 
 .Insert_product_container > svg {
     display: none;

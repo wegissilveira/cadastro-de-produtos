@@ -4,7 +4,7 @@ import classes from './ProductComponent.module.css'
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
-import TestComponent from '../TestComponent/TestComponent'
+import TestComponent from '../ProductsList/ProductsList'
 
 import ProductComponentMobile from '../ProductComponentMobile/ProductListMobile'
 
