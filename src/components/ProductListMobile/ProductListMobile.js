@@ -52,6 +52,9 @@ const ProductListMobile = props => {
             />
     }
 
+
+
+
     return (
         <div className={classes.Products_list_container_mobile}>
             <h3>Ordenar por: &nbsp;
@@ -64,6 +67,8 @@ const ProductListMobile = props => {
                 <p id='valor' onClick={e => orderListHandler('valor', e)} >Valor Unitário</p>
                 <p id='valorTotal' onClick={e => orderListHandler('valorTotal', e)} >Valor Total</p>
             </div>
+
+            <div>
 
             {
                 props.products.map(product => {
@@ -113,7 +118,7 @@ const ProductListMobile = props => {
                             </div>
                 })
             }
-            
+            </div>
             
         </div>
     )

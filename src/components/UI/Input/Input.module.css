@@ -9,22 +9,23 @@ form label span {
 }
 
 .InputElement {
-    height: 40px;
+    height: 50px;
     padding-left: 10px;
     border: 0;
     outline: 0;
     background: transparent;
     border-bottom: 1px solid #fff;
     color: #fff;
-}
-
-@media (max-width: 991.98px) {
-    .InputElement {
-        height: 50px;
-        font-size: 22px;
-    }
+    font-size: 22px;
 }
 
 .Invalid {
     border-bottom: 1px solid red;
+}
+
+@media (min-width: 992px) {
+    .InputElement {
+        height: 50px;
+        font-size: 1rem;
+    }
 }

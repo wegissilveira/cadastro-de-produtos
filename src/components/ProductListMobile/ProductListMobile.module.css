@@ -1,13 +1,7 @@
 .Products_list_container_mobile {
-    display: none;
-}
-
-@media (max-width: 767.98px) {
-    .Products_list_container_mobile {
-        display: block;
-        padding-left: 25px;
-        padding-right: 25px;
-    }
+    display: block;
+    padding-left: 25px;
+    padding-right: 25px;
 }
 
 .Products_list_container_mobile h3 {
@@ -46,10 +40,6 @@
 }
 
 .Product_container_mobile {
-    display: flex;
-    justify-content: space-between;
-    /* align-items: center; */
-    /* flex-wrap: wrap; */
     position: relative;
     margin-bottom: 30px;
     padding-left: 20px;
@@ -106,4 +96,11 @@
     right: 0;
     top: 0;
     margin: 10px;
+}
+
+
+@media (min-width: 768px) {
+    .Products_list_container_mobile {
+        display: none;
+    }
 }

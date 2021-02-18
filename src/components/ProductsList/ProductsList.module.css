@@ -1,8 +1,5 @@
 .FormOutput_header {
-  display: flex;
-  align-items: center;
-  border-bottom: 1px solid #DDDEDF;
-  color: rgb(126, 125, 125);
+  display: none;
 }
 
 .FormOutput_header > * {
@@ -39,18 +36,10 @@
   flex-basis: 10%;
 }
 
-@media (max-width: 767.98px) {
-  .FormOutput_header {
-      display: none;
-  }
-}
-
 /* ** */
 
-@media (max-width: 767.98px) {
-  .Products_list_container {
-      display: none;
-  }
+.Products_list_container {
+  display: none;
 }
 
 .Product_container {
@@ -114,3 +103,16 @@
   padding-top: 10px;
 }
 
+
+@media (min-width: 768px) {
+  .FormOutput_header {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #DDDEDF;
+    color: rgb(126, 125, 125);
+  }
+
+  .Products_list_container {
+      display: block;
+  }
+}

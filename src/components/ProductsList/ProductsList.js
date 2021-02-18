@@ -16,12 +16,10 @@ const ProductsList = props => {
     let currentIndex
     let currentId
     let selectedNodePos = 0
-    // let currentNode 
 
     const dragStartHandler = (e, id, idx) => {
         currentIndex = idx
         currentId = id
-        // currentNode = e.currentTarget
         e.dataTransfer.setData('id', id)
     }
 

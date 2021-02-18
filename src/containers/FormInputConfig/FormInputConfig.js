@@ -243,7 +243,6 @@ class FormInputConfig extends Component {
                         </button>
                         
                     </form>
-                    {/* <button onClick={this.props.toggleToastifyFn}>TESTE</button> */}
                 </div>
             </div>
         )

@@ -1,13 +1,7 @@
 .FormOutput_container {
     background-color: #F5F9FE;
-    width: 70%;
-}
-
-@media (max-width: 991.98px) {
-    .FormOutput_container {
-        width: 100%;
-        position: relative;
-    }
+    width: 100%;
+    position: relative;
 }
 
 .FormOutput_container > div:not(:last-of-type) {
@@ -21,13 +15,7 @@
     justify-content: center;
 
     background-color:#DDDEDF;
-    height: 100px;
-}
-
-@media (max-width: 991.98px) {
-    .FormOutput_container > div:first-of-type {
-        height: 60px;
-    }
+    height: 60px;
 }
 
 .Search_container {
@@ -48,18 +36,7 @@
     background: transparent;
     font-size: 20px;
     padding-left: 5px;
-}
-
-@media (max-width: 991.98px) {
-    .Search_container > div > input {
-        width: 50%;
-    }
-}
-
-@media (max-width: 767.98px) {
-    .Search_container > div > input {
-        width: 89%;
-    }
+    width: 89%;
 }
 
 .Search_container > span {
@@ -67,4 +44,23 @@
     color: red;
 }
 
-/*  */
+
+@media (min-width: 768px) {
+    .Search_container > div > input {
+        width: 50%;
+    }
+}
+
+@media (min-width: 992px) {
+    .FormOutput_container {
+        width: 70%;
+    }
+
+    .FormOutput_container > div:first-of-type {
+        height: 100px;
+    }
+
+    .Search_container > div > input {
+        width: 30%;
+    }
+}

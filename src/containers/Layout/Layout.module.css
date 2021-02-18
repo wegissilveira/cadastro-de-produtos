@@ -2,14 +2,8 @@
     display: flex;
 }
 
-@media (max-width: 991.98px) {
-    .Layout_container > div:nth-of-type(2) {
-        display: none;
-    }
-}
-
 .Open_modal_button {
-    display: none;
+    display: flex;
     justify-content: center;
     align-items: center;
     position: fixed;
@@ -29,8 +23,16 @@
     -o-border-radius: 50%;
 }
 
-@media (max-width: 991.98px) {
+.Layout_container > div:nth-of-type(2) {
+    display: none;
+}
+
+@media (min-width: 992px) {
+    .Layout_container > div:nth-of-type(2) {
+        display: block;
+    }
+
     .Open_modal_button {
-        display: flex;
+        display: none;
     }
 }

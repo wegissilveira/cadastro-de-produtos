@@ -1,7 +1,5 @@
 import React, { Fragment } from 'react'
 
-import classes from './ProductsComponent.module.css'
-
 import ProductsList from '../ProductsList/ProductsList'
 
 import ProductListMobile from '../ProductListMobile/ProductListMobile'
