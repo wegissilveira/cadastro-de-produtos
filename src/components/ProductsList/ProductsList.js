@@ -214,7 +214,7 @@ const ProductsList = props => {
                 onDragOver={e => dragOverHandler(e)}
                 onDragEnd={e => dropHandler(e)}
             >
-                {
+                { props.products.length > 0 ?
                     props.products.map((product, index) => {
                         return <div 
                                     key={product.id}
@@ -240,15 +240,16 @@ const ProductsList = props => {
                                             onClick={() => props.updateProduct('up', product.id)}
                                         />
                                     </div>
-                                    <p>{product.valor}</p>
-                                    <p onDragStart={e => dragStartHandler(e, product.id)} >{(product.qtde * product.valor).toFixed(2)}</p>
+                                    <p>R$ {(product.valor).toFixed(2)}</p>
+                                    <p onDragStart={e => dragStartHandler(e, product.id)} >R$ {(product.qtde * product.valor).toFixed(2)}</p>
                                     <FontAwesomeIcon 
                                         icon={["far", "trash-alt"]} 
                                         color="red"  
                                         onClick={() => props.removeProduct(product.id)} 
                                     />
                                 </div>
-                    })
+                    }) :
+                    <h1 className={classes.Empty_list}>NENHUM PRODUTO CADASTRADO</h1>
                 }
                 
             </div>

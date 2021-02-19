@@ -1,4 +1,5 @@
 import * as actionTypes from './actionTypes'
+import productsSeed from '../../data/products_seed'
 
 
 let errorMsg = ['', '']
@@ -104,11 +105,12 @@ export const initProducts = origin => {
 
         if (productsList_storage !== null) {
             productsData = productsList_storage
-        }
+        } 
 
         if (list_ordering !== null && origin !== 'updQtde') {
             productsData = orderList(productsData, list_ordering[1], list_ordering[0], unordered_list)
         }
+
         
         if (origin !== 'updQtde' && origin !== 'updOrder') {
             if (origin !== 'load' || error === true) {
@@ -116,6 +118,11 @@ export const initProducts = origin => {
             }
         }
         
-        dispatch(getProducts(productsData, list_ordering))
+        if (list_ordering === null && productsList_storage === null) {
+            dispatch(setOrder(['down', 'id'], true, productsSeed))
+        } else {
+            dispatch(getProducts(productsData, list_ordering))
+        }
+        
     }
 }

@@ -14,19 +14,16 @@ const ProductListMobile = props => {
     }, [props.productsOrder])
 
     const orderListHandler = (order, e) => {
-        setListOrder(listOrder[0] === 'up' ? listOrder[0] = 'down' : listOrder[0] = 'up')
+        if (order === listOrder[1]) {
+            setListOrder(listOrder[0] === 'up' ? 
+                listOrder[0] = 'down' : 
+                listOrder[0] = 'up'
+            )
+        } else {
+            setListOrder(listOrder[0] = 'down')
+        }
+
         props.orderList(order, listOrder[0], false)
-
-        let arrowOrder = e.currentTarget
-        Array.from(arrowOrder.parentNode.children)
-            .forEach(item => {
-                item.style.backgroundColor = '#f1f1f8'
-                item.style.color = 'rgb(126, 125, 125)'
-                item.style.border = '1px solid #f1f1f8'
-            })
-
-        arrowOrder.style.backgroundColor = 'green'
-        arrowOrder.style.color = 'white'
     }
 
     const orderBtnsContainer = document.getElementById('orderMobileContainer')
@@ -39,6 +36,10 @@ const ProductListMobile = props => {
                     btn.style.backgroundColor = 'green'
                     btn.style.color = 'white'
                     btn.style.border = '1px solid green'
+                } else {
+                    btn.style.backgroundColor = '#f1f1f8'
+                    btn.style.color = 'rgb(126, 125, 125)'
+                    btn.style.border = '1px solid #f1f1f8'
                 }
             })
 
@@ -70,7 +71,7 @@ const ProductListMobile = props => {
 
             <div>
 
-            {
+            { props.products.length > 0 ?
                 props.products.map(product => {
                     return <div key={product.id} 
                                 className={classes.Product_container_mobile}
@@ -102,11 +103,11 @@ const ProductListMobile = props => {
                                     </div>
                                     <div>
                                         <p>Valor Unitário: &nbsp;</p>
-                                        <span>{product.valor}</span>
+                                        <span>R$ {(product.valor).toFixed(2)}</span>
                                     </div>
                                     <div>
                                         <p>Valor Total: &nbsp;</p>
-                                        <span>{(product.valor * product.qtde).toFixed(2)}</span>
+                                        <span>R$ {(product.valor * product.qtde).toFixed(2)}</span>
                                     </div>
                                 </div>
                                 <FontAwesomeIcon 
@@ -116,7 +117,8 @@ const ProductListMobile = props => {
                                     onClick={() => props.removeProduct(product.id)} 
                                 />
                             </div>
-                })
+                }) :
+                <h1 className={classes.Empty_list}>NENHUM PRODUTO CADASTRADO</h1>
             }
             </div>
             

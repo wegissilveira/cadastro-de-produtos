@@ -103,6 +103,11 @@
   padding-top: 10px;
 }
 
+.Empty_list {
+  text-align: center;
+  color: rgb(126, 125, 125);
+}
+
 
 @media (min-width: 768px) {
   .FormOutput_header {

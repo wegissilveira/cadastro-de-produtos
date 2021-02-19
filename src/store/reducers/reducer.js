@@ -2,7 +2,7 @@ import * as actionTypes from '../actions/actionTypes'
 
 const initialState = {
     productsDataState: [],
-    listOrder: ['id','down'],
+    listOrder: [],
     toastify: ['green', ''],
     toastifyOpen: false
 }
