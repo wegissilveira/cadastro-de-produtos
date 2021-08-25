@@ -15,7 +15,7 @@ class FormOutputConfig extends Component {
         inputValue: '',
         isSearchOn: false,
         errorMsg: null,
-        minCharLength: 3
+        minCharLength: 2
     }
     
     
@@ -96,8 +96,6 @@ class FormOutputConfig extends Component {
     }
 
 
-
-
     render () {
         
         return (
@@ -118,9 +116,6 @@ class FormOutputConfig extends Component {
                     </div>
                     <span>{this.state.errorMsg}</span>
                 </div>
-                
-                {/* ** */}
-
                 <ProductsComponent 
                     products={this.props.productsList} 
                     productsOrder={this.props.listOrder}

@@ -14,9 +14,12 @@ import { connect } from 'react-redux'
 class Layout extends Component {
 
     state = {
-        openToastify: false
+        openToastify: false,
+        resize: true
     }
 
+
+    resizeElement = React.createRef();
 
     toggleResponsiveForm = () => {
         const formInput_El = document.getElementById('responsive_form')
@@ -33,10 +36,37 @@ class Layout extends Component {
         this.props.onSetToastify('_', false)
     }
 
+    scrollbarVisible = element => {
+        return element.scrollHeight > element.clientHeight
+    }
+
+    componentDidMount() {
+        const formInput_El = document.getElementById('responsive_form')
+        const formInputStyle = formInput_El.style
+        const body = document.getElementsByTagName('BODY')[0]
+
+        this.observer = new ResizeObserver((entries) => {
+            let windowWidth = entries[0].contentRect.width
+            let baseWidth = this.scrollbarVisible(body) ? 1349 : 1366
+            
+            if (windowWidth >= baseWidth && this.state.resize) {
+                formInputStyle.display = 'block'
+                this.setState({resize: false})
+            }
+
+            if (windowWidth < baseWidth && !this.state.resize) {
+                formInputStyle.display = 'none'
+                this.setState({resize: true})
+            }
+        })
+
+        this.observer.observe(this.resizeElement.current)
+    }
+
 
     render () {
         return (
-            <div className={classes.Layout_container}>
+            <div ref={this.resizeElement} className={classes.Layout_container}>
                 <FormOutputConfig />
                 <FormInputConfig 
                     toggleForm={this.toggleResponsiveForm} 
@@ -56,7 +86,6 @@ class Layout extends Component {
                     open={this.props.toastifyOpen} 
                     toastifyDetails={this.props.toastify}
                     toggleToastifyFn={this.toggleToastifyHandler}
-
                 />
             </div>
         )

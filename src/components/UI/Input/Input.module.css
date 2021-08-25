@@ -19,13 +19,13 @@ form label span {
     font-size: 22px;
 }
 
-.Invalid {
-    border-bottom: 1px solid red;
-}
-
-@media (min-width: 992px) {
+@media (min-width: 1366px) {
     .InputElement {
         height: 50px;
         font-size: 1rem;
     }
+}
+
+.Invalid {
+    border-bottom: 1px solid red;
 }

@@ -1,12 +1,24 @@
 .FormOutput_container {
-    /* background-color: #F5F9FE; */
     width: 100%;
     position: relative;
+}
+
+@media (min-width: 1366px) {
+    .FormOutput_container {
+        width: 70%;
+    }
 }
 
 .FormOutput_container > div:not(:last-of-type) {
     padding-left: 25px;
     padding-right: 25px;
+}
+
+@media (min-width: 1920px) {
+    .FormOutput_container > div:not(:last-of-type) {
+        font-size: 20px;
+    }
+    
 }
 
 .FormOutput_container > div:first-of-type {
@@ -39,28 +51,21 @@
     width: 89%;
 }
 
-.Search_container > span {
-    font-size: 14px;
-    color: red;
-}
-
-
 @media (min-width: 768px) {
     .Search_container > div > input {
         width: 50%;
     }
 }
 
-@media (min-width: 992px) {
-    .FormOutput_container {
-        width: 70%;
-    }
-
-    .FormOutput_container > div:first-of-type {
-        height: 100px;
-    }
-
+@media (min-width: 1366px) {
     .Search_container > div > input {
         width: 30%;
     }
 }
+
+.Search_container > span {
+    font-size: 14px;
+    color: red;
+}
+
+

@@ -6,10 +6,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 const ProductsList = props => {
 
-    /* *Drag and drop logic* */
+    let [order, setOrder] = React.useState(null)
+
+
+    /* *Configuração Drag and drop* */
     let currentNode 
     const editDraggableItem = e => {
-        e.currentTarget.style.backgroundColor = 'tomato'
+        e.currentTarget.style.backgroundColor = 'rgb(139, 207, 38)'
         currentNode = e.currentTarget
     }
 
@@ -39,7 +42,7 @@ const ProductsList = props => {
     const whereAmI = (currentYPos, nodes) => {
         establishNodePositions(nodes)
     
-        //identify the node right over the selected one
+        //identifica o nó logo acima do nó selecionado
         let nodeAbove
         let nodeBelow
         for (let i = 0; i < nodes.children.length; i++) {
@@ -48,7 +51,7 @@ const ProductsList = props => {
             selectedNodePos = i+1
             nodeAbove = document.getElementById(nodes.children[i]['id'])
           } else {
-            //this node must be lower down the page than the selectedNode
+            //Node inserido abaixo do selecionado
             if (!nodeBelow) {
               nodeBelow = document.getElementById(nodes.children[i]['id'])
             }
@@ -106,12 +109,11 @@ const ProductsList = props => {
             currentNode.style.backgroundColor = 'transparent'
             currentNode.style.transition = '1s'
         }, 200)
+        
     }
-    /* ** */
 
     const orderListHandler = (order, direction, e) => {
         props.orderList(order, direction, false)
-
         let arrowOrder = e.currentTarget
         Array.from(arrowOrder.parentNode.parentNode.children)
             .forEach(item => {
@@ -125,24 +127,23 @@ const ProductsList = props => {
 
         arrowOrder.style.color = 'green'
     }
-    
-    const orderHeaderContainer = document.getElementById('orderContainer')
-    if (orderHeaderContainer !== null) {
-        Array.from(orderHeaderContainer.childNodes)
-            .forEach(title => {
-                if (props.productsOrder[1] === title.id) {
-                    Array.from(title.children) 
-                        .forEach(arrow => {
-                            if (arrow.tagName === 'svg') {
-                                arrow.classList[1].match(props.productsOrder[0]) ? 
-                                    arrow.style.color = 'green' :
-                                    arrow.style.color = 'rgb(126, 125, 125)'
-                            }
-                        })
-                }
-            })
-    }
 
+    React.useEffect(() => {
+        setOrder(props.productsOrder[0])
+    }, [props.productsOrder])
+
+    React.useEffect(() => {
+        const orderHeaderContainer = document.getElementById('orderContainer')
+        const icons = orderHeaderContainer.getElementsByTagName('svg')
+
+        Array.from(icons).forEach(icon => {
+            icon.style.color =  'rgb(126, 125, 125)'
+
+            if (icon.classList[1].match(order) && icon.parentElement.id === props.productsOrder[1]) {
+                icon.style.color = 'green'
+            }
+        })
+    })
 
 
     return (
@@ -223,7 +224,7 @@ const ProductsList = props => {
                                     draggable
                                     onDragStart={e => dragStartHandler(e, product.id, index)}
                                     onMouseDown={e => editDraggableItem(e)}
-                                    onMouseUp={removeBg}
+                                    onClick={removeBg} 
                                 >
                                     <p>{product.id}</p>
                                     <p>{product.nome}</p>

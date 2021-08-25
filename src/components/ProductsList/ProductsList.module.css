@@ -2,6 +2,15 @@
   display: none;
 }
 
+@media (min-width: 768px) {
+  .FormOutput_header {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #DDDEDF;
+    color: rgb(126, 125, 125);
+  }
+}
+
 .FormOutput_header > * {
   display: flex;
   align-items: center;
@@ -40,6 +49,12 @@
 
 .Products_list_container {
   display: none;
+}
+
+@media (min-width: 768px) {
+  .Products_list_container {
+      display: block;
+  }
 }
 
 .Product_container {
@@ -106,18 +121,4 @@
 .Empty_list {
   text-align: center;
   color: rgb(126, 125, 125);
-}
-
-
-@media (min-width: 768px) {
-  .FormOutput_header {
-    display: flex;
-    align-items: center;
-    border-bottom: 1px solid #DDDEDF;
-    color: rgb(126, 125, 125);
-  }
-
-  .Products_list_container {
-      display: block;
-  }
 }

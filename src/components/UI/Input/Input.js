@@ -16,15 +16,15 @@ const Input = props => {
         const fieldName = props.elementConfig.name
 
         if (fieldName === 'nome') {
-            validationMsg = <span>&nbsp; *O nome do produto não deve iniciar com espaço!</span>
+            validationMsg = <span>&nbsp; *O nome do produto não deve iniciar com espaço.</span>
         }
 
         if (fieldName === 'qtde') {
-            validationMsg = <span>&nbsp; *Somente números e ponto. Quantidade não deve iniciar com 0!</span>
+            validationMsg = <span>&nbsp; *Somente números e ponto. Quantidade não deve iniciar com 0.</span>
         }
 
         if (fieldName === 'valor') {
-            validationMsg = <span>&nbsp; *Somente números e ponto. Valor não deve iniciar com 0!</span>
+            validationMsg = <span>&nbsp; *Somente números e ponto. Valor não deve iniciar com 0.</span>
         }
     }
     

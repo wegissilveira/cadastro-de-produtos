@@ -4,6 +4,12 @@
     padding-right: 25px;
 }
 
+@media (min-width: 768px) {
+    .Products_list_container_mobile {
+        display: none;
+    }
+}
+
 .Products_list_container_mobile h3 {
     color: rgb(126, 125, 125);
     font-weight: bold;
@@ -101,11 +107,4 @@
 .Empty_list {
     text-align: center;
     color: rgb(126, 125, 125);
-}
-
-
-@media (min-width: 768px) {
-    .Products_list_container_mobile {
-        display: none;
-    }
 }

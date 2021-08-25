@@ -8,10 +8,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 const ProductListMobile = props => {
     
     let [listOrder, setListOrder] = React.useState()
+    let [listOrderIcon, setListIcon] = React.useState()
 
-    React.useEffect(() => {
-        setListOrder(props.productsOrder)
-    }, [props.productsOrder])
 
     const orderListHandler = (order, e) => {
         if (order === listOrder[1]) {
@@ -26,40 +24,45 @@ const ProductListMobile = props => {
         props.orderList(order, listOrder[0], false)
     }
 
-    const orderBtnsContainer = document.getElementById('orderMobileContainer')
-    let orderListIcon
+    React.useEffect(() => {
+        const orderBtnsContainer = document.getElementById('orderMobileContainer')
 
-    if (orderBtnsContainer !== null) {
-        Array.from(orderBtnsContainer.childNodes)
-            .forEach(btn => {
-                if (listOrder[1] === btn.id) {
-                    btn.style.backgroundColor = 'green'
-                    btn.style.color = 'white'
-                    btn.style.border = '1px solid green'
-                } else {
-                    btn.style.backgroundColor = '#f1f1f8'
-                    btn.style.color = 'rgb(126, 125, 125)'
-                    btn.style.border = '1px solid #f1f1f8'
-                }
-            })
+        if (orderBtnsContainer !== null) {
+            Array.from(orderBtnsContainer.childNodes)
+                .forEach(btn => {
+                    if (props.productsOrder[1] === btn.id) {
+                        btn.style.backgroundColor = 'green'
+                        btn.style.color = 'white'
+                        btn.style.border = '1px solid green'
+                    } else {
+                        btn.style.backgroundColor = '#f1f1f8'
+                        btn.style.color = 'rgb(126, 125, 125)'
+                        btn.style.border = '1px solid #f1f1f8'
+                    }
+                })
+                
+            let listIcon = 
+                <FontAwesomeIcon 
+                    icon={props.productsOrder[0] === 'up' ? 
+                        'sort-amount-up' : 
+                        'sort-amount-down-alt'
+                    }
+                    color="green"
+                />
+            
+            setListIcon(listIcon)
+        }
+    }, [props.productsOrder])
 
-        orderListIcon = 
-            <FontAwesomeIcon 
-                icon={listOrder[0] === 'up' ? 
-                    'sort-amount-up' : 
-                    'sort-amount-down-alt'
-                }
-                color="green"
-            />
-    }
-
-
+    React.useEffect(() => {
+        setListOrder(props.productsOrder)
+    }, [props.productsOrder])
 
 
     return (
         <div className={classes.Products_list_container_mobile}>
             <h3>Ordenar por: &nbsp;
-                {orderListIcon}
+                {listOrderIcon}
             </h3>
             <div id='orderMobileContainer' className={classes.Products_Order_list}>
                 <p id='id' onClick={e => orderListHandler('id', e)}>ID</p>

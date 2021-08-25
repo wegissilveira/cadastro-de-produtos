@@ -171,6 +171,7 @@ class FormInputConfig extends Component {
         productsList.push(productValues)
 
         this.submitProductHandler(productsList)
+        this.setState({formIsValid: false})
     }
 
     cleanForm = () => {
