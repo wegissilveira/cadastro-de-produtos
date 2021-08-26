@@ -82,6 +82,7 @@ class Layout extends Component {
                         size="2x"
                     />
                 </div>
+                
                 <Toastify 
                     open={this.props.toastifyOpen} 
                     toastifyDetails={this.props.toastify}

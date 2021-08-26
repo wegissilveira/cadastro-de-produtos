@@ -31,10 +31,18 @@
 
 .Insert_product_subContainer {
     background-color: #2C2E3F;
-    position: fixed;
     width: 90%;
-    left: 5%;
+    max-width: 800px;
+    position: fixed;
     top: 20%;
+    left: 50%;
+    right: 50%;
+
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
 }
 
 @media (min-width: 1366px) {
@@ -43,6 +51,18 @@
         left: unset;
         right: 0;
         top: 0;
+
+        transform: unset;
+        -webkit-transform: unset;
+        -moz-transform: unset;
+        -ms-transform: unset;
+        -o-transform: unset;
+    }
+}
+
+@media (min-width: 1920px) {
+    .Insert_product_subContainer {
+        font-size: 20px;
     }
 }
 
@@ -50,10 +70,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-
     background-color: #212330;
     color: #fff;
-    height: 100px;
 }
 
 .Insert_product_subContainer > div:first-of-type h2 {
