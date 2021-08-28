@@ -1,5 +1,5 @@
 # ![Cadastro de Produtos](https://github.com/wegissilveira/cadastro-de-produtos/blob/master/imagens-demo/img-1.png)
-# Food Lanches
+# Cadastro de Produtos
 <table>
 <tr>
 <td>
