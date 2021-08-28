@@ -1,70 +1,50 @@
-# Getting Started with Create React App
+# ![Cadastro de Produtos](https://github.com/wegissilveira/cadastro-de-produtos/blob/master/imagens-demo/img-1.png)
+# Food Lanches
+<table>
+<tr>
+<td>
+ A complete tool to register and display products. Some may say that this application is just a CRUD, but I'm afraid that it wouldn't be fair. Not even the best poets could describe all the features of this tool with just four letters.   
+</tr>
+</table>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Main Features
+- Insertion of products with quantity and value;
+- Form needs to be validated before submission;
+- Quantity can be increased and decreased on the list;
+- List displays unit value and total value dynamic based on the quantity;
+- List can be sorted based on any of the five columns;
+- Items can be searched through a search input;
+- If the quantity of an item is decreased until reach 0 it is automatically deleted after a warn;
+- All deleted ids are reused, so if we have five ids, 1 to 5, and number 3 is deleted, the next item added will have id 3;
+- On desktop version is possible to change the order of the items by dragging and dropping them;
+- Editions don't disapear after the page is reloaded or closed;
+- Confirmation messages after all actions;
+- Responsive;
 
-## Available Scripts
+## Demo
+Here is a working live demo :  https://www.wegis.com.br/cadastro-de-produtos
 
-In the project directory, you can run:
 
-### `yarn start`
+## Site
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Messages and form validation
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+![](https://github.com/wegissilveira/cadastro-de-produtos/blob/master/imagens-demo/img-2.png)
 
-### `yarn test`
+## Mobile support
+<em>Cadastro de Produtos</em> is compatible with devices of all sizes.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+![](https://github.com/wegissilveira/cadastro-de-produtos/blob/master/imagens-demo/mobile.png)
 
-### `yarn build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Bug / Feature Request
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+If you find a bug (the website couldn't handle the query and / or gave undesired results), kindly open an issue [here](https://github.com/wegissilveira/food-lanches/issues).
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+If you'd like to request a new function, feel free to do so by opening an issue [here](https://github.com/wegissilveira/food-lanches/issues).
 
-### `yarn eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Built with 
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- [React](https://reactjs.org/) - React makes it painless to create interactive UIs.
+- [CSS](https://www.w3schools.com/css/) - Cascading Style Sheets is a style sheet language used for describing the presentation of a document written in a markup language.
