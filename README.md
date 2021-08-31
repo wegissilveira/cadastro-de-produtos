@@ -47,4 +47,5 @@ If you'd like to request a new function, feel free to do so by opening an issue 
 ## Built with 
 
 - [React](https://reactjs.org/) - React makes it painless to create interactive UIs.
+- [Redux](https://redux.js.org/) - A Predictable State Container for JS Apps.
 - [CSS](https://www.w3schools.com/css/) - Cascading Style Sheets is a style sheet language used for describing the presentation of a document written in a markup language.
