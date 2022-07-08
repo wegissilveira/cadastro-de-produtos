@@ -2,10 +2,7 @@ import React from 'react'
 
 import classes from './ProductListMobile.module.css'
 
-import * as productActions from '../../store/actions'
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { useDispatch } from 'react-redux'
 
 
 const ProductListMobile = props => {
@@ -13,7 +10,6 @@ const ProductListMobile = props => {
     let [listOrder, setListOrder] = React.useState()
     let [listOrderIcon, setListIcon] = React.useState()
 
-    const dispatch = useDispatch()
 
     const orderListHandler = (order, e) => {
         if (order === listOrder[1]) {
@@ -25,7 +21,7 @@ const ProductListMobile = props => {
             setListOrder(listOrder[0] = 'down')
         }
 
-        dispatch(productActions.setOrder([listOrder[0], order], false))
+        props.orderList(order, listOrder[0], false)
     }
 
     React.useEffect(() => {

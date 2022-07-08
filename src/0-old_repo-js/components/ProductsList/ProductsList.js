@@ -2,16 +2,12 @@ import React, { Fragment } from 'react'
 
 import classes from './ProductsList.module.css'
 
-import * as productActions from '../../store/actions'
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { useDispatch } from 'react-redux'
 
 const ProductsList = props => {
 
     let [order, setOrder] = React.useState(null)
 
-    const dispatch = useDispatch()
 
     /* *Configuração Drag and drop* */
     let currentNode 
@@ -94,7 +90,7 @@ const ProductsList = props => {
             0, newProducts[currentIndex]
         )
 
-        dispatch(productActions.setOrder([null, null], true, products))
+        props.orderList(null, null, true, products)
     }
 
     const establishNodePositions = nodes => {
@@ -117,7 +113,7 @@ const ProductsList = props => {
     }
 
     const orderListHandler = (order, direction, e) => {
-        dispatch(productActions.setOrder([direction, order], false))
+        props.orderList(order, direction, false)
         let arrowOrder = e.currentTarget
         Array.from(arrowOrder.parentNode.parentNode.children)
             .forEach(item => {

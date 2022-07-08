@@ -1,8 +1,12 @@
 import React, { Fragment } from 'react'
 
-import ProductsList from '../ProductsList/ProductsList'
+import classes from './ProductComponent.module.css'
 
-import ProductListMobile from '../ProductListMobile/ProductListMobile'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+
+import TestComponent from '../ProductsList/ProductsList'
+
+import ProductComponentMobile from '../ProductComponentMobile/ProductListMobile'
 
 const ProductsComponent = props => {
 
@@ -22,14 +26,16 @@ const ProductsComponent = props => {
 
     return (
         <Fragment>
-            <ProductsList 
+            <TestComponent 
                 products={products}
                 productsOrder={props.productsOrder}
-                updateProduct={props.updateProduct}
                 removeProduct={props.removeProduct}
+                updateProduct={props.updateProduct}
+                orderList={props.orderList}
             />
-            <ProductListMobile
+            <ProductComponentMobile
                 products={products}
+                orderList={props.orderList}
                 productsOrder={props.productsOrder}
                 updateProduct={props.updateProduct}
                 removeProduct={props.removeProduct}

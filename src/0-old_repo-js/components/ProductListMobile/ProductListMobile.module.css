@@ -1,0 +1,110 @@
+.Products_list_container_mobile {
+    display: block;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+@media (min-width: 768px) {
+    .Products_list_container_mobile {
+        display: none;
+    }
+}
+
+.Products_list_container_mobile h3 {
+    color: rgb(126, 125, 125);
+    font-weight: bold;
+}
+
+.Products_Order_list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto auto;
+    grid-gap: 15px;
+    margin-bottom: 30px;
+}
+
+.Products_Order_list > p {
+    margin: 0;
+    border: 1px solid;
+    padding: 5px;
+    text-align: center;
+    font-size: 19px;
+    border: 1px solid #f1f1f8;
+    background-color:#f1f1f8;
+    color: rgb(126, 125, 125);
+    box-shadow: 0 2px 4px 1px #aaaaaa;
+
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+}
+
+.Products_Order_list > p:nth-of-type(4) {
+    grid-column: 1 / span 2;
+}
+
+.Product_container_mobile {
+    position: relative;
+    margin-bottom: 30px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border: 1px solid #f1f1f8;
+    background-color:#f1f1f8;
+    box-shadow: -3px 4px 10px 1px #aaaaaa;
+
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+}
+
+.Product_subContainer_mobile > div {
+    display: flex;
+    align-items: center;
+}
+
+.Product_subContainer_mobile p {
+    color: rgb(126, 125, 125);
+}
+
+.Product_subContainer_mobile span {
+    font-weight: bold;
+}
+
+.Product_change_qtde {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    width: 150px;
+}
+
+.Product_change_qtde > svg {
+    padding: 10px;
+    border: 1px solid #DDDEDF;
+    height: 20px;
+    width: 20px!important;
+    text-align: center;
+    cursor: pointer;
+    
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+}
+
+.Product_container_mobile > svg {
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin: 10px;
+}
+
+.Empty_list {
+    text-align: center;
+    color: rgb(126, 125, 125);
+}

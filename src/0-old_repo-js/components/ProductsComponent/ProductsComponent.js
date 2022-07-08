@@ -24,12 +24,14 @@ const ProductsComponent = props => {
         <Fragment>
             <ProductsList 
                 products={products}
+                orderList={props.orderList}
                 productsOrder={props.productsOrder}
                 updateProduct={props.updateProduct}
                 removeProduct={props.removeProduct}
             />
             <ProductListMobile
                 products={products}
+                orderList={props.orderList}
                 productsOrder={props.productsOrder}
                 updateProduct={props.updateProduct}
                 removeProduct={props.removeProduct}
