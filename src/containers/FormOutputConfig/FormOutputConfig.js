@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 
 import classes from './FormOutputConfig.module.css'
 
@@ -6,138 +6,115 @@ import ProductsComponent from '../../components/ProductsComponent/ProductsCompon
 import * as productActions from '../../store/actions/index'
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { connect } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 
-class FormOutputConfig extends Component {
+const FormOutputConfig = () => {
+   let [inputValue, setInputValue] = useState('')
+   let [isSearchOn, setIsSearchOn] = useState(false)
+   let [errorMsg, setErrorMsg] = useState(null)
+   let [minCharLength, setMinChartLength] = useState(2)
 
-    state = {
-        inputValue: '',
-        isSearchOn: false,
-        errorMsg: null,
-        minCharLength: 2
-    }
-    
-    
-    removeProductHandler = id => {
-        const productsList = 
-            this.props.productsList.filter(product => 
-                product.id !== id
-            )
+   const dispatch = useDispatch()
+   const { listOrder, productsDataState } = useSelector(state => state)
 
-        this.props.onPostProducts(productsList, 'remove')
-    }
+   const removeProductHandler = id => {
+      const productsList =
+         productsDataState.filter(product =>
+            product.id !== id
+         )
 
-    
-    updateQtdeHandler = (arg, id) => {
+      dispatch(productActions.postProducts(productsList, 'remove'))
+   }
 
-        let productsList = this.props.productsList.map(product => {
-            return {...product}
-        })
-        
-        let qtde = null
+   const updateQtdeHandler = (arg, id) => {
 
-        productsList.forEach((product, i) => {
-            if (product.id === id) {
-                if (arg === 'up') {
-                    productsList[i].qtde = product.qtde+1
-                    productsList[i].valorTotal = product.qtde * product.valor
-                }
+      let productsList = productsDataState.map(product => {
+         return { ...product }
+      })
 
-                if (arg === 'down') {
-                    productsList[i].qtde = product.qtde-1
-                    productsList[i].valorTotal = product.qtde * product.valor
-                }
+      let qtde = null
 
-                qtde = productsList[i].qtde
+      productsList.forEach((product, i) => {
+         if (product.id === id) {
+            if (arg === 'up') {
+               productsList[i].qtde = product.qtde + 1
+               productsList[i].valorTotal = product.qtde * product.valor
             }
-        })
 
-        if (qtde > 0) {
-            this.props.onPostProducts(productsList, 'updQtde')
-        } else {
-            const remove = window.confirm('Quantidade deve ser maior que 0. \nO produto será excluído!')
-
-            if (remove === true) this.removeProductHandler(id)
-        }
-    }
-
-    searchProductHandler = e => {
-        let inputValue = e.currentTarget.parentNode.childNodes[1].value
-        let isSearchOn
-        let errorMsg
-
-        if (inputValue !== '') {
-
-            if (inputValue.length >= this.state.minCharLength) {
-                isSearchOn = true
-                errorMsg = null
-            } else {
-                inputValue = ''
-                isSearchOn = false
-                errorMsg = '*Insira ao menos 3 caracteres para iniciar a busca'
+            if (arg === 'down') {
+               productsList[i].qtde = product.qtde - 1
+               productsList[i].valorTotal = product.qtde * product.valor
             }
-            
-        } else {
-            isSearchOn = false
+
+            qtde = productsList[i].qtde
+         }
+      })
+
+      if (qtde > 0) {
+         dispatch(productActions.postProducts(productsList, 'updQtde'))
+      } else {
+         const remove = window.confirm('Quantidade deve ser maior que 0. \nO produto será excluído!')
+
+         if (remove === true) removeProductHandler(id)
+      }
+   }
+
+   const searchProductHandler = e => {
+      let inputValue = e.currentTarget.parentNode.childNodes[1].value
+      let isSearchOn
+      let errorMsg
+
+      if (inputValue !== '') {
+
+         if (inputValue.length >= minCharLength) {
+            isSearchOn = true
             errorMsg = null
-        }
+         } else {
+            inputValue = ''
+            isSearchOn = false
+            errorMsg = '*Insira ao menos 3 caracteres para iniciar a busca'
+         }
 
-        this.setState({
-            inputValue,
-            isSearchOn,
-            errorMsg
-        })
+      } else {
+         isSearchOn = false
+         errorMsg = null
+      }
 
-    }
+      setInputValue(inputValue)
+      setIsSearchOn(isSearchOn)
+      setErrorMsg(errorMsg)
+   }
 
-
-    render () {
-        
-        return (
-            <div className={classes.FormOutput_container}>
-                <div>
-                    <h2>Lista De Produtos</h2>
-                </div>
-                <div className={classes.Search_container}>
-                    <div>
-                        <FontAwesomeIcon 
-                            icon="search" 
-                            color="rgb(126, 125, 125)"
-                        />
-                        <input 
-                            placeholder="Busca por produtos" 
-                            onChange={this.searchProductHandler}
-                        />
-                    </div>
-                    <span>{this.state.errorMsg}</span>
-                </div>
-                <ProductsComponent 
-                    products={this.props.productsList} 
-                    productsOrder={this.props.listOrder}
-                    removeProduct={(id) => this.removeProductHandler(id)}
-                    updateProduct={(arg, id) => this.updateQtdeHandler(arg, id)}
-                    searchValue={this.state.inputValue}
-                    searchOn={this.state.isSearchOn}
-                />
+   return (
+      <div className={classes.FormOutput_container}>
+         <div>
+            <h2>Lista De Produtos</h2>
+         </div>
+         <div className={classes.Search_container}>
+            <div>
+               <FontAwesomeIcon
+                  icon="search"
+                  color="rgb(126, 125, 125)"
+               />
+               <input
+                  placeholder="Busca por produtos"
+                  onChange={searchProductHandler}
+               />
             </div>
-        )
-    }
+            <span>{errorMsg}</span>
+         </div>
+         <ProductsComponent
+            products={productsDataState}
+            productsOrder={listOrder}
+            removeProduct={(id) => removeProductHandler(id)}
+            updateProduct={(arg, id) => updateQtdeHandler(arg, id)}
+            searchValue={inputValue}
+            searchOn={isSearchOn}
+         />
+      </div>
+   )
 }
 
 
-const mapStateToProps = state => {
-    return {
-        productsList: state.productsDataState,
-        listOrder: state.listOrder
-    }
-}
-
-const mapDispatchToProps = dispatch => {
-    return {
-        onPostProducts: (products, origin) =>
-            dispatch(productActions.postProducts(products, origin))
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(FormOutputConfig)
+export default FormOutputConfig

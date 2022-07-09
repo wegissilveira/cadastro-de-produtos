@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import classes from './FormInputConfig.module.css'
 
@@ -6,265 +6,223 @@ import Input from '../../components/UI/Input/Input'
 import * as productActions from '../../store/actions/index'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { connect } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 
-class FormInputConfig extends Component {
+const FormInputConfig = (props) => {
+   let [productFormState, setProductFormState] = useState({
+      id: {
+         elementType: false,
+         value: '',
+         validation: {},
+         valid: true,
+         touched: false
+      },
+      nome: {
+         elementType: 'input',
+         elementConfig: {
+            type: 'text',
+            placeholder: 'Nome do Produto',
+            name: 'nome',
+         },
+         label: 'Nome do Produto',
+         value: '',
+         validation: {
+            required: true,
+         },
+         valid: false,
+         touched: false
+      },
+      qtde: {
+         elementType: 'input',
+         elementConfig: {
+            type: 'text',
+            placeholder: 'Quantidade',
+            name: 'qtde',
+         },
+         label: 'Quantidade',
+         value: '',
+         validation: {
+            required: true,
+         },
+         valid: false,
+         touched: false
+      },
+      valor: {
+         elementType: 'input',
+         elementConfig: {
+            type: 'text',
+            placeholder: 'Valor Unitário',
+            name: 'valor',
+         },
+         label: 'Valor Unitário',
+         value: '',
+         validation: {
+            required: true,
+         },
+         valid: false,
+         touched: false
+      },
+      valorTotal: {
+         elementType: false,
+         value: 0,
+         validation: {},
+         valid: true,
+         touched: false
+      }
+   })
+   let [formIsValidState, setFormIsValidState] = useState(false)
 
-    state = {
-        productForm: {
-            id: {
-                elementType: false,
-                value: '',
-                validation: {},
-                valid: true,
-                touched: false
-            },
-            nome: {
-                elementType: 'input',
-                elementConfig: {
-                    type: 'text',
-                    placeholder: 'Nome do Produto',
-                    name: 'nome',
-                },
-                label: 'Nome do Produto',
-                value: '',
-                validation: {
-                    required: true,
-                },
-                valid: false,
-                touched: false
-            },
-            qtde: {
-                elementType: 'input',
-                elementConfig: {
-                    type: 'text',
-                    placeholder: 'Quantidade',
-                    name: 'qtde',
-                },
-                label: 'Quantidade',
-                value: '',
-                validation: {
-                    required: true,
-                },
-                valid: false,
-                touched: false
-            },
-            valor: {
-                elementType: 'input',
-                elementConfig: {
-                    type: 'text',
-                    placeholder: 'Valor Unitário',
-                    name: 'valor',
-                },
-                label: 'Valor Unitário',
-                value: '',
-                validation: {
-                    required: true,
-                },
-                valid: false,
-                touched: false
-            },
-            valorTotal: {
-                elementType: false,
-                value: 0,
-                validation: {},
-                valid: true,
-                touched: false
-            }
-        },
-        formIsValid: false
-    }
+   const dispatch = useDispatch()
+   const { productsDataState } = useSelector(state => state)
 
+   const addIdHandler = products => {
+      console.log('PRODUCTS: ', products)
+      const ids = []
+      products.forEach(product => {
+         ids.push(product.id)
+      })
 
-    componentDidMount() {
-        this.props.onInitProducts('load')
-    }
+      const sparse = ids.reduce((sparse, i) => (sparse[i] = 1, sparse), [])
+      const x = [...sparse.keys()].filter(i => i && !sparse[i])
 
-    closeResponsiveFormHandler = () => {
-        this.props.toggleForm()
-    }
+      let new_id
+      if (x.length > 0) {
+         new_id = Math.min(...x)
+      } else {
+         new_id = ids.length === 0 ? 1 : Math.max(...ids) + 1
+      }
 
-    addIdHandler = products => {    
-        const ids = []
-        products.forEach(product => {
-            ids.push(product.id)
-        })
+      return new_id
+   }
 
-        const sparse = ids.reduce((sparse, i) => (sparse[i]=1,sparse), [])
-        const x = [...sparse.keys()].filter(i => i && !sparse[i])
+   const checkFormValidityHandler = (value, rules) => {
+      let isValid = false
 
-        let new_id
-        if (x.length > 0) {
-            new_id = Math.min(...x)
-        } else {
-            new_id = ids.length === 0 ? 1 : Math.max(...ids) + 1
-        }
+      if (rules.required) {
+         isValid = value.toString().trim() !== '' && value !== 0
+      }
 
-        return new_id
-    }
+      return isValid
+   }
 
-    checkFormValidityHandler(value, rules) {
-        let isValid = false
+   const inputChangeHandler = (e, field) => {
+      let updatedProduct = { ...productFormState }
+      let updatedProductField = { ...updatedProduct[field] }
 
-        if (rules.required) {
-            isValid = value.toString().trim() !== '' && value !== 0
-        }
+      let value = e.target.value
+      let name = e.target.name
 
-        return isValid
-    }
+      if (name === 'nome') {
+         value = value.replace(/^\s/, "")
+      }
 
-    inputChangeHandler = (e, field) => {
-        let updatedProduct = {...this.state.productForm}
-        let updatedProductField = {...updatedProduct[field]}
+      if (name === 'qtde' || name === 'valor') {
+         value = value.replace(/^0|[^\d.]|\.(?=.*\.)/g, "")
+      }
 
-        let value = e.target.value
-        let name = e.target.name
+      updatedProductField.value = value
+      updatedProductField.valid = checkFormValidityHandler(updatedProductField.value, updatedProductField.validation)
+      updatedProductField.touched = true
 
-        if (name === 'nome') {
-            value = value.replace(/^\s/, "")
-        }
+      updatedProduct[field] = updatedProductField
+      updatedProduct.valorTotal.value = updatedProduct.qtde.value * updatedProduct.valor.value
 
-        if (name === 'qtde' || name === 'valor') {
-            value = value.replace(/^0|[^\d.]|\.(?=.*\.)/g, "")
-        }
+      let formIsValid = true
+      for (let field in updatedProduct) {
+         formIsValid = updatedProduct[field].valid && formIsValid
+      }
 
-        updatedProductField.value = value
-        updatedProductField.valid = this.checkFormValidityHandler(updatedProductField.value, updatedProductField.validation)
-        updatedProductField.touched = true
+      setProductFormState(updatedProduct)
+      setFormIsValidState(formIsValid)
+   }
 
-        updatedProduct[field] = updatedProductField
-        updatedProduct.valorTotal.value = updatedProduct.qtde.value * updatedProduct.valor.value
+   const submitProductHandler = product => {
+      dispatch(productActions.postProducts(product))
+      cleanForm()
+   }
 
-        let formIsValid = true
-        for (let field in updatedProduct) {
-            formIsValid = updatedProduct[field].valid && formIsValid
-        }
+   const formatFormHandler = e => {
+      e.preventDefault()
 
-        this.setState({
-            productForm: updatedProduct,
-            formIsValid
-        })
-    }
+      productFormState.qtde.value = Number(productFormState.qtde.value)
+      productFormState.valor.value = Number(productFormState.valor.value)
 
-    submitProductHandler = product => {
-        this.props.onPostProducts(product)
-        this.cleanForm()
-    }
+      const productsList = productsDataState
+      productFormState.id.value = addIdHandler(productsList)
 
-    formatFormHandler = e => {
-        e.preventDefault()
+      const productValues = {}
+      for (let key in productFormState) {
+         productValues[key] = productFormState[key].value
+      }
 
-        let productForm = {...this.state.productForm}
-        
-        productForm.qtde.value = Number(productForm.qtde.value)
-        productForm.valor.value = Number(productForm.valor.value)
+      productsList.push(productValues)
 
-        const productsList = this.props.productsList
-        productForm.id.value = this.addIdHandler(productsList)
+      submitProductHandler(productsList)
+      setFormIsValidState(false)
+   }
 
-        const productValues = {}
-        for (let key in productForm) {
-            productValues[key] = productForm[key].value
-        }
+   const cleanForm = () => {
+      let productForm = { ...productFormState }
 
-        productsList.push(productValues)
+      for (let key in productForm) {
+         productForm[key].value = ''
+      }
 
-        this.submitProductHandler(productsList)
-        this.setState({formIsValid: false})
-    }
+      setProductFormState(productForm)
+   }
 
-    cleanForm = () => {
-        let productForm = {...this.state.productForm}
+   const productForm = []
+   for (let key in productFormState) {
+      productForm.push({
+         field: key,
+         config: productFormState[key]
+      })
+   }
 
-        for (let key in productForm) {
-            productForm[key].value = ''
-        }
-
-        this.setState({productForm})
-    }
-
-
-
-    render () {
-        
-        const productForm = []
-        for (let key in this.state.productForm) {
-            productForm.push({
-                field: key,
-                config: this.state.productForm[key]
-            })
-        }
+   useEffect(() => {
+      dispatch(productActions.initProducts('load'))
+   }, [])
 
 
-        return (
-
-            <div 
-                className={classes.Insert_product_container}
-                id='responsive_form'
-            >
-                <FontAwesomeIcon 
-                    icon="external-link-alt" 
-                    color="red" 
-                    size="3x"
-                    onClick={this.closeResponsiveFormHandler}
-                />
-                <div className={classes.Insert_product_subContainer}>
-                    <div>
-                        <h2>Registre Um Novo Produto</h2>
-                    </div>
-                    <form 
-                        onSubmit={this.formatFormHandler} 
-                        className={classes.Insert_product_form}
-                    >
-                        <div>
-                            {productForm.map(el => {
-                                let input
-                                if (el.config.elementType !== false) {
-                                    input = <Input
-                                                key={el.field}
-                                                elementType={el.config.elementType} 
-                                                elementConfig={el.config.elementConfig} 
-                                                value={el.config.value} 
-                                                invalid={!el.config.valid}
-                                                touched={el.config.touched}
-                                                label={el.config.label}
-                                                changed={e => this.inputChangeHandler(e, el.field)}
-                                            />
-                                }
-                                return input
-                            })}
-                        </div>
-                        
-                        <button disabled={!this.state.formIsValid}>
-                            <p>Inserir Produto</p>
-                            <FontAwesomeIcon 
-                                icon="chevron-circle-right" 
-                            />
-                        </button>
-                        
-                    </form>
-                </div>
+   return (
+      <div className={classes.Insert_product_subContainer}>
+         <div>
+            <h2>Registre Um Novo Produto</h2>
+         </div>
+         <form
+            onSubmit={formatFormHandler}
+            className={classes.Insert_product_form}
+         >
+            <div>
+               {productForm.map(el => {
+                  let input
+                  if (el.config.elementType !== false) {
+                     input = <Input
+                        key={el.field}
+                        elementType={el.config.elementType}
+                        elementConfig={el.config.elementConfig}
+                        value={el.config.value}
+                        invalid={!el.config.valid}
+                        touched={el.config.touched}
+                        label={el.config.label}
+                        changed={e => inputChangeHandler(e, el.field)}
+                     />
+                  }
+                  return input
+               })}
             </div>
-        )
-    } 
-    
+
+            <button disabled={!formIsValidState}>
+               <p>Inserir Produto</p>
+               <FontAwesomeIcon
+                  icon="chevron-circle-right"
+               />
+            </button>
+
+         </form>
+      </div>
+   )
 }
 
-const mapStateToProps = state => {
-    return {
-        productsList: state.productsDataState
-    }
-}
-
-const mapDispatchToProps = dispatch => {
-    return {
-        onPostProducts: products =>
-            dispatch(productActions.postProducts(products)),
-        onInitProducts: origin => 
-            dispatch(productActions.initProducts(origin))
-    }
-}
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(FormInputConfig)
+export default FormInputConfig
