@@ -2,23 +2,29 @@ import React from 'react'
 
 import classes from './Toastify.module.css'
 
-const Toastify = props => {
+import { useActions } from '../../../hooks/useActions'
 
-    let translateX = -110
+import { useSelector } from 'react-redux'
 
-    if (props.open === true) {
+
+let translateX = -110
+const Toastify = () => {
+    const { setToastify } = useActions()
+    const { toastify, toastifyOpen } = useSelector(state => state)
+
+    if (toastifyOpen === true) {
         translateX = 0
     } else {
         translateX = -110
     }
 
     setTimeout(() => {
-        props.toggleToastifyFn()
+        if (toastifyOpen) setToastify('_', false)
     }, 3000);
 
-    const bgColor = props.toastifyDetails[0]
-    const header = props.toastifyDetails[1]
-    const msg = props.toastifyDetails[2]
+    const bgColor = toastify[0]
+    const header = toastify[1]
+    const msg = toastify[2]
 
 
     return (

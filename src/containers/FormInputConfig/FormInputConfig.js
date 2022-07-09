@@ -3,10 +3,10 @@ import React, { useState, useEffect } from 'react'
 import classes from './FormInputConfig.module.css'
 
 import Input from '../../components/UI/Input/Input'
-import * as productActions from '../../store/actions/index'
+import { useActions } from '../../hooks/useActions'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 
 const FormInputConfig = (props) => {
@@ -73,11 +73,10 @@ const FormInputConfig = (props) => {
    })
    let [formIsValidState, setFormIsValidState] = useState(false)
 
-   const dispatch = useDispatch()
    const { productsDataState } = useSelector(state => state)
+   const { postProducts, initProducts } = useActions()
 
    const addIdHandler = products => {
-      console.log('PRODUCTS: ', products)
       const ids = []
       products.forEach(product => {
          ids.push(product.id)
@@ -138,7 +137,7 @@ const FormInputConfig = (props) => {
    }
 
    const submitProductHandler = product => {
-      dispatch(productActions.postProducts(product))
+      postProducts(product)
       cleanForm()
    }
 
@@ -181,9 +180,8 @@ const FormInputConfig = (props) => {
    }
 
    useEffect(() => {
-      dispatch(productActions.initProducts('load'))
+      initProducts('load')
    }, [])
-
 
    return (
       <div className={classes.Insert_product_subContainer}>

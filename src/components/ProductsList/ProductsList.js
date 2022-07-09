@@ -2,16 +2,17 @@ import React, { Fragment } from 'react'
 
 import classes from './ProductsList.module.css'
 
-import * as productActions from '../../store/actions'
+import { useActions } from '../../hooks/useActions'
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
+
 
 const ProductsList = props => {
+   let [order, setOrderState] = React.useState(null)
 
-   let [order, setOrder] = React.useState(null)
-
-   const dispatch = useDispatch()
+   const { listOrder, productsDataState } = useSelector(state => state)
+   const { setOrder } = useActions()
 
    /* *Configuração Drag and drop* */
    let currentNode
@@ -94,7 +95,7 @@ const ProductsList = props => {
          0, newProducts[currentIndex]
       )
 
-      dispatch(productActions.setOrder([null, null], true, products))
+      setOrder([null, null], true, products)
    }
 
    const establishNodePositions = nodes => {
@@ -117,7 +118,7 @@ const ProductsList = props => {
    }
 
    const orderListHandler = (order, direction, e) => {
-      dispatch(productActions.setOrder([direction, order], false))
+      setOrder([direction, order], false)
       let arrowOrder = e.currentTarget
       Array.from(arrowOrder.parentNode.parentNode.children)
          .forEach(item => {
@@ -133,8 +134,8 @@ const ProductsList = props => {
    }
 
    React.useEffect(() => {
-      setOrder(props.productsOrder[0])
-   }, [props.productsOrder])
+      setOrderState(listOrder[0])
+   }, [listOrder])
 
    React.useEffect(() => {
       const orderHeaderContainer = document.getElementById('orderContainer')
@@ -143,7 +144,7 @@ const ProductsList = props => {
       Array.from(icons).forEach(icon => {
          icon.style.color = 'rgb(126, 125, 125)'
 
-         if (icon.classList[1].match(order) && icon.parentElement.id === props.productsOrder[1]) {
+         if (icon.classList[1].match(order) && icon.parentElement.id === listOrder[1]) {
             icon.style.color = 'green'
          }
       })

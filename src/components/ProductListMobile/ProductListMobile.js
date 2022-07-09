@@ -2,30 +2,30 @@ import React from 'react'
 
 import classes from './ProductListMobile.module.css'
 
-import * as productActions from '../../store/actions'
+import { useActions } from '../../hooks/useActions'
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { useDispatch } from 'react-redux'
-
+import { useSelector } from 'react-redux'
 
 const ProductListMobile = props => {
     
-    let [listOrder, setListOrder] = React.useState()
+    let [listOrderState, setListOrder] = React.useState()
     let [listOrderIcon, setListIcon] = React.useState()
-
-    const dispatch = useDispatch()
+    
+    const { listOrder } = useSelector(state => state)
+    const { setOrder } = useActions()
 
     const orderListHandler = (order, e) => {
-        if (order === listOrder[1]) {
-            setListOrder(listOrder[0] === 'up' ? 
-                listOrder[0] = 'down' : 
-                listOrder[0] = 'up'
+        if (order === listOrderState[1]) {
+            setListOrder(listOrderState[0] === 'up' ? 
+            listOrderState[0] = 'down' : 
+            listOrderState[0] = 'up'
             )
         } else {
-            setListOrder(listOrder[0] = 'down')
+            setListOrder(listOrderState[0] = 'down')
         }
 
-        dispatch(productActions.setOrder([listOrder[0], order], false))
+        setOrder([listOrderState[0], order], false)
     }
 
     React.useEffect(() => {
@@ -34,7 +34,7 @@ const ProductListMobile = props => {
         if (orderBtnsContainer !== null) {
             Array.from(orderBtnsContainer.childNodes)
                 .forEach(btn => {
-                    if (props.productsOrder[1] === btn.id) {
+                    if (listOrder[1] === btn.id) {
                         btn.style.backgroundColor = 'green'
                         btn.style.color = 'white'
                         btn.style.border = '1px solid green'
@@ -47,7 +47,7 @@ const ProductListMobile = props => {
                 
             let listIcon = 
                 <FontAwesomeIcon 
-                    icon={props.productsOrder[0] === 'up' ? 
+                    icon={listOrder[0] === 'up' ? 
                         'sort-amount-up' : 
                         'sort-amount-down-alt'
                     }
@@ -56,11 +56,11 @@ const ProductListMobile = props => {
             
             setListIcon(listIcon)
         }
-    }, [props.productsOrder])
+    }, [listOrder])
 
     React.useEffect(() => {
-        setListOrder(props.productsOrder)
-    }, [props.productsOrder])
+        setListOrder(listOrder)
+    }, [listOrder])
 
 
     return (

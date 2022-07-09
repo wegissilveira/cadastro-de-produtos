@@ -1,7 +1,5 @@
 import React from 'react';
 
-import './App.css';
-
 import Layout from './containers/Layout/Layout'
 
 import { library } from '@fortawesome/fontawesome-svg-core'

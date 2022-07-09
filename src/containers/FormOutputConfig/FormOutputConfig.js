@@ -3,28 +3,28 @@ import React, { useState } from 'react'
 import classes from './FormOutputConfig.module.css'
 
 import ProductsComponent from '../../components/ProductsComponent/ProductsComponent'
-import * as productActions from '../../store/actions/index'
+
+import { useActions } from '../../hooks/useActions'
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 
-
+const minCharLength = 2
 const FormOutputConfig = () => {
    let [inputValue, setInputValue] = useState('')
    let [isSearchOn, setIsSearchOn] = useState(false)
    let [errorMsg, setErrorMsg] = useState(null)
-   let [minCharLength, setMinChartLength] = useState(2)
 
-   const dispatch = useDispatch()
-   const { listOrder, productsDataState } = useSelector(state => state)
-
+   const { postProducts } = useActions()
+   const { productsDataState } = useSelector(state => state)
+   
    const removeProductHandler = id => {
       const productsList =
          productsDataState.filter(product =>
             product.id !== id
          )
 
-      dispatch(productActions.postProducts(productsList, 'remove'))
+      postProducts(productsList, 'remove')
    }
 
    const updateQtdeHandler = (arg, id) => {
@@ -52,7 +52,7 @@ const FormOutputConfig = () => {
       })
 
       if (qtde > 0) {
-         dispatch(productActions.postProducts(productsList, 'updQtde'))
+         postProducts(productsList, 'updQtde')
       } else {
          const remove = window.confirm('Quantidade deve ser maior que 0. \nO produto será excluído!')
 
@@ -105,8 +105,6 @@ const FormOutputConfig = () => {
             <span>{errorMsg}</span>
          </div>
          <ProductsComponent
-            products={productsDataState}
-            productsOrder={listOrder}
             removeProduct={(id) => removeProductHandler(id)}
             updateProduct={(arg, id) => updateQtdeHandler(arg, id)}
             searchValue={inputValue}

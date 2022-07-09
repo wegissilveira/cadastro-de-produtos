@@ -8,7 +8,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 
 const FormInputMobile = (props) => {
-
    const closeResponsiveFormHandler = () => {
       props.toggleForm()
    }
@@ -24,9 +23,7 @@ const FormInputMobile = (props) => {
             size="3x"
             onClick={closeResponsiveFormHandler}
          />
-         <FormInputConfig 
-            toggleToastifyFn={props.toggleToastifyHandler} 
-         />
+         <FormInputConfig/>
       </div>
    )
 }

@@ -1,4 +1,4 @@
-import * as actionTypes from './actionTypes'
+import * as actionTypes from '../actions/actionTypes'
 import productsSeed from '../../data/products_seed'
 
 
@@ -123,6 +123,5 @@ export const initProducts = origin => {
         } else {
             dispatch(getProducts(productsData, list_ordering))
         }
-        
     }
 }

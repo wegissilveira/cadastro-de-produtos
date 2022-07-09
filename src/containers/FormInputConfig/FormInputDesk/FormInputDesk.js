@@ -3,9 +3,9 @@ import React from 'react'
 import FormInputConfig from '../FormInputConfig'
 
 
-const FormInputDesk = (props) => {
+const FormInputDesk = () => {
    return (
-      <FormInputConfig toggleToastifyFn={props.toggleToastifyHandler} />
+      <FormInputConfig />
    )
 }
 
