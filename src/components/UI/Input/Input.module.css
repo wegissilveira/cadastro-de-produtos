@@ -1,31 +1,31 @@
 form label {
-    color: #fff;
-    margin-top: 10px;
+   color: #fff;
+   margin-top: 10px;
 }
 
 form label span {
-    color: red;
-    font-size: 12px;
+   color: red;
+   font-size: 12px;
 }
 
 .InputElement {
-    height: 50px;
-    padding-left: 10px;
-    border: 0;
-    outline: 0;
-    background: transparent;
-    border-bottom: 1px solid #fff;
-    color: #fff;
-    font-size: 22px;
+   height: 50px;
+   padding-left: 10px;
+   border: 0;
+   outline: 0;
+   background: transparent;
+   border-bottom: 1px solid #fff;
+   color: #fff;
+   font-size: 22px;
 }
 
 @media (min-width: 1366px) {
-    .InputElement {
-        height: 50px;
-        font-size: 1rem;
-    }
+   .InputElement {
+      height: 50px;
+      font-size: 1rem;
+   }
 }
 
 .Invalid {
-    border-bottom: 1px solid red;
+   border-bottom: 1px solid red;
 }

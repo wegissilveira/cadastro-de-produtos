@@ -11,12 +11,12 @@
 
 @media (min-width: 1366px) {
    .Insert_product_container {
-       height: fit-content;
-       background-color: #2C2E3F;
+      height: fit-content;
+      background-color: #2C2E3F;
    }
 }
 
-.Insert_product_container > svg {
+.Insert_product_container>svg {
    display: inline-block;
    position: absolute;
    right: 40px;
@@ -25,7 +25,7 @@
 }
 
 @media (min-width: 1366px) {
-   .Insert_product_container > svg {
-       display: none;
+   .Insert_product_container>svg {
+      display: none;
    }
 }

@@ -1,13 +1,15 @@
-1- Converter class componentes para function componentes
+1- Converter class componentes para function componentes - OK
+OBS.: ADAPTAR ORDENAÇÃO PARA A NOVA BUSCA
 2- Alterar arquitetura das pastas
-3- Implementar hooks customizados para substituir as funções nas views e deixar o código mais limpo (update version)
-4- Refatorar css para sass - Inicialmente vou só mudar a extensão e o import, mas quando chegar nesta etapa faço uso dos recursos do sass para estruturar o código css (update version?)
-5- Verificar renderização dos componentes: EX.: Layout sendo totalmente renderizado a cada update da quantidade (identificar renderização desnecessárias)
-6- Passar para TS (update version)
-7- Substituir redux legado pelo toolkit (update version)
-8- Substituir redux por contexto (se possível) (update version)
-9- Adicionar regra de negócios no layout (update version - minor)
-10- Melhorar algumas funcionalidades
+3- Melhorar componentização onde for possível (há alguns blocos que podem ser extraídos para componentes individuais)
+4- Implementar hooks customizados para substituir as funções nas views e deixar o código mais limpo (update version)
+5- Refatorar css para sass - Inicialmente vou só mudar a extensão e o import, mas quando chegar nesta etapa faço uso dos recursos do sass para estruturar o código css (update version?)
+6- Verificar renderização dos componentes: EX.: Layout sendo totalmente renderizado a cada update da quantidade (identificar renderização desnecessárias)
+7- Passar para TS (update version)
+8- Substituir redux legado pelo toolkit (update version)
+9- Substituir redux por contexto (se possível) (update version)
+10- Adicionar regra de negócios no layout (update version - minor)
+11- Melhorar algumas funcionalidades
 
 OBS: Depois de refatorar este repo, aprofundar no uso dos hooks, principalmente useCallback, useMemo e useReducer, incluir no pacote o estudo de refs e useRef.
 Após isso seguir o refatoramento de food lanches e depois de made for you. 

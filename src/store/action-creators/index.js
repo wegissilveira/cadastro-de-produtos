@@ -20,9 +20,15 @@ export const setToastify = (toastifyDetails, open = true) => {
     }
 }
 
+export const setSearch = (searchProducts) => {
+    return {
+        type: actionTypes.SET_SEARCH,
+        searchProducts: searchProducts
+    }
+}
+
 export const postProducts = (products, origin) => {
     return dispatch => {
-        
         try {
             localStorage.setItem('products_list', JSON.stringify(products))
             origin === 'remove' ?

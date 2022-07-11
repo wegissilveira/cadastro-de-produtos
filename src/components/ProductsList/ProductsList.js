@@ -10,8 +10,10 @@ import { useSelector } from 'react-redux'
 
 const ProductsList = props => {
    let [order, setOrderState] = React.useState(null)
+   let [productsState, setProductsState] = React.useState(null)
+   let [emptySearchState, setEmptySearch] = React.useState(null)
 
-   const { listOrder, productsDataState } = useSelector(state => state)
+   const { listOrder, productsDataState, searchProducts } = useSelector(state => state)
    const { setOrder } = useActions()
 
    /* *Configuração Drag and drop* */
@@ -150,6 +152,15 @@ const ProductsList = props => {
       })
    })
 
+   React.useEffect(() => {
+      const products = searchProducts.length > 0 ? searchProducts : productsDataState
+      const emptySearch = products[0] === 'empty search' ? true : false
+      setProductsState(products)
+      setEmptySearch(emptySearch)
+   }, [productsDataState, searchProducts])
+
+   console.log('emptySearchState: ', emptySearchState)
+
 
    return (
       <Fragment>
@@ -220,8 +231,8 @@ const ProductsList = props => {
             onDragOver={e => dragOverHandler(e)}
             onDragEnd={e => dropHandler(e)}
          >
-            {props.products.length > 0 ?
-               props.products.map((product, index) => {
+            {productsState && productsState.length > 0 && !emptySearchState ?
+               productsState.map((product, index) => {
                   return <div
                      key={product.id}
                      className={classes.Product_container}

@@ -1,45 +1,45 @@
 body {
-    background-color: #F5F9FE;
+   background-color: #F5F9FE;
 }
 
 .Layout_container {
-    display: flex;
-    height: 100vh;
-    background-color: #F5F9FE;
-    position: relative;
+   display: flex;
+   height: 100vh;
+   background-color: #F5F9FE;
+   position: relative;
 }
 
 .Open_modal_button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    width: 60px;
-    height: 60px;
-    border: 1px solid #37be76;
-    background-color: #37be76;
-    box-shadow: -3px 4px 6px 1px #888888;
-    cursor: pointer;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   position: fixed;
+   bottom: 30px;
+   right: 30px;
+   width: 60px;
+   height: 60px;
+   border: 1px solid #37be76;
+   background-color: #37be76;
+   box-shadow: -3px 4px 6px 1px #888888;
+   cursor: pointer;
 
-    border-radius: 50%;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    -ms-border-radius: 50%;
-    -o-border-radius: 50%;
+   border-radius: 50%;
+   -webkit-border-radius: 50%;
+   -moz-border-radius: 50%;
+   -ms-border-radius: 50%;
+   -o-border-radius: 50%;
 }
 
-.Layout_container > div:nth-of-type(2) {
-    display: none;
+.Layout_container>div:nth-of-type(2) {
+   display: none;
 }
 
 @media (min-width: 1366px) {
-    .Layout_container > div:nth-of-type(2) {
-        display: block;
-    }
+   .Layout_container>div:nth-of-type(2) {
+      display: block;
+   }
 
-    .Open_modal_button {
-        display: none;
-    }
+   .Open_modal_button {
+      display: none;
+   }
 }

@@ -3,21 +3,21 @@ import React, { useState } from 'react'
 import classes from './FormOutputConfig.module.css'
 
 import ProductsComponent from '../../components/ProductsComponent/ProductsComponent'
+import InputSearch from '../../components/InputSearch/InputSearch'
 
 import { useActions } from '../../hooks/useActions'
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useSelector } from 'react-redux'
 
-const minCharLength = 2
+// const minCharLength = 2
 const FormOutputConfig = () => {
-   let [inputValue, setInputValue] = useState('')
-   let [isSearchOn, setIsSearchOn] = useState(false)
-   let [errorMsg, setErrorMsg] = useState(null)
+   // let [inputValue, setInputValue] = useState('')
+   // let [isSearchOn, setIsSearchOn] = useState(false)
+   // let [errorMsg, setErrorMsg] = useState(null)
 
    const { postProducts } = useActions()
    const { productsDataState } = useSelector(state => state)
-   
+   // console.log('PRODUCTS LIST: ', productsDataState)
    const removeProductHandler = id => {
       const productsList =
          productsDataState.filter(product =>
@@ -60,55 +60,16 @@ const FormOutputConfig = () => {
       }
    }
 
-   const searchProductHandler = e => {
-      let inputValue = e.currentTarget.parentNode.childNodes[1].value
-      let isSearchOn
-      let errorMsg
-
-      if (inputValue !== '') {
-
-         if (inputValue.length >= minCharLength) {
-            isSearchOn = true
-            errorMsg = null
-         } else {
-            inputValue = ''
-            isSearchOn = false
-            errorMsg = '*Insira ao menos 3 caracteres para iniciar a busca'
-         }
-
-      } else {
-         isSearchOn = false
-         errorMsg = null
-      }
-
-      setInputValue(inputValue)
-      setIsSearchOn(isSearchOn)
-      setErrorMsg(errorMsg)
-   }
 
    return (
       <div className={classes.FormOutput_container}>
          <div>
             <h2>Lista De Produtos</h2>
          </div>
-         <div className={classes.Search_container}>
-            <div>
-               <FontAwesomeIcon
-                  icon="search"
-                  color="rgb(126, 125, 125)"
-               />
-               <input
-                  placeholder="Busca por produtos"
-                  onChange={searchProductHandler}
-               />
-            </div>
-            <span>{errorMsg}</span>
-         </div>
+         <InputSearch />
          <ProductsComponent
             removeProduct={(id) => removeProductHandler(id)}
             updateProduct={(arg, id) => updateQtdeHandler(arg, id)}
-            searchValue={inputValue}
-            searchOn={isSearchOn}
          />
       </div>
    )
