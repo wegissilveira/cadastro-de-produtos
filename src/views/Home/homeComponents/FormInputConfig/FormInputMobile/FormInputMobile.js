@@ -2,7 +2,7 @@ import React from 'react'
 
 import classes from './FormInputMobile.module.css'
 
-import FormInputConfig from '../FormInputConfig'
+import FormInputConfig from 'views/Home/homeComponents/FormInputConfig/FormInputConfig'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 

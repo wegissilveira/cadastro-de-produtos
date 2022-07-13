@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 
-import ProductsList from '../ProductsList/ProductsList'
-import ProductListMobile from '../ProductListMobile/ProductListMobile'
+import ProductsList from 'views/Home/homeComponents/ProductsList/ProductsList'
+import ProductListMobile from 'views/Home/homeComponents/ProductListMobile/ProductListMobile'
 
 import { useSelector } from 'react-redux'
 

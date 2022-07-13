@@ -2,7 +2,7 @@ import React from 'react'
 
 import classes from './Toastify.module.css'
 
-import { useActions } from '../../../hooks/useActions'
+import { useActions } from 'hooks/useActions'
 
 import { useSelector } from 'react-redux'
 

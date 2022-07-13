@@ -1,7 +1,6 @@
 import React from 'react'
 
-import FormInputConfig from '../FormInputConfig'
-
+import FormInputConfig from 'views/Home/homeComponents/FormInputConfig/FormInputConfig'
 
 const FormInputDesk = () => {
    return (

@@ -2,7 +2,7 @@ import React from 'react'
 
 import classes from './ProductListMobile.module.css'
 
-import { useActions } from '../../hooks/useActions'
+import { useActions } from 'hooks/useActions'
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useSelector } from 'react-redux'

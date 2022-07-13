@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react'
 
 import classes from './FormInputConfig.module.css'
 
-import Input from '../../components/UI/Input/Input'
-import { useActions } from '../../hooks/useActions'
+import Input from 'views/Home/homeComponents/Input/Input'
+import { useActions } from 'hooks/useActions'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useSelector } from 'react-redux'

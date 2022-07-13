@@ -2,10 +2,10 @@ import React, { useState } from 'react'
 
 import classes from './FormOutputConfig.module.css'
 
-import ProductsComponent from '../../components/ProductsComponent/ProductsComponent'
-import InputSearch from '../../components/InputSearch/InputSearch'
+import ProductsComponent from 'views/Home/homeComponents/ProductsComponent/ProductsComponent'
+import InputSearch from 'views/Home/homeComponents/InputSearch/InputSearch'
 
-import { useActions } from '../../hooks/useActions'
+import { useActions } from 'hooks/useActions'
 
 import { useSelector } from 'react-redux'
 

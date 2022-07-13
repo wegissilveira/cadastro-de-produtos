@@ -1,11 +1,11 @@
 import React from 'react'
 
-import classes from './Layout.module.css'
+import classes from './Home.module.css'
 
-import FormInputDesk from '../FormInputConfig/FormInputDesk/FormInputDesk'
-import FormInputMobile from '../FormInputConfig/FormInputMobile/FormInputMobile'
-import FormOutputConfig from '../FormOutputConfig/FormOutputConfig'
-import Toastify from '../../components/UI/Toastify/Toastify'
+import FormInputDesk from './homeComponents/FormInputConfig/FormInputDesk/FormInputDesk'
+import FormInputMobile from './homeComponents/FormInputConfig/FormInputMobile/FormInputMobile'
+import FormOutputConfig from './homeComponents/FormOutputConfig/FormOutputConfig'
+import Toastify from './homeComponents/Toastify/Toastify'
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 import classes from './InputSearch.module.css'
 
-import { useActions } from '../../hooks/useActions'
+import { useActions } from 'hooks/useActions'
 
 import { useSelector } from 'react-redux'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"

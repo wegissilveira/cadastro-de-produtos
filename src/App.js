@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Layout from './containers/Layout/Layout'
+import Layout from './views/Home/Home'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { 

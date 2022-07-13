@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 
 import classes from './ProductsList.module.css'
 
-import { useActions } from '../../hooks/useActions'
+import { useActions } from 'hooks/useActions'
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useSelector } from 'react-redux'
@@ -158,8 +158,6 @@ const ProductsList = props => {
       setProductsState(products)
       setEmptySearch(emptySearch)
    }, [productsDataState, searchProducts])
-
-   console.log('emptySearchState: ', emptySearchState)
 
 
    return (
