@@ -76,7 +76,6 @@ const FormInputConfig = () => {
    let [formIsValidState, setFormIsValidState] = useState(false)
 
    const { productsDataState } = useSelector(state => state)
-   // const { postProducts, initProducts } = useActions()
    const { postProducts } = useActions()
    const { initProducts } = useInitProducts()
 

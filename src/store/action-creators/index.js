@@ -1,5 +1,6 @@
 import * as actionTypes from '../actions/actionTypes'
 import productsSeed from '../../data/products_seed'
+import { orderList } from "common/functions"
 
 
 let errorMsg = ['', '']
@@ -57,33 +58,6 @@ export const setOrder = (order, ul, products) => {
          dispatch(initProducts('updOrder')) :
          dispatch(postProducts(products, 'updOrder'))
    }
-}
-
-const orderList = (productsData, order, direction, ul) => {
-
-   let productsList = productsData
-
-   if (ul !== true) {
-      if (direction === 'up') {
-         order !== 'nome' ?
-            productsList.sort((a, b) => b[order] - a[order]) :
-            productsList.sort((a, b) => b[order].localeCompare(
-               a[order],
-               undefined,
-               { numeric: true, sensitivity: 'base' }
-            ))
-      } else {
-         order !== 'nome' ?
-            productsList.sort((a, b) => a[order] - b[order]) :
-            productsList.sort((a, b) => a[order].localeCompare(
-               b[order],
-               undefined,
-               { numeric: true, sensitivity: 'base' }
-            ))
-      }
-   }
-
-   return productsList
 }
 
 export const initProducts = origin => {
