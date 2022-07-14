@@ -4,12 +4,13 @@ import classes from './FormInputConfig.module.css'
 
 import Input from 'views/Home/homeComponents/Input/Input'
 import { useActions } from 'hooks/useActions'
+import useInitProducts from 'hooks/useInitProducts'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useSelector } from 'react-redux'
 
 
-const FormInputConfig = (props) => {
+const FormInputConfig = () => {
    let [productFormState, setProductFormState] = useState({
       id: {
          elementType: false,
@@ -71,10 +72,13 @@ const FormInputConfig = (props) => {
          touched: false
       }
    })
+
    let [formIsValidState, setFormIsValidState] = useState(false)
 
    const { productsDataState } = useSelector(state => state)
-   const { postProducts, initProducts } = useActions()
+   // const { postProducts, initProducts } = useActions()
+   const { postProducts } = useActions()
+   const { initProducts } = useInitProducts()
 
    const addIdHandler = products => {
       const ids = []

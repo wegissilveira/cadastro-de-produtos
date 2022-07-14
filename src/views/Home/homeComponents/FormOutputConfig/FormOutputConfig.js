@@ -9,15 +9,11 @@ import { useActions } from 'hooks/useActions'
 
 import { useSelector } from 'react-redux'
 
-// const minCharLength = 2
-const FormOutputConfig = () => {
-   // let [inputValue, setInputValue] = useState('')
-   // let [isSearchOn, setIsSearchOn] = useState(false)
-   // let [errorMsg, setErrorMsg] = useState(null)
 
+const FormOutputConfig = () => {
    const { postProducts } = useActions()
    const { productsDataState } = useSelector(state => state)
-   // console.log('PRODUCTS LIST: ', productsDataState)
+   
    const removeProductHandler = id => {
       const productsList =
          productsDataState.filter(product =>
@@ -28,7 +24,6 @@ const FormOutputConfig = () => {
    }
 
    const updateQtdeHandler = (arg, id) => {
-
       let productsList = productsDataState.map(product => {
          return { ...product }
       })
