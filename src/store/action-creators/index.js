@@ -99,8 +99,10 @@ export const initProducts = origin => {
       }
 
       if (list_ordering === null && productsList_storage === null) {
+         console.log('SET ORDER')
          dispatch(setOrder(['down', 'id'], true, productsSeed))
       } else {
+         console.log('GET PRODUCTS')
          dispatch(getProducts(productsData, list_ordering))
       }
    }
