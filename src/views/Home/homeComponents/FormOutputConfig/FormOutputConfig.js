@@ -5,14 +5,15 @@ import classes from './FormOutputConfig.module.css'
 import ProductsComponent from 'views/Home/homeComponents/ProductsComponent/ProductsComponent'
 import InputSearch from 'views/Home/homeComponents/InputSearch/InputSearch'
 
-import { useActions } from 'hooks/useActions'
+import useInitProducts from 'hooks/useInitProducts'
 
 import { useSelector } from 'react-redux'
 
 
 const FormOutputConfig = () => {
-   const { postProducts } = useActions()
    const { productsDataState } = useSelector(state => state)
+
+   const { initProducts } = useInitProducts()
    
    const removeProductHandler = id => {
       const productsList =
@@ -20,7 +21,7 @@ const FormOutputConfig = () => {
             product.id !== id
          )
 
-      postProducts(productsList, 'remove')
+      initProducts('remove', productsList)
    }
 
    const updateQtdeHandler = (arg, id) => {
@@ -47,7 +48,7 @@ const FormOutputConfig = () => {
       })
 
       if (qtde > 0) {
-         postProducts(productsList, 'updQtde')
+         initProducts('updQtde', productsList)
       } else {
          const remove = window.confirm('Quantidade deve ser maior que 0. \nO produto será excluído!')
 

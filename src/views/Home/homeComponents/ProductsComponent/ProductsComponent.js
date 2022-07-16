@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux'
 const ProductsComponent = props => {
    const { productsDataState } = useSelector(state => state)
    
-   // Criar hook para executar esse boco de busca
+   // Criar hook para executar esse boco de busca - ou uma função externa, ANALISAR A NECESSIDADE
    let products = []
    productsDataState.forEach(item => {
       const searchKey = new RegExp(props.searchValue, 'gi')

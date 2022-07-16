@@ -2,7 +2,6 @@ import React, { Fragment } from 'react'
 
 import classes from './ProductsList.module.css'
 
-import { useActions } from 'hooks/useActions'
 import useSetOrder from 'hooks/useSetOrder'
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
@@ -15,7 +14,6 @@ const ProductsList = props => {
    let [emptySearchState, setEmptySearch] = React.useState(null)
 
    const { listOrder, productsDataState, searchProducts } = useSelector(state => state)
-   // const { setOrder } = useActions()
    const { setOrder } = useSetOrder()
 
    /* *Configuração Drag and drop* */
@@ -98,7 +96,7 @@ const ProductsList = props => {
             selectedNodePos,
          0, newProducts[currentIndex]
       )
-
+      
       setOrder([null, null], true, products)
    }
 

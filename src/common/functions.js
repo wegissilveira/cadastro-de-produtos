@@ -1,8 +1,7 @@
 export const orderList = (productsData, order, direction, ul) => {
-
    let productsList = productsData
 
-   if (ul !== true) {
+   if (!ul) {
       if (direction === 'up') {
          order !== 'nome' ?
             productsList.sort((a, b) => b[order] - a[order]) :

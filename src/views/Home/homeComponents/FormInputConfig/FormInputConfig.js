@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react'
 import classes from './FormInputConfig.module.css'
 
 import Input from 'views/Home/homeComponents/Input/Input'
-import { useActions } from 'hooks/useActions'
 import useInitProducts from 'hooks/useInitProducts'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -76,7 +75,6 @@ const FormInputConfig = () => {
    let [formIsValidState, setFormIsValidState] = useState(false)
 
    const { productsDataState } = useSelector(state => state)
-   const { postProducts } = useActions()
    const { initProducts } = useInitProducts()
 
    const addIdHandler = products => {
@@ -139,8 +137,8 @@ const FormInputConfig = () => {
       setFormIsValidState(formIsValid)
    }
 
-   const submitProductHandler = product => {
-      postProducts(product)
+   const submitProductHandler = products => {
+      initProducts('add', products)
       cleanForm()
    }
 

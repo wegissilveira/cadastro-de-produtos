@@ -10,7 +10,7 @@ const initialState = {
 
 const reducer = ((state = initialState, action) => {
    switch (action.type) {
-      case actionTypes.GET_PRODUCT:
+      case actionTypes.UPDATE_PRODUCT:
          return {
             ...state,
             productsDataState: action.products,

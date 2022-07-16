@@ -1,5 +1,3 @@
-export const INIT_PRODUCT = 'ADD_PRODUCT'
-export const SET_PRODUCT = 'SET_PRODUCT'
-export const GET_PRODUCT = 'GET_PRODUCT'
+export const UPDATE_PRODUCT = 'UPDATE_PRODUCT'
 export const SET_TOASTIFY = 'SET_TOASTIFY'
 export const SET_SEARCH = 'SET_SEARCH'

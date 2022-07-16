@@ -2,7 +2,8 @@ import React from 'react'
 
 import classes from './ProductListMobile.module.css'
 
-import { useActions } from 'hooks/useActions'
+// import { useActions } from 'hooks/useActions'
+import useSetOrder from 'hooks/useSetOrder'
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useSelector } from 'react-redux'
@@ -13,7 +14,7 @@ const ProductListMobile = props => {
    let [listOrderIcon, setListIcon] = React.useState()
 
    const { listOrder } = useSelector(state => state)
-   const { setOrder } = useActions()
+   const { setOrder } = useSetOrder()
 
    const orderListHandler = (order, e) => {
       if (order === listOrderState[1]) {

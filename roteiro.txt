@@ -1,6 +1,6 @@
 1- Converter class componentes para function componentes - OK
-OBS.: ADAPTAR ORDENAÇÃO PARA A NOVA BUSCA
-2- Alterar arquitetura das pastas
+2- Alterar arquitetura das pastas - ok
+OBS.: ORDENAÇÃO POR DRAG AND DROP NÃO ESTÁ FICANDO SALVA COM A NOVA ESTRUTURA
 3- Melhorar componentização onde for possível (há alguns blocos que podem ser extraídos para componentes individuais)
 4- Implementar hooks customizados para substituir as funções nas views e deixar o código mais limpo (update version)
 5- Refatorar css para sass - Inicialmente vou só mudar a extensão e o import, mas quando chegar nesta etapa faço uso dos recursos do sass para estruturar o código css (update version?)
@@ -12,5 +12,5 @@ OBS.: ADAPTAR ORDENAÇÃO PARA A NOVA BUSCA
 11- Melhorar algumas funcionalidades
 
 OBS: Depois de refatorar este repo, aprofundar no uso dos hooks, principalmente useCallback, useMemo e useReducer, incluir no pacote o estudo de refs e useRef.
-Após isso seguir o refatoramento de food lanches e depois de made for you. 
+Após isso seguir o refatoração de food lanches e depois de made for you. 
 Feito isso, seguir para o aprendizado de next e construir um projeto grande (talvez o ge) com next e os novos conhecimentos de react
