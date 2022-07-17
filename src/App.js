@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Layout from './views/Home/Home'
+import Home from './views/Home/Home'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { 
@@ -31,7 +31,7 @@ library.add(
 
 function App() {
   return (
-    <Layout />
+    <Home />
   );
 }
 

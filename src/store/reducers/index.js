@@ -3,6 +3,8 @@ import * as actionTypes from '../actions/actionTypes'
 const initialState = {
    productsDataState: [],
    searchProducts: [],
+   isSearchOn: false,
+   inputValue: '',
    listOrder: [],
    toastify: ['green', ''],
    toastifyOpen: false
@@ -25,7 +27,9 @@ const reducer = ((state = initialState, action) => {
       case actionTypes.SET_SEARCH:
          return {
             ...state,
-            searchProducts: action.searchProducts
+            searchProducts: action.searchProducts,
+            isSearchOn: action.isSearchOn,
+            inputValue: action.inputValue
          }
       default:
          return state

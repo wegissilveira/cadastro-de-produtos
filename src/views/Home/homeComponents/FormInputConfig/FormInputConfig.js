@@ -10,6 +10,7 @@ import { useSelector } from 'react-redux'
 
 
 const FormInputConfig = () => {
+   let [formIsValidState, setFormIsValidState] = useState(false)
    let [productFormState, setProductFormState] = useState({
       id: {
          elementType: false,
@@ -71,8 +72,6 @@ const FormInputConfig = () => {
          touched: false
       }
    })
-
-   let [formIsValidState, setFormIsValidState] = useState(false)
 
    const { productsDataState } = useSelector(state => state)
    const { initProducts } = useInitProducts()
@@ -172,6 +171,8 @@ const FormInputConfig = () => {
       setProductFormState(productForm)
    }
 
+   // Refatorar isso aqui, está estranho esse bloco solto dentro do componente
+   // Verificar se isso é um mal-hábito.
    const productForm = []
    for (let key in productFormState) {
       productForm.push({
@@ -214,9 +215,7 @@ const FormInputConfig = () => {
 
             <button disabled={!formIsValidState}>
                <p>Inserir Produto</p>
-               <FontAwesomeIcon
-                  icon="chevron-circle-right"
-               />
+               <FontAwesomeIcon icon="chevron-circle-right" />
             </button>
 
          </form>

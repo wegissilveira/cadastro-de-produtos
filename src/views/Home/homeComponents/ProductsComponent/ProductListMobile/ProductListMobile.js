@@ -1,32 +1,31 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
 import classes from './ProductListMobile.module.css'
 
-// import { useActions } from 'hooks/useActions'
-import useSetOrder from 'hooks/useSetOrder'
+import ProductsListMobileHeader from './ProductsListMobileHeader/ProductsListMobileHeader'
+import ProductsListQtde from '../ProductsListQtde/ProductsListQtde'
+
+import { useSelector } from 'react-redux'
+import useInitProducts from 'hooks/useInitProducts'
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { useSelector } from 'react-redux'
+
 
 const ProductListMobile = props => {
+   let [listOrderIcon, setListIcon] = useState()
+   let [productsState, setProductsState] = useState(null)
+   let [emptySearchState, setEmptySearch] = useState(null)
 
-   let [listOrderState, setListOrder] = React.useState()
-   let [listOrderIcon, setListIcon] = React.useState()
+   const { listOrder, productsDataState, searchProducts } = useSelector(state => state)
+   const { initProducts } = useInitProducts()
 
-   const { listOrder } = useSelector(state => state)
-   const { setOrder } = useSetOrder()
-
-   const orderListHandler = (order, e) => {
-      if (order === listOrderState[1]) {
-         setListOrder(listOrderState[0] === 'up' ?
-            listOrderState[0] = 'down' :
-            listOrderState[0] = 'up'
+   const removeProductHandler = id => {
+      const productsList =
+         productsDataState.filter(product =>
+            product.id !== id
          )
-      } else {
-         setListOrder(listOrderState[0] = 'down')
-      }
 
-      setOrder([listOrderState[0], order], false)
+      initProducts('remove', productsList)
    }
 
    React.useEffect(() => {
@@ -59,9 +58,12 @@ const ProductListMobile = props => {
       }
    }, [listOrder])
 
-   React.useEffect(() => {
-      setListOrder(listOrder)
-   }, [listOrder])
+   useEffect(() => {
+      const products = searchProducts.length > 0 ? searchProducts : productsDataState
+      const emptySearch = products[0] === 'empty search' ? true : false
+      setProductsState(products)
+      setEmptySearch(emptySearch)
+   }, [productsDataState, searchProducts])
 
 
    return (
@@ -69,19 +71,12 @@ const ProductListMobile = props => {
          <h3>Ordenar por: &nbsp;
             {listOrderIcon}
          </h3>
-         <div id='orderMobileContainer' className={classes.Products_Order_list}>
-            <p id='id' onClick={e => orderListHandler('id', e)}>ID</p>
-            <p id='nome' onClick={e => orderListHandler('nome', e)} >Nome</p>
-            <p id='qtde' onClick={e => orderListHandler('qtde', e)} >Quantidade</p>
-            <p id='valor' onClick={e => orderListHandler('valor', e)} >Valor Unitário</p>
-            <p id='valorTotal' onClick={e => orderListHandler('valorTotal', e)} >Valor Total</p>
-         </div>
-
+         <ProductsListMobileHeader />
          <div>
-
-            {props.products.length > 0 ?
-               props.products.map(product => {
-                  return <div key={product.id}
+            {productsState && productsState.length > 0 && !emptySearchState ?
+               productsState.map((product, index) => {
+                  return <div 
+                     key={product.id}
                      className={classes.Product_container_mobile}
                   >
                      <div className={classes.Product_subContainer_mobile}>
@@ -95,19 +90,7 @@ const ProductListMobile = props => {
                         </div>
                         <div>
                            <p>Quantidade: &nbsp;</p>
-                           <div className={classes.Product_change_qtde}>
-                              <FontAwesomeIcon
-                                 icon="minus"
-                                 color="rgb(126, 125, 125)"
-                                 onClick={() => props.updateProduct('down', product.id)}
-                              />
-                              <span>{product.qtde}</span>
-                              <FontAwesomeIcon
-                                 icon="plus"
-                                 color="rgb(126, 125, 125)"
-                                 onClick={() => props.updateProduct('up', product.id)}
-                              />
-                           </div>
+                           <ProductsListQtde qtde={product.qtde} id={product.id} />
                         </div>
                         <div>
                            <p>Valor Unitário: &nbsp;</p>
@@ -122,14 +105,13 @@ const ProductListMobile = props => {
                         icon={["far", "trash-alt"]}
                         color="red"
                         size="3x"
-                        onClick={() => props.removeProduct(product.id)}
+                        onClick={() => removeProductHandler(product.id)}
                      />
                   </div>
                }) :
                <h1 className={classes.Empty_list}>NENHUM PRODUTO CADASTRADO</h1>
             }
          </div>
-
       </div>
    )
 }

@@ -23,3 +23,14 @@ export const orderList = (productsData, order, direction, ul) => {
 
    return productsList
 }
+
+export const toggleMobileForm = () => {
+   const formInput_El = document.getElementById('responsive_form')
+   const formInputStyle = formInput_El.style
+
+   if (formInputStyle.display === 'block') {
+      formInputStyle.display = 'none'
+   } else {
+      formInputStyle.display = 'block'
+   }
+}

@@ -2,19 +2,24 @@ import React, { Fragment } from 'react'
 
 import classes from './ProductsList.module.css'
 
+import ProductsListHeader from './ProductsListHeader/ProductsListHeader'
+import ProductsListQtde from '../ProductsListQtde/ProductsListQtde'
+
 import useSetOrder from 'hooks/useSetOrder'
+import useInitProducts from 'hooks/useInitProducts'
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useSelector } from 'react-redux'
 
 
-const ProductsList = props => {
+const ProductsList = () => {
    let [order, setOrderState] = React.useState(null)
    let [productsState, setProductsState] = React.useState(null)
    let [emptySearchState, setEmptySearch] = React.useState(null)
 
    const { listOrder, productsDataState, searchProducts } = useSelector(state => state)
    const { setOrder } = useSetOrder()
+   const { initProducts } = useInitProducts()
 
    /* *Configuração Drag and drop* */
    let currentNode
@@ -84,8 +89,7 @@ const ProductsList = props => {
       resetNodes(parent)
 
       removeBg()
-
-      let newProducts = props.products.map(item => {
+      let newProducts = productsDataState.map(item => {
          return { ...item }
       })
 
@@ -119,21 +123,15 @@ const ProductsList = props => {
 
    }
 
-   const orderListHandler = (order, direction, e) => {
-      setOrder([direction, order], false)
-      let arrowOrder = e.currentTarget
-      Array.from(arrowOrder.parentNode.parentNode.children)
-         .forEach(item => {
-            Array.from(item.children)
-               .forEach(subItem => {
-                  if (subItem.tagName) {
-                     subItem.style.color = 'rgb(126, 125, 125)'
-                  }
-               })
-         })
+   const removeProductHandler = id => {
+      const productsList =
+         productsDataState.filter(product =>
+            product.id !== id
+         )
 
-      arrowOrder.style.color = 'green'
+      initProducts('remove', productsList)
    }
+
 
    React.useEffect(() => {
       setOrderState(listOrder[0])
@@ -159,71 +157,10 @@ const ProductsList = props => {
       setEmptySearch(emptySearch)
    }, [productsDataState, searchProducts])
 
-
+   
    return (
       <Fragment>
-         <div
-            id='orderContainer'
-            className={classes.FormOutput_header}
-         >
-            <div id="id">
-               <FontAwesomeIcon
-                  icon="sort-amount-up"
-                  onClick={e => orderListHandler('id', 'up', e)}
-               />
-               <p>ID</p>
-               <FontAwesomeIcon
-                  icon="sort-amount-down-alt"
-                  onClick={e => orderListHandler('id', 'down', e)}
-               />
-            </div>
-            <div id="nome">
-               <FontAwesomeIcon
-                  icon="sort-amount-up"
-                  onClick={e => orderListHandler('nome', 'up', e)}
-               />
-               <p>Nome</p>
-               <FontAwesomeIcon
-                  icon="sort-amount-down-alt"
-                  onClick={e => orderListHandler('nome', 'down', e)}
-               />
-            </div>
-            <div id="qtde">
-               <FontAwesomeIcon
-                  icon="sort-amount-up"
-                  onClick={e => orderListHandler('qtde', 'up', e)}
-               />
-               <p>Quantidade</p>
-               <FontAwesomeIcon
-                  icon="sort-amount-down-alt"
-                  onClick={e => orderListHandler('qtde', 'down', e)}
-               />
-            </div>
-            <div id="valor">
-               <FontAwesomeIcon
-                  icon="sort-amount-up"
-                  onClick={e => orderListHandler('valor', 'up', e)}
-               />
-               <p>Valor Unitário</p>
-               <FontAwesomeIcon
-                  icon="sort-amount-down-alt"
-                  onClick={e => orderListHandler('valor', 'down', e)}
-               />
-            </div>
-            <div id="valorTotal">
-               <FontAwesomeIcon
-                  icon="sort-amount-up"
-                  onClick={e => orderListHandler('valorTotal', 'up', e)}
-               />
-               <p>Valor Total</p>
-               <FontAwesomeIcon
-                  icon="sort-amount-down-alt"
-                  onClick={e => orderListHandler('valorTotal', 'down', e)}
-               />
-            </div>
-            <p></p>
-         </div>
-
+         <ProductsListHeader />
          <div
             className={classes.Products_list_container}
             onDragOver={e => dragOverHandler(e)}
@@ -242,25 +179,13 @@ const ProductsList = props => {
                   >
                      <p>{product.id}</p>
                      <p>{product.nome}</p>
-                     <div className={classes.Product_change_qtde}>
-                        <FontAwesomeIcon
-                           icon="minus"
-                           color="rgb(126, 125, 125)"
-                           onClick={() => props.updateProduct('down', product.id)}
-                        />
-                        <p>{product.qtde}</p>
-                        <FontAwesomeIcon
-                           icon="plus"
-                           color="rgb(126, 125, 125)"
-                           onClick={() => props.updateProduct('up', product.id)}
-                        />
-                     </div>
+                     <ProductsListQtde qtde={product.qtde} id={product.id} />
                      <p>R$ {(product.valor).toFixed(2)}</p>
                      <p onDragStart={e => dragStartHandler(e, product.id)} >R$ {(product.qtde * product.valor).toFixed(2)}</p>
                      <FontAwesomeIcon
                         icon={["far", "trash-alt"]}
                         color="red"
-                        onClick={() => props.removeProduct(product.id)}
+                        onClick={() => removeProductHandler(product.id)}
                      />
                   </div>
                }) :

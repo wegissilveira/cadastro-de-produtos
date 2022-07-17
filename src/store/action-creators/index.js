@@ -16,9 +16,11 @@ export const setToastify = (toastifyDetails, open = true) => {
    }
 }
 
-export const setSearch = (searchProducts) => {
+export const setSearch = (searchProducts, isSearchOn, inputValue) => {
    return {
       type: actionTypes.SET_SEARCH,
-      searchProducts: searchProducts
+      searchProducts: searchProducts,
+      isSearchOn: isSearchOn,
+      inputValue: inputValue
    }
 }

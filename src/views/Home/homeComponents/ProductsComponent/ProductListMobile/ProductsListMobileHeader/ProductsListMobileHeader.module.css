@@ -1,0 +1,29 @@
+.Products_Order_list {
+   display: grid;
+   grid-template-columns: repeat(3, 1fr);
+   grid-template-rows: auto auto;
+   grid-gap: 15px;
+   margin-bottom: 30px;
+}
+
+.Products_Order_list>p {
+   margin: 0;
+   border: 1px solid;
+   padding: 5px;
+   text-align: center;
+   font-size: 19px;
+   border: 1px solid #f1f1f8;
+   background-color: #f1f1f8;
+   color: rgb(126, 125, 125);
+   box-shadow: 0 2px 4px 1px #aaaaaa;
+
+   border-radius: 3px;
+   -webkit-border-radius: 3px;
+   -moz-border-radius: 3px;
+   -ms-border-radius: 3px;
+   -o-border-radius: 3px;
+}
+
+.Products_Order_list>p:nth-of-type(4) {
+   grid-column: 1 / span 2;
+}

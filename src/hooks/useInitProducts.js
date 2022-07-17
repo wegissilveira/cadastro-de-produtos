@@ -1,7 +1,8 @@
 import { useActions } from "./useActions"
+import useUpdateSearch from 'hooks/useUpdateSearch'
 
 import productsSeed from 'data/products_seed'
-import { orderList } from "common/functions"
+import { orderList } from "helpers/functions"
 import { postProductsService, getProductsService, setListOrderService } from 'services/requests'
 
 import { useSelector } from 'react-redux'
@@ -9,7 +10,8 @@ import { useSelector } from 'react-redux'
 
 const useInitProducts = () => {
    const { updateProducts, setToastify } = useActions()  
-   const { listOrder } = useSelector(state => state)
+   const { updateSearch } = useUpdateSearch()
+   const { listOrder, isSearchOn } = useSelector(state => state)   
 
    let productsData = []
    let productsListVar = null 
@@ -30,7 +32,7 @@ const useInitProducts = () => {
          list_orderingVar = list_ordering
          unordered_listVar = unordered_list
          errorVar = error
-         console.log('UL: ', unordered_listVar)
+         
          if (list_orderingVar !== null) {
             productsData = orderList(productsData, list_orderingVar[1], list_orderingVar[0], unordered_listVar)
          }
@@ -53,6 +55,7 @@ const useInitProducts = () => {
 
       } else {
          updateProducts(productsData, list_orderingVar)
+         if (isSearchOn) updateSearch()
          const { errorMsg } = postProductsService(productsData, origin)
          if (origin === 'remove' || origin === 'add') setToastify(errorMsg)
       }

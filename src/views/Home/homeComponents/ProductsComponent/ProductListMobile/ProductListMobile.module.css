@@ -74,29 +74,6 @@
    font-weight: bold;
 }
 
-.Product_change_qtde {
-   display: flex;
-   justify-content: space-between;
-   align-items: center;
-
-   width: 150px;
-}
-
-.Product_change_qtde>svg {
-   padding: 10px;
-   border: 1px solid #DDDEDF;
-   height: 20px;
-   width: 20px !important;
-   text-align: center;
-   cursor: pointer;
-
-   border-radius: 50%;
-   -webkit-border-radius: 50%;
-   -moz-border-radius: 50%;
-   -ms-border-radius: 50%;
-   -o-border-radius: 50%;
-}
-
 .Product_container_mobile>svg {
    position: absolute;
    right: 0;
