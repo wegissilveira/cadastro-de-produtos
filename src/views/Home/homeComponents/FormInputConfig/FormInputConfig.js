@@ -11,6 +11,84 @@ import { useSelector } from 'react-redux'
 
 const FormInputConfig = () => {
    let [formIsValidState, setFormIsValidState] = useState(false)
+   // let [productForm, setProductForm] = useState([])
+   let [productForm, setProductForm] = useState([
+      {
+         field: 'id',
+         config: {
+            elementType: false,
+            value: '',
+            validation: {},
+            valid: true,
+            touched: false
+         }
+      },
+      {
+         field: 'nome',
+         config: {
+            elementType: 'input',
+            elementConfig: {
+               type: 'text',
+               placeholder: 'Nome do Produto',
+               name: 'nome',
+            },
+            label: 'Nome do Produto',
+            value: '',
+            validation: {
+               required: true,
+            },
+            valid: false,
+            touched: false
+         }
+      },
+      {
+         field: 'qtde',
+         config: {
+            elementType: 'input',
+            elementConfig: {
+               type: 'text',
+               placeholder: 'Quantidade',
+               name: 'qtde',
+            },
+            label: 'Quantidade',
+            value: '',
+            validation: {
+               required: true,
+            },
+            valid: false,
+            touched: false
+         }
+      },
+      {
+         field: 'valor',
+         config: {
+            elementType: 'input',
+            elementConfig: {
+               type: 'text',
+               placeholder: 'Valor Unitário',
+               name: 'valor',
+            },
+            label: 'Valor Unitário',
+            value: '',
+            validation: {
+               required: true,
+            },
+            valid: false,
+            touched: false
+         }
+      },
+      {
+         field: 'valorTotal',
+         config: {
+            elementType: false,
+            value: 0,
+            validation: {},
+            valid: true,
+            touched: false
+         }
+      }
+   ])
+
    let [productFormState, setProductFormState] = useState({
       id: {
          elementType: false,
@@ -82,12 +160,12 @@ const FormInputConfig = () => {
          ids.push(product.id)
       })
 
-      const sparse = ids.reduce((sparse, i) => (sparse[i] = 1, sparse), [])
-      const x = [...sparse.keys()].filter(i => i && !sparse[i])
+      const currentIds = ids.reduce((sparse, i) => (sparse[i] = 1, sparse), [])
+      const missingIds = [...currentIds.keys()].filter(i => i && !currentIds[i])
 
       let new_id
-      if (x.length > 0) {
-         new_id = Math.min(...x)
+      if (missingIds.length > 0) {
+         new_id = Math.min(...missingIds)
       } else {
          new_id = ids.length === 0 ? 1 : Math.max(...ids) + 1
       }
@@ -108,6 +186,8 @@ const FormInputConfig = () => {
    const inputChangeHandler = (e, field) => {
       let updatedProduct = { ...productFormState }
       let updatedProductField = { ...updatedProduct[field] }
+      console.log('updatedProduct: ', updatedProduct)
+      console.log('updatedProductField: ', updatedProductField)
 
       let value = e.target.value
       let name = e.target.name
@@ -171,15 +251,16 @@ const FormInputConfig = () => {
       setProductFormState(productForm)
    }
 
-   // Refatorar isso aqui, está estranho esse bloco solto dentro do componente
-   // Verificar se isso é um mal-hábito.
-   const productForm = []
-   for (let key in productFormState) {
-      productForm.push({
-         field: key,
-         config: productFormState[key]
-      })
-   }
+   // useEffect(() => {
+   //    const productFormLocal = []
+   //    for (let key in productFormState) {
+   //       productFormLocal.push({
+   //          field: key,
+   //          config: productFormState[key]
+   //       })
+   //    }
+   //    setProductForm(productFormLocal)
+   // }, [productFormState])
 
    useEffect(() => {
       initProducts('load')
@@ -195,11 +276,11 @@ const FormInputConfig = () => {
             className={classes.Insert_product_form}
          >
             <div>
-               {productForm.map(el => {
+               {productForm.map((el, i) => {
                   let input
                   if (el.config.elementType !== false) {
                      input = <Input
-                        key={el.field}
+                        key={`${el.field}-${i}`}
                         elementType={el.config.elementType}
                         elementConfig={el.config.elementConfig}
                         value={el.config.value}
