@@ -11,7 +11,6 @@ import { useSelector } from 'react-redux'
 
 const FormInputConfig = () => {
    let [formIsValidState, setFormIsValidState] = useState(false)
-   // let [productForm, setProductForm] = useState([])
    let [productForm, setProductForm] = useState([
       {
          field: 'id',
@@ -88,68 +87,7 @@ const FormInputConfig = () => {
          }
       }
    ])
-
-   let [productFormState, setProductFormState] = useState({
-      id: {
-         elementType: false,
-         value: '',
-         validation: {},
-         valid: true,
-         touched: false
-      },
-      nome: {
-         elementType: 'input',
-         elementConfig: {
-            type: 'text',
-            placeholder: 'Nome do Produto',
-            name: 'nome',
-         },
-         label: 'Nome do Produto',
-         value: '',
-         validation: {
-            required: true,
-         },
-         valid: false,
-         touched: false
-      },
-      qtde: {
-         elementType: 'input',
-         elementConfig: {
-            type: 'text',
-            placeholder: 'Quantidade',
-            name: 'qtde',
-         },
-         label: 'Quantidade',
-         value: '',
-         validation: {
-            required: true,
-         },
-         valid: false,
-         touched: false
-      },
-      valor: {
-         elementType: 'input',
-         elementConfig: {
-            type: 'text',
-            placeholder: 'Valor Unitário',
-            name: 'valor',
-         },
-         label: 'Valor Unitário',
-         value: '',
-         validation: {
-            required: true,
-         },
-         valid: false,
-         touched: false
-      },
-      valorTotal: {
-         elementType: false,
-         value: 0,
-         validation: {},
-         valid: true,
-         touched: false
-      }
-   })
+ 
 
    const { productsDataState } = useSelector(state => state)
    const { initProducts } = useInitProducts()
@@ -175,7 +113,6 @@ const FormInputConfig = () => {
 
    const checkFormValidityHandler = (value, rules) => {
       let isValid = false
-
       if (rules.required) {
          isValid = value.toString().trim() !== '' && value !== 0
       }
@@ -183,11 +120,9 @@ const FormInputConfig = () => {
       return isValid
    }
 
-   const inputChangeHandler = (e, field) => {
-      let updatedProduct = { ...productFormState }
-      let updatedProductField = { ...updatedProduct[field] }
-      console.log('updatedProduct: ', updatedProduct)
-      console.log('updatedProductField: ', updatedProductField)
+   const inputChangeHandler = (e, i) => {
+      let updatedProduct = [...productForm]
+      let updatedProductField = { ...updatedProduct[i] }
 
       let value = e.target.value
       let name = e.target.name
@@ -200,19 +135,19 @@ const FormInputConfig = () => {
          value = value.replace(/^0|[^\d.]|\.(?=.*\.)/g, "")
       }
 
-      updatedProductField.value = value
-      updatedProductField.valid = checkFormValidityHandler(updatedProductField.value, updatedProductField.validation)
-      updatedProductField.touched = true
+      updatedProductField.config.value = value
+      updatedProductField.config.valid = checkFormValidityHandler(updatedProductField.config.value, updatedProductField.config.validation)
+      updatedProductField.config.touched = true
 
-      updatedProduct[field] = updatedProductField
-      updatedProduct.valorTotal.value = updatedProduct.qtde.value * updatedProduct.valor.value
+      updatedProduct[i] = updatedProductField
+      updatedProduct[4].config.value = updatedProduct[2].config.value * updatedProduct[3].config.value
 
       let formIsValid = true
-      for (let field in updatedProduct) {
-         formIsValid = updatedProduct[field].valid && formIsValid
-      }
-
-      setProductFormState(updatedProduct)
+      updatedProduct.forEach(item => {
+         formIsValid = item.config.valid && formIsValid
+      })
+      
+      setProductForm(updatedProduct)
       setFormIsValidState(formIsValid)
    }
 
@@ -224,47 +159,39 @@ const FormInputConfig = () => {
    const formatFormHandler = e => {
       e.preventDefault()
 
-      productFormState.qtde.value = Number(productFormState.qtde.value)
-      productFormState.valor.value = Number(productFormState.valor.value)
+      const productFormLocal = [...productForm]
+
+      productFormLocal[2].config.value = Number(productFormLocal[2].config.value)
+      productFormLocal[3].config.value = Number(productFormLocal[3].config.value)
 
       const productsList = productsDataState
-      productFormState.id.value = addIdHandler(productsList)
+      productFormLocal[0].config.value = addIdHandler(productsList)
 
-      const productValues = {}
-      for (let key in productFormState) {
-         productValues[key] = productFormState[key].value
-      }
+      const productValues = productFormLocal.reduce((obj, item) => (
+         obj[item.field] = item.config.value, obj
+      ) ,{})
 
       productsList.push(productValues)
-
       submitProductHandler(productsList)
       setFormIsValidState(false)
    }
 
    const cleanForm = () => {
-      let productForm = { ...productFormState }
+      const productFormLocal = [ ...productForm ]
 
-      for (let key in productForm) {
-         productForm[key].value = ''
-      }
-
-      setProductFormState(productForm)
+      productFormLocal.forEach((item, i) => {
+         item.config.value = ''
+         if (i > 0 && i < 4) item.config.valid = false
+         if (i > 0 && i < 4) item.config.touched = false
+      })
+      
+      setProductForm(productFormLocal)
    }
-
-   // useEffect(() => {
-   //    const productFormLocal = []
-   //    for (let key in productFormState) {
-   //       productFormLocal.push({
-   //          field: key,
-   //          config: productFormState[key]
-   //       })
-   //    }
-   //    setProductForm(productFormLocal)
-   // }, [productFormState])
 
    useEffect(() => {
       initProducts('load')
    }, [])
+
 
    return (
       <div className={classes.Insert_product_subContainer}>
@@ -287,7 +214,7 @@ const FormInputConfig = () => {
                         invalid={!el.config.valid}
                         touched={el.config.touched}
                         label={el.config.label}
-                        changed={e => inputChangeHandler(e, el.field)}
+                        changed={e => inputChangeHandler(e, i)}
                      />
                   }
                   return input
