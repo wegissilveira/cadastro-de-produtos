@@ -120,7 +120,6 @@ const ProductsList = () => {
          currentNode.style.backgroundColor = 'transparent'
          currentNode.style.transition = '1s'
       }, 200)
-
    }
 
    const removeProductHandler = id => {

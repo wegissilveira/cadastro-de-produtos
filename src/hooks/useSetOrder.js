@@ -6,12 +6,27 @@ import { useSelector } from 'react-redux'
 
 
 const useSetOrder = () => {   
-   const { updateProducts, setToastify } = useActions()
-   const { productsDataState } = useSelector(state => state)
+   const { 
+      updateProducts, 
+      setToastify, 
+      setSearch 
+   } = useActions()
+
+   const { 
+      productsDataState, 
+      searchProducts, 
+      isSearchOn,
+      inputValue
+   } = useSelector(state => state)
 
    const setOrder = (order, ul, products) => {
       const { error, errorMsg } = setListOrderService(order, ul)
       const productsData = !products ? orderList(productsDataState, order[1], order[0], ul) : products
+      if (isSearchOn) {
+         const searchOrder = orderList(searchProducts, order[1], order[0], ul)
+         setSearch(searchOrder, isSearchOn, inputValue)
+      }
+
       postProductsService(productsData)
       updateProducts(productsData, order)
       if (error === true) setToastify(errorMsg)

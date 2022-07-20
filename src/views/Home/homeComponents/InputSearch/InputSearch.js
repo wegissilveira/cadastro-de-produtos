@@ -8,8 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 
 const minCharLength = 2
-let timer
-const waitTime = 1000
+
 const InputSearch = () => {
    let [errorMsg, setErrorMsg] = useState(null)
 
@@ -33,11 +32,7 @@ const InputSearch = () => {
          errorMsg = null
       }
 
-      clearTimeout(timer)
-
-      timer = setTimeout(() => {
-         updateSearch(inputValue, isSearchOn)
-     }, waitTime)
+      updateSearch(inputValue, isSearchOn)
       setErrorMsg(errorMsg)
    }
 
