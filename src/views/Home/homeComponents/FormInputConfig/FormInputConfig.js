@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, Fragment } from 'react'
 
 import classes from './FormInputConfig.module.css'
 
@@ -123,7 +123,7 @@ const FormInputConfig = () => {
    const inputChangeHandler = (e, i) => {
       let updatedProduct = [...productForm]
       let updatedProductField = { ...updatedProduct[i] }
-
+  
       let value = e.target.value
       let name = e.target.name
 
@@ -202,25 +202,10 @@ const FormInputConfig = () => {
             onSubmit={formatFormHandler}
             className={classes.Insert_product_form}
          >
-            <div>
-               {productForm.map((el, i) => {
-                  let input
-                  if (el.config.elementType !== false) {
-                     input = <Input
-                        key={`${el.field}-${i}`}
-                        elementType={el.config.elementType}
-                        elementConfig={el.config.elementConfig}
-                        value={el.config.value}
-                        invalid={!el.config.valid}
-                        touched={el.config.touched}
-                        label={el.config.label}
-                        changed={e => inputChangeHandler(e, i)}
-                     />
-                  }
-                  return input
-               })}
-            </div>
-
+            <Input
+               productForm={productForm}
+               changed={(e, i) => inputChangeHandler(e, i)}
+            />
             <button disabled={!formIsValidState}>
                <p>Inserir Produto</p>
                <FontAwesomeIcon icon="chevron-circle-right" />

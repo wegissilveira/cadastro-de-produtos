@@ -3,48 +3,49 @@ import React, { Fragment } from 'react'
 import classes from './Input.module.css'
 
 const Input = props => {
-
-   const inputClasses = [classes.InputElement]
-   let validationMsg = null
-
-   if (props.invalid && props.touched) {
-      inputClasses.push(classes.Invalid)
+   const validationMsg = {
+      validationName: '*O nome do produto não deve iniciar com espaço.',
+      validationQty: '*Somente números e ponto. Quantidade não deve iniciar com 0.',
+      validationValue: '*Somente números e ponto. Valor não deve iniciar com 0.'
    }
+   
+   const inputElement = (
+      props.productForm.map((item, i) => {
+         const inputClasses = [classes.InputElement]
+         let erroMsg = null
 
-   if (props.invalid && props.touched) {
+         if (item.config.touched && !item.config.valid) {
+            inputClasses.push(classes.Invalid)
 
-      const fieldName = props.elementConfig.name
+            if (item.field === 'nome') erroMsg = validationMsg.validationName
+            if (item.field === 'qtde') erroMsg = validationMsg.validationQty
+            if (item.field === 'valor') erroMsg = validationMsg.validationValue
+         }
 
-      if (fieldName === 'nome') {
-         validationMsg = <span>&nbsp; *O nome do produto não deve iniciar com espaço.</span>
-      }
-
-      if (fieldName === 'qtde') {
-         validationMsg = <span>&nbsp; *Somente números e ponto. Quantidade não deve iniciar com 0.</span>
-      }
-
-      if (fieldName === 'valor') {
-         validationMsg = <span>&nbsp; *Somente números e ponto. Valor não deve iniciar com 0.</span>
-      }
-   }
-
-   let inputElement =
-      <input
-         className={inputClasses.join(' ')}
-         onChange={props.changed}
-         value={props.value}
-         {...props.elementConfig}
-      />
-
+         let input
+         if (item.config.elementType) {
+            input =
+               <Fragment key={item+'-'+i}>
+                  <label>
+                     {item.config.label}
+                     <span>&nbsp; {erroMsg}</span>
+                  </label>
+                  <input 
+                     className={inputClasses.join(' ')}
+                     value={item.config.value}
+                     onChange={e => props.changed(e, i)}
+                     {...item.config.elementConfig}
+                  />
+               </Fragment>
+         }
+         return input
+      })
+   )
 
    return (
-      <Fragment>
-         <label>
-            {props.label}
-            {validationMsg}
-         </label>
+      <div>
          {inputElement}
-      </Fragment>
+      </div>
    )
 }
 
