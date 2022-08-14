@@ -6,6 +6,7 @@ import useSetOrder from 'hooks/useSetOrder'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 const ProductsListHeader = () => {
+   console.log('9- ProductsListHeader');
    const { setOrder } = useSetOrder()
 
    const orderListHandler = (order, direction, e) => {

@@ -5,6 +5,7 @@ import { toggleMobileForm } from 'helpers/functions'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 const OpenFormButton = () => {
+   console.log('14- OpenFormButton');
    return (
       <div
          className={classes.Open_modal_button}

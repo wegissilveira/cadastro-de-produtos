@@ -4,21 +4,27 @@ import { useActions } from 'hooks/useActions'
 import { useSelector } from 'react-redux'
 
 const useUpdateSearch = () => {
+   console.log('4- useUpdateSearch');
    const { setSearch } = useActions()
-   const { productsDataState, inputValue, isSearchOn } = useSelector(state => state)
+   const { productsDataState, inputValue, isSearchOn } = useSelector(state => state.isSearchOn && state)
 
    const updateSearch = (inputValueArg = inputValue, isSearchOnArg = isSearchOn) => {  
-      const products = []
-      const searchKey = new RegExp(inputValueArg, 'gi')
-      productsDataState.forEach(item => {
-         if (isSearchOnArg) {
-            if (item.nome.match(searchKey)) {
-               products.push(item)
+      const data = !productsDataState ? [] : productsDataState
+      if (isSearchOnArg) {
+         const products = []
+         const searchKey = new RegExp(inputValueArg, 'gi')        
+         data.forEach(item => {
+            if (isSearchOnArg) {
+               if (item.nome.match(searchKey)) {
+                  products.push(item)
+               } 
             } 
-         } 
-      })
-      if (products.length === 0 && isSearchOnArg) products.push('empty search')
-      setSearch(products, isSearchOnArg, inputValueArg)
+         })
+         if (products.length === 0 && isSearchOnArg) products.push('empty search')
+         setSearch(products, isSearchOnArg, inputValueArg)
+      } else {
+         setSearch(data, false)
+      }
    }
 
    useEffect(() => {

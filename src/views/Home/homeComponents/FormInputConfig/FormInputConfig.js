@@ -10,6 +10,7 @@ import { useSelector } from 'react-redux'
 
 
 const FormInputConfig = () => {
+   console.log('12- FormInputConfig')
    let [formIsValidState, setFormIsValidState] = useState(false)
    let [productForm, setProductForm] = useState([
       {

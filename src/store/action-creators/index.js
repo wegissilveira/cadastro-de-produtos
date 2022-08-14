@@ -1,6 +1,7 @@
 import * as actionTypes from '../actions/actionTypes'
 
 export const updateProducts = (products, productsOrder) => {
+   console.log('5.5- Action creators products')
    return {
       type: actionTypes.UPDATE_PRODUCT,
       products: products,

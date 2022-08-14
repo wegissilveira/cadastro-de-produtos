@@ -10,6 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 const minCharLength = 2
 
 const InputSearch = () => {
+   console.log('3- InputSearch');
    let [errorMsg, setErrorMsg] = useState(null)
 
    const { updateSearch } = useUpdateSearch()

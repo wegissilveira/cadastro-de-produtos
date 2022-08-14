@@ -12,6 +12,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 
 const ProductListMobile = props => {
+   console.log('16- ProductListMobile');
    let [listOrderIcon, setListIcon] = useState()
    let [productsState, setProductsState] = useState(null)
    let [emptySearchState, setEmptySearch] = useState(null)

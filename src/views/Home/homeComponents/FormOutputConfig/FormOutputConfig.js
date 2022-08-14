@@ -9,6 +9,7 @@ import ProductsList from '../ProductsComponent/ProductsList/ProductsList'
 
 
 const FormOutputConfig = () => {
+   console.log('2- FormOutputConfig');
    return (
       <div className={classes.FormOutput_container}>
          <div>
