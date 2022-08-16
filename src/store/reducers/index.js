@@ -16,7 +16,7 @@ const reducer = ((state = initialState, action) => {
          return {
             ...state,
             productsDataState: action.products,
-            listOrder: action.listOrder
+            listOrder: !action.listOrder ? state.listOrder : action.listOrder
          }
       case actionTypes.SET_TOASTIFY:
          return {

@@ -6,7 +6,11 @@ import { useSelector } from 'react-redux'
 const useUpdateSearch = () => {
    console.log('4- useUpdateSearch');
    const { setSearch } = useActions()
-   const { productsDataState, inputValue, isSearchOn } = useSelector(state => state.isSearchOn && state)
+   // const { productsDataState, inputValue, isSearchOn } = useSelector(state => state.isSearchOn && state)
+
+   const productsDataState = useSelector(state => state.productsDataState)   
+   const isSearchOn = useSelector(state => state.isSearchOn)   
+   const inputValue = useSelector(state => state.inputValue) 
 
    const updateSearch = (inputValueArg = inputValue, isSearchOnArg = isSearchOn) => {  
       const data = !productsDataState ? [] : productsDataState

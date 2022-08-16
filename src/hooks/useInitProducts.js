@@ -12,7 +12,9 @@ const useInitProducts = () => {
    console.log('8- useInitProducts');
    const { updateProducts, setToastify } = useActions()  
    const { updateSearch } = useUpdateSearch()
-   const { listOrder, isSearchOn } = useSelector(state => state)   
+   // const { listOrder, isSearchOn } = useSelector(state => state)   
+   const isSearchOn = useSelector(state => state.isSearchOn)   
+   // const listOrder = useSelector(state => state.listOrder)
 
    let productsData = []
    let productsListVar = null 
@@ -45,7 +47,8 @@ const useInitProducts = () => {
 
       if (origin !== 'load') {
          productsData = products
-         list_orderingVar = listOrder
+         // list_orderingVar = listOrder
+         list_orderingVar = null
       }
 
       if (productsListVar === null && origin === 'load') {

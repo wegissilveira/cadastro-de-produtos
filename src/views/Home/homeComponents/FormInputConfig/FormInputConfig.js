@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import classes from './FormInputConfig.module.css'
 
@@ -89,10 +89,9 @@ const FormInputConfig = () => {
       }
    ])
  
-
-   const { productsDataState } = useSelector(state => state)
+   const productsDataState = useSelector(state => state.productsDataState)
    const { initProducts } = useInitProducts()
-
+   
    const addIdHandler = products => {
       const ids = []
       products.forEach(product => {
