@@ -12,7 +12,7 @@ const ProductsListMobileHeader = () => {
    console.log('10- ProductsListMobileHeader');
    let [listOrderState, setListOrder] = useState()
 
-   const { listOrder } = useSelector(state => state)
+   const listOrder= useSelector(state => state.listOrder)
 
    const { setOrder } = useSetOrder()
 

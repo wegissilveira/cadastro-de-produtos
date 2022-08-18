@@ -13,12 +13,10 @@ const useSetOrder = () => {
       setSearch 
    } = useActions()
 
-   const { 
-      productsDataState, 
-      searchProducts, 
-      isSearchOn,
-      inputValue
-   } = useSelector(state => state)
+   const productsDataState = useSelector(state => state.productsDataState)
+   const searchProducts = useSelector(state => state.searchProducts)
+   const isSearchOn = useSelector(state => state.isSearchOn)
+   const inputValue = useSelector(state => state.inputValue)
 
    const setOrder = (order, ul, products) => {
       console.log('7.1- useSetOrder FN');

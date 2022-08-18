@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useSelector } from 'react-redux'
 
 const ProductsListQtde = (props) => {
-   const { productsDataState } = useSelector(state => state)
+   const productsDataState = useSelector(state => state.productsDataState)
    const { initProducts } = useInitProducts()
 
    const removeProductHandler = id => {

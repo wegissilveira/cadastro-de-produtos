@@ -17,7 +17,10 @@ const ProductListMobile = props => {
    let [productsState, setProductsState] = useState(null)
    let [emptySearchState, setEmptySearch] = useState(null)
 
-   const { listOrder, productsDataState, searchProducts } = useSelector(state => state)
+   const productsDataState = useSelector(state => state.productsDataState)   
+   const listOrder = useSelector(state => state.listOrder)   
+   const searchProducts = useSelector(state => state.searchProducts) 
+   
    const { initProducts } = useInitProducts()
 
    const removeProductHandler = id => {

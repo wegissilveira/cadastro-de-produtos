@@ -18,7 +18,9 @@ const ProductsList = () => {
    let [productsState, setProductsState] = React.useState(null)
    let [emptySearchState, setEmptySearch] = React.useState(null)
 
-   const { listOrder, productsDataState, searchProducts } = useSelector(state => state)
+   const productsDataState = useSelector(state => state.productsDataState)   
+   const listOrder = useSelector(state => state.listOrder)   
+   const searchProducts = useSelector(state => state.searchProducts) 
    const { setOrder } = useSetOrder()
    const { initProducts } = useInitProducts()
 

@@ -11,7 +11,9 @@ let translateX = -110
 const Toastify = () => {
    console.log('15- Toastify');
    const { setToastify } = useActions()
-   const { toastify, toastifyOpen } = useSelector(state => state)
+   
+   const toastifyOpen = useSelector(state => state.toastifyOpen)
+   const toastify = useSelector(state => state.toastify)
 
    if (toastifyOpen === true) {
       translateX = 0
