@@ -7,10 +7,10 @@ const useUpdateSearch = () => {
    console.log('4- useUpdateSearch');
    const { setSearch } = useActions()
 
-   const productsDataState = useSelector(state => state.productsDataState)   
+   const productsDataState = useSelector(state => state.productsDataState)
    const isSearchOn = useSelector(state => state.isSearchOn)   
    const inputValue = useSelector(state => state.inputValue) 
-
+   
    const updateSearch = (inputValueArg = inputValue, isSearchOnArg = isSearchOn) => {  
       const data = !productsDataState ? [] : productsDataState
       if (isSearchOnArg) {

@@ -34,15 +34,15 @@ export const setListOrderService = (order, ul) => {
    return { error, errorMsg }
 }
 
-export const postProductsService = (products, origin) => {
+export const postProductsService = (products, action) => {
    let errorMsg = ['', '']
    try {
       localStorage.setItem('products_list', JSON.stringify(products))
-      origin === 'remove' ?
+      action === 'remove' ?
          errorMsg = ['green', 'Produto removido com sucesso!', ''] :
          errorMsg = ['green', 'Produto inserido com sucesso!', '']
    } catch (e) {
-      origin === 'remove' ?
+      action === 'remove' ?
          errorMsg = ['red', 'Algo saiu errado!', 'O produto não foi removido.'] :
          errorMsg = ['red', 'Algo saiu errado!', 'O produto não foi inserido.']
    }

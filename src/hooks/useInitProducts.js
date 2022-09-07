@@ -22,8 +22,11 @@ const useInitProducts = () => {
    let unordered_listVar = null 
    let errorVar = null
 
-   const initProducts = (origin, products) => {
-      if (origin === 'load') {
+   const initProducts = (action, products) => {
+      // CRIA A LISTA NO EVENTO DE LOAD
+      // SE HOUVER UMA LISTA ELA É RENDERIZADA
+      // CASO CONTRÁRIO É UTILIZADA A SEED
+      if (action === 'load') {
          const { 
             productsList_storage, 
             list_ordering, 
@@ -38,30 +41,27 @@ const useInitProducts = () => {
          
          if (list_orderingVar !== null) {
             productsData = orderList(productsData, list_orderingVar[1], list_orderingVar[0], unordered_listVar)
+         } 
+         
+         if (productsListVar === null) {
+            setListOrderService(['down', 'id'], true)
+            updateProducts(productsSeed, ['down', 'id'])
+            const { errorMsg } = postProductsService(productsSeed)
+            errorVar && setToastify(errorMsg)
+         } else {
+            updateProducts(productsListVar, list_orderingVar)
          }
       }
-      
-      if (productsListVar !== null) {
-         productsData = productsListVar
-      }
 
-      if (origin !== 'load') {
+      // CRIA A LISTA EM TODOS OS EVENTOS DIFERENTES DE LOAD
+      // AUMENTAR QUANTIDADE, ADICIONAR ITEM, REMOVER ITEM
+      if (action !== 'load') {
          productsData = products
-         // list_orderingVar = listOrder
-         list_orderingVar = null
-      }
 
-      if (productsListVar === null && origin === 'load') {
-         setListOrderService(['down', 'id'], true)
-         updateProducts(productsSeed, ['down', 'id'])
-         const { errorMsg } = postProductsService(productsSeed)
-         if (errorVar === true) setToastify(errorMsg)
-
-      } else {
          updateProducts(productsData, list_orderingVar)
-         if (isSearchOn) updateSearch()
+         isSearchOn && updateSearch()
          const { errorMsg } = postProductsService(productsData, origin)
-         if (origin === 'remove' || origin === 'add') setToastify(errorMsg)
+         if (action === 'remove' || action === 'add') setToastify(errorMsg)
       }
    }
 
