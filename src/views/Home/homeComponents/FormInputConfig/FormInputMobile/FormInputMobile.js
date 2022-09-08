@@ -1,6 +1,6 @@
 import React from 'react'
 
-import classes from './FormInputMobile.module.css'
+import classes from './FormInputMobile.module.scss'
 
 import FormInputConfig from 'views/Home/homeComponents/FormInputConfig/FormInputConfig'
 

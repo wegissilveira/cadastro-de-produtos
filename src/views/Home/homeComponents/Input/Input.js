@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 
-import classes from './Input.module.css'
+import classes from './Input.module.scss'
 
 const Input = props => {
    const validationMsg = {

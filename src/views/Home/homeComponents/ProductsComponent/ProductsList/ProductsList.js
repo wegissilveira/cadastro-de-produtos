@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 
-import classes from './ProductsList.module.css'
+import classes from './ProductsList.module.scss'
 
 import ProductsListHeader from './ProductsListHeader/ProductsListHeader'
 import ProductsListQtde from '../ProductsListQtde/ProductsListQtde'

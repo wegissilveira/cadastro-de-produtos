@@ -1,4 +1,4 @@
-import classes from './OpenFormButton.module.css'
+import classes from './OpenFormButton.module.scss'
 
 import { toggleMobileForm } from 'helpers/functions'
 

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import classes from './FormOutputConfig.module.css'
+import classes from './FormOutputConfig.module.scss'
 
 import InputSearch from 'views/Home/homeComponents/InputSearch/InputSearch'
 import ProductListMobile from '../ProductsComponent/ProductListMobile/ProductListMobile'

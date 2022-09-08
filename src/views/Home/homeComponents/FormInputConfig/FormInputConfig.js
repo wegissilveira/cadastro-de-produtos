@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
-import classes from './FormInputConfig.module.css'
+import classes from './FormInputConfig.module.scss'
 
 import Input from 'views/Home/homeComponents/Input/Input'
 import useInitProducts from 'hooks/useInitProducts'

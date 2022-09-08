@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 
-import classes from './ProductsListMobileHeader.module.css'
+import classes from './ProductsListMobileHeader.module.scss'
 
 import { productsListHeaderItems } from 'helpers/items'
 import useSetOrder from 'hooks/useSetOrder'

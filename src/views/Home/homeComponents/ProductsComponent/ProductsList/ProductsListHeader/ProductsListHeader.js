@@ -1,6 +1,6 @@
 import React, { memo } from 'react'
 
-import classes from './ProductsListHeader.module.css'
+import classes from './ProductsListHeader.module.scss'
 
 import { productsListHeaderItems } from 'helpers/items'
 import useSetOrder from 'hooks/useSetOrder'

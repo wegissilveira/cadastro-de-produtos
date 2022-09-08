@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
-import classes from './ProductListMobile.module.css'
+import classes from './ProductListMobile.module.scss'
 
 import ProductsListMobileHeader from './ProductsListMobileHeader/ProductsListMobileHeader'
 import ProductsListQtde from '../ProductsListQtde/ProductsListQtde'

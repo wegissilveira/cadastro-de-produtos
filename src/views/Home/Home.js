@@ -1,6 +1,6 @@
 import React from 'react'
 
-import classes from './Home.module.css'
+import classes from './Home.module.scss'
 
 import { toggleMobileForm } from 'helpers/functions'
 

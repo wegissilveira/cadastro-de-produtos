@@ -1,6 +1,6 @@
 import React from 'react'
 
-import classes from './Toastify.module.css'
+import classes from './Toastify.module.scss'
 
 import { useActions } from 'hooks/useActions'
 

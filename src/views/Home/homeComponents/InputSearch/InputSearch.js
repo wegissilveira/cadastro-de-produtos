@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import classes from './InputSearch.module.css'
+import classes from './InputSearch.module.scss'
 
 import useUpdateSearch from 'hooks/useUpdateSearch'
 

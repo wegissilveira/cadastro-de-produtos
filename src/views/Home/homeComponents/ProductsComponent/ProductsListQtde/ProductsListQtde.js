@@ -1,4 +1,4 @@
-import classes from './ProductsListQtde.module.css'
+import classes from './ProductsListQtde.module.scss'
 
 import useInitProducts from 'hooks/useInitProducts'
 
