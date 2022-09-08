@@ -13,10 +13,9 @@ import { useSelector } from 'react-redux'
 
 
 const ProductsList = () => {
-   console.log('6- ProductsList');
-   let [order, setOrderState] = React.useState(null)
-   let [productsState, setProductsState] = React.useState(null)
-   let [emptySearchState, setEmptySearch] = React.useState(null)
+   const [order, setOrderState] = React.useState(null)
+   const [productsState, setProductsState] = React.useState(null)
+   const [emptySearchState, setEmptySearch] = React.useState(null)
 
    const { productsDataState, listOrder, searchProducts } = useSelector(state => state)
    

@@ -12,10 +12,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 
 const ProductListMobile = props => {
-   console.log('16- ProductListMobile');
-   let [listOrderIcon, setListIcon] = useState()
-   let [productsState, setProductsState] = useState(null)
-   let [emptySearchState, setEmptySearch] = useState(null)
+   const [listOrderIcon, setListIcon] = useState()
+   const [productsState, setProductsState] = useState(null)
+   const [emptySearchState, setEmptySearch] = useState(null)
 
    const productsDataState = useSelector(state => state.productsDataState)   
    const listOrder = useSelector(state => state.listOrder)   

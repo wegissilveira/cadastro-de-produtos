@@ -1,3 +1,5 @@
+import React, { memo } from 'react'
+
 import classes from './ProductsListHeader.module.css'
 
 import { productsListHeaderItems } from 'helpers/items'
@@ -6,7 +8,6 @@ import useSetOrder from 'hooks/useSetOrder'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 const ProductsListHeader = () => {
-   console.log('9- ProductsListHeader');
    const { setOrder } = useSetOrder()
 
    const orderListHandler = (order, direction, e) => {
@@ -53,4 +54,4 @@ const ProductsListHeader = () => {
    )
 }
 
-export default ProductsListHeader
+export default memo(ProductsListHeader)

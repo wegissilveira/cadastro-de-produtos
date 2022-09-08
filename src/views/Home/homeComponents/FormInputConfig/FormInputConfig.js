@@ -10,9 +10,8 @@ import { useSelector } from 'react-redux'
 
 
 const FormInputConfig = () => {
-   console.log('12- FormInputConfig')
-   let [formIsValidState, setFormIsValidState] = useState(false)
-   let [productForm, setProductForm] = useState([
+   const [formIsValidState, setFormIsValidState] = useState(false)
+   const [productForm, setProductForm] = useState([
       {
          field: 'id',
          config: {
@@ -120,7 +119,7 @@ const FormInputConfig = () => {
       return isValid
    }
 
-   const inputChangeHandler = (e, i) => {
+   const inputChangeHandler = React.useCallback((e, i) => {
       let updatedProduct = [...productForm]
       let updatedProductField = { ...updatedProduct[i] }
   
@@ -149,7 +148,7 @@ const FormInputConfig = () => {
       
       setProductForm(updatedProduct)
       setFormIsValidState(formIsValid)
-   }
+   }, [productForm])
 
    const submitProductHandler = products => {
       initProducts('add', products)

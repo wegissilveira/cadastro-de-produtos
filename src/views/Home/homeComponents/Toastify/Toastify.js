@@ -9,7 +9,6 @@ import { useSelector } from 'react-redux'
 
 let translateX = -110
 const Toastify = () => {
-   console.log('15- Toastify');
    const { setToastify } = useActions()
    
    const toastifyOpen = useSelector(state => state.toastifyOpen)

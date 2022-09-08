@@ -9,8 +9,7 @@ import { useSelector } from 'react-redux'
 
 
 const ProductsListMobileHeader = () => {
-   console.log('10- ProductsListMobileHeader');
-   let [listOrderState, setListOrder] = useState()
+   const [listOrderState, setListOrder] = useState()
 
    const listOrder= useSelector(state => state.listOrder)
 

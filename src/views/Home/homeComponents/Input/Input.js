@@ -3,7 +3,6 @@ import React, { Fragment } from 'react'
 import classes from './Input.module.css'
 
 const Input = props => {
-   console.log('13- Input');
    const validationMsg = {
       validationName: '*O nome do produto não deve iniciar com espaço.',
       validationQty: '*Somente números e ponto. Quantidade não deve iniciar com 0.',

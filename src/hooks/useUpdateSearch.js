@@ -4,7 +4,6 @@ import { useActions } from 'hooks/useActions'
 import { useSelector } from 'react-redux'
 
 const useUpdateSearch = () => {
-   console.log('4- useUpdateSearch');
    const { setSearch } = useActions()
 
    const productsDataState = useSelector(state => state.productsDataState)

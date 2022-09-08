@@ -9,7 +9,6 @@ import { useSelector } from 'react-redux'
 
 
 const useInitProducts = () => {
-   console.log('8- useInitProducts');
    const { updateProducts, setToastify } = useActions()  
    const { updateSearch } = useUpdateSearch()
    // const { listOrder, isSearchOn } = useSelector(state => state)   

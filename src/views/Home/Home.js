@@ -12,7 +12,6 @@ import Toastify from './homeComponents/Toastify/Toastify'
 
 
 const Home = () => {   
-   console.log('1- HOME')
    return (
       <div className={classes.Layout_container}>
          <FormOutputConfig />
