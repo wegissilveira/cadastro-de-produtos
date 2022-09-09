@@ -1,0 +1,5 @@
+export enum ActionType {
+   UPDATE_PRODUCT = 'UPDATE_PRODUCT',
+   SET_TOASTIFY = 'SET_TOASTIFY',
+   SET_SEARCH = 'SET_SEARCH'
+}

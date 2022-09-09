@@ -1,3 +1,0 @@
-export const UPDATE_PRODUCT = 'UPDATE_PRODUCT'
-export const SET_TOASTIFY = 'SET_TOASTIFY'
-export const SET_SEARCH = 'SET_SEARCH'

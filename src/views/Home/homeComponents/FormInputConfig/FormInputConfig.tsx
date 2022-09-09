@@ -4,6 +4,7 @@ import classes from './FormInputConfig.module.scss'
 
 import Input from 'views/Home/homeComponents/Input/Input'
 import useInitProducts from 'hooks/useInitProducts'
+import { InitialState, ProductsList, ProductForm } from 'common/types'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useSelector } from 'react-redux'
@@ -11,7 +12,7 @@ import { useSelector } from 'react-redux'
 
 const FormInputConfig = () => {
    const [formIsValidState, setFormIsValidState] = useState(false)
-   const [productForm, setProductForm] = useState([
+   const [productForm, setProductForm] = useState<ProductForm[]>([
       {
          field: 'id',
          config: {
@@ -88,16 +89,17 @@ const FormInputConfig = () => {
       }
    ])
  
-   const productsDataState = useSelector(state => state.productsDataState)
+   const productsDataState = useSelector((state: InitialState) => state.productsDataState)
    const { initProducts } = useInitProducts()
    
-   const addIdHandler = products => {
-      const ids = []
+   const addIdHandler = (products: ProductsList[]) => {
+      const ids: number[] = []
       products.forEach(product => {
          ids.push(product.id)
       })
 
-      const currentIds = ids.reduce((sparse, i) => (sparse[i] = 1, sparse), [])
+      /* tipo ANY provisório - analisar essa parte posteriormente */
+      const currentIds = ids.reduce((sparse: any, i) => (sparse[i] = 1, sparse), [])
       const missingIds = [...currentIds.keys()].filter(i => i && !currentIds[i])
 
       let new_id

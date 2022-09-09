@@ -1,6 +1,8 @@
-import * as actionTypes from '../actions/actionTypes'
+import { ActionType } from '../actions/actionTypes'
+import { InitialState, Action } from 'common/types'
 
-const initialState = {
+
+const initialState: InitialState = {
    productsDataState: [],
    searchProducts: [],
    isSearchOn: false,
@@ -10,21 +12,24 @@ const initialState = {
    toastifyOpen: false
 }
 
-const reducer = ((state = initialState, action) => {
+const reducer = ((
+   state: InitialState = initialState, 
+   action: Action
+) => {
    switch (action.type) {
-      case actionTypes.UPDATE_PRODUCT:
+      case ActionType.UPDATE_PRODUCT:
          return {
             ...state,
             productsDataState: action.products,
             listOrder: !action.listOrder ? state.listOrder : action.listOrder
          }
-      case actionTypes.SET_TOASTIFY:
+      case ActionType.SET_TOASTIFY:
          return {
             ...state,
             toastify: action.toastify,
             toastifyOpen: action.open
          }
-      case actionTypes.SET_SEARCH:
+      case ActionType.SET_SEARCH:
          return {
             ...state,
             searchProducts: action.searchProducts,
