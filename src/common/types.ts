@@ -1,11 +1,11 @@
 import { ActionType } from "store/actions/actionTypes"
 
 export interface ProductsList {
-   id: number
-   nome: string
-   qtde: number
-   valor: number
-   valorTotal: number
+   id?: number
+   nome?: string
+   qtde?: number
+   valor?: number
+   valorTotal?: number
 }
 
 export interface InitialState {
@@ -18,6 +18,10 @@ export interface InitialState {
    toastifyOpen: boolean
 }
 
+export interface Validation {
+   required?: boolean
+}
+
 interface Config {
    elementType: boolean | string
    elementConfig?: {
@@ -27,9 +31,7 @@ interface Config {
    }
    label?: string
    value: string | number
-   validation?: {
-      required?: boolean
-   },
+   validation?: Validation
    valid: boolean
    touched: boolean
 } 
@@ -39,8 +41,8 @@ export interface ProductForm {
    config: Config
 }
 
-/* ActionTypes */
 
+/* ActionTypes */
 interface UpdateProduct {
    type: ActionType.UPDATE_PRODUCT
    products: ProductsList[]

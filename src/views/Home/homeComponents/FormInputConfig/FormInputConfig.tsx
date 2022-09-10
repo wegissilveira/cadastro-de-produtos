@@ -4,7 +4,7 @@ import classes from './FormInputConfig.module.scss'
 
 import Input from 'views/Home/homeComponents/Input/Input'
 import useInitProducts from 'hooks/useInitProducts'
-import { InitialState, ProductsList, ProductForm } from 'common/types'
+import { InitialState, ProductsList, ProductForm, Validation } from 'common/types'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useSelector } from 'react-redux'
@@ -95,11 +95,10 @@ const FormInputConfig = () => {
    const addIdHandler = (products: ProductsList[]) => {
       const ids: number[] = []
       products.forEach(product => {
-         ids.push(product.id)
+         ids.push(product.id!)
       })
 
-      /* tipo ANY provisório - analisar essa parte posteriormente */
-      const currentIds = ids.reduce((sparse: any, i) => (sparse[i] = 1, sparse), [])
+      const currentIds = ids.reduce((sparse: number[], i) => (sparse[i] = 1, sparse), [])
       const missingIds = [...currentIds.keys()].filter(i => i && !currentIds[i])
 
       let new_id
@@ -112,7 +111,8 @@ const FormInputConfig = () => {
       return new_id
    }
 
-   const checkFormValidityHandler = (value, rules) => {
+   const checkFormValidityHandler = (value: string | number, rules: Validation) => {
+      console.log('value: ', value)
       let isValid = false
       if (rules.required) {
          isValid = value.toString().trim() !== '' && value !== 0
@@ -121,7 +121,7 @@ const FormInputConfig = () => {
       return isValid
    }
 
-   const inputChangeHandler = React.useCallback((e, i) => {
+   const inputChangeHandler = React.useCallback((e: React.ChangeEvent<HTMLInputElement>, i: number) => {
       let updatedProduct = [...productForm]
       let updatedProductField = { ...updatedProduct[i] }
   
@@ -137,11 +137,11 @@ const FormInputConfig = () => {
       }
 
       updatedProductField.config.value = value
-      updatedProductField.config.valid = checkFormValidityHandler(updatedProductField.config.value, updatedProductField.config.validation)
+      updatedProductField.config.valid = checkFormValidityHandler(updatedProductField.config.value, updatedProductField.config.validation!)
       updatedProductField.config.touched = true
 
       updatedProduct[i] = updatedProductField
-      updatedProduct[4].config.value = updatedProduct[2].config.value * updatedProduct[3].config.value
+      updatedProduct[4].config.value = Number(updatedProduct[2].config.value) * Number(updatedProduct[3].config.value)
 
       let formIsValid = true
       updatedProduct.forEach(item => {
@@ -152,12 +152,12 @@ const FormInputConfig = () => {
       setFormIsValidState(formIsValid)
    }, [productForm])
 
-   const submitProductHandler = products => {
+   const submitProductHandler = (products: ProductsList[]) => {
       initProducts('add', products)
       cleanForm()
    }
 
-   const formatFormHandler = e => {
+   const formatFormHandler = (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault()
 
       const productFormLocal = [...productForm]
@@ -168,9 +168,9 @@ const FormInputConfig = () => {
       const productsList = productsDataState
       productFormLocal[0].config.value = addIdHandler(productsList)
 
-      const productValues = productFormLocal.reduce((obj, item) => (
+      const productValues = productFormLocal.reduce<Record<string, any>>((obj, item) => (
          obj[item.field] = item.config.value, obj
-      ) ,{})
+      ), {})
 
       productsList.push(productValues)
       submitProductHandler(productsList)
@@ -205,7 +205,7 @@ const FormInputConfig = () => {
          >
             <Input
                productForm={productForm}
-               changed={(e, i) => inputChangeHandler(e, i)}
+               changed={(e: React.ChangeEvent<HTMLInputElement>, i: number) => inputChangeHandler(e, i)}
             />
             <button disabled={!formIsValidState}>
                <p>Inserir Produto</p>

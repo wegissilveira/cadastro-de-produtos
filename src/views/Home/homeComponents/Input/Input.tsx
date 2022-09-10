@@ -2,7 +2,15 @@ import React, { Fragment } from 'react'
 
 import classes from './Input.module.scss'
 
-const Input = props => {
+import { ProductForm } from 'common/types'
+
+
+interface InputValues {
+   productForm: ProductForm[]
+   changed: (e: React.ChangeEvent<HTMLInputElement>, i: number) => void
+}
+
+const Input = ({ productForm, changed }: InputValues) => {
    const validationMsg = {
       validationName: '*O nome do produto não deve iniciar com espaço.',
       validationQty: '*Somente números e ponto. Quantidade não deve iniciar com 0.',
@@ -10,7 +18,7 @@ const Input = props => {
    }
    
    const inputElement = (
-      props.productForm.map((item, i) => {
+      productForm.map((item, i) => {
          const inputClasses = [classes.InputElement]
          let erroMsg = null
 
@@ -33,7 +41,7 @@ const Input = props => {
                   <input 
                      className={inputClasses.join(' ')}
                      value={item.config.value}
-                     onChange={e => props.changed(e, i)}
+                     onChange={e => changed(e, i)}
                      {...item.config.elementConfig}
                   />
                </Fragment>
