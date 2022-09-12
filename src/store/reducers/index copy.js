@@ -1,10 +1,5 @@
 // import * as actionTypes from '../actions/actionTypes'
 
-
-// interface initialState {
-   
-// }
-
 // const initialState = {
 //    productsDataState: [],
 //    searchProducts: [],

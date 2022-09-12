@@ -5,12 +5,12 @@ import classes from './Input.module.scss'
 import { ProductForm } from 'common/types'
 
 
-interface InputValues {
+interface Props {
    productForm: ProductForm[]
    changed: (e: React.ChangeEvent<HTMLInputElement>, i: number) => void
 }
 
-const Input = ({ productForm, changed }: InputValues) => {
+const Input = ({ productForm, changed }: Props) => {
    const validationMsg = {
       validationName: '*O nome do produto não deve iniciar com espaço.',
       validationQty: '*Somente números e ponto. Quantidade não deve iniciar com 0.',

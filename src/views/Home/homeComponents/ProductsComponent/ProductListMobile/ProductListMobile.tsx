@@ -5,26 +5,28 @@ import classes from './ProductListMobile.module.scss'
 import ProductsListMobileHeader from './ProductsListMobileHeader/ProductsListMobileHeader'
 import ProductsListQtde from '../ProductsListQtde/ProductsListQtde'
 
+import { InitialState, ProductsList } from 'common/types'
+
 import { useSelector } from 'react-redux'
 import useInitProducts from 'hooks/useInitProducts'
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 
-const ProductListMobile = props => {
-   const [listOrderIcon, setListIcon] = useState()
-   const [productsState, setProductsState] = useState(null)
-   const [emptySearchState, setEmptySearch] = useState(null)
+const ProductListMobile = () => {
+   const [listOrderIcon, setListIcon] = useState<JSX.Element>()
+   const [productsState, setProductsState] = useState<ProductsList[] | null>(null)
+   const [emptySearchState, setEmptySearch] = useState<boolean | null>(null)
 
-   const productsDataState = useSelector(state => state.productsDataState)   
-   const listOrder = useSelector(state => state.listOrder)   
-   const searchProducts = useSelector(state => state.searchProducts) 
+   const productsDataState = useSelector((state: InitialState) => state.productsDataState)   
+   const listOrder = useSelector((state: InitialState) => state.listOrder)   
+   const searchProducts = useSelector((state: InitialState) => state.searchProducts) 
    
    const { initProducts } = useInitProducts()
 
-   const removeProductHandler = id => {
+   const removeProductHandler = (id: number) => {
       const productsList =
-         productsDataState.filter(product =>
+         productsDataState.filter((product: ProductsList) =>
             product.id !== id
          )
 
@@ -37,14 +39,14 @@ const ProductListMobile = props => {
       if (orderBtnsContainer !== null) {
          Array.from(orderBtnsContainer.childNodes)
             .forEach(btn => {
-               if (listOrder[1] === btn.id) {
-                  btn.style.backgroundColor = 'green'
-                  btn.style.color = 'white'
-                  btn.style.border = '1px solid green'
+               if (listOrder[1] === (btn as HTMLInputElement).id) {
+                  (btn as HTMLInputElement).style.backgroundColor = 'green';
+                  (btn as HTMLInputElement).style.color = 'white';
+                  (btn as HTMLInputElement).style.border = '1px solid green'
                } else {
-                  btn.style.backgroundColor = '#f1f1f8'
-                  btn.style.color = 'rgb(126, 125, 125)'
-                  btn.style.border = '1px solid #f1f1f8'
+                  (btn as HTMLInputElement).style.backgroundColor = '#f1f1f8';
+                  (btn as HTMLInputElement).style.color = 'rgb(126, 125, 125)';
+                  (btn as HTMLInputElement).style.border = '1px solid #f1f1f8'
                }
             })
 
@@ -77,7 +79,7 @@ const ProductListMobile = props => {
          <ProductsListMobileHeader />
          <div>
             {productsState && productsState.length > 0 && !emptySearchState ?
-               productsState.map((product, index) => {
+               productsState.map(product => {
                   return <div 
                      key={product.id}
                      className={classes.Product_container_mobile}
@@ -97,18 +99,18 @@ const ProductListMobile = props => {
                         </div>
                         <div>
                            <p>Valor Unitário: &nbsp;</p>
-                           <span>R$ {(product.valor).toFixed(2)}</span>
+                           <span>R$ {(product.valor!).toFixed(2)}</span>
                         </div>
                         <div>
                            <p>Valor Total: &nbsp;</p>
-                           <span>R$ {(product.valor * product.qtde).toFixed(2)}</span>
+                           <span>R$ {(product.valor! * product.qtde!).toFixed(2)}</span>
                         </div>
                      </div>
                      <FontAwesomeIcon
                         icon={["far", "trash-alt"]}
                         color="red"
                         size="3x"
-                        onClick={() => removeProductHandler(product.id)}
+                        onClick={() => removeProductHandler(product.id!)}
                      />
                   </div>
                }) :

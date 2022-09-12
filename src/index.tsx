@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { createStore, applyMiddleware, Store } from 'redux'
+import { createStore, applyMiddleware, combineReducers } from 'redux'
 import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
 
@@ -11,14 +11,9 @@ import App from './App';
 
 import reducer from './store/reducers'
 
-// import { InitialState, Action, DispatchType } from 'common/types'
 
-
-const store = createStore(reducer, applyMiddleware(thunk))
-
-// const store: Store<InitialState, Action> & {
-//   dispatch: DispatchType
-// } = createStore(reducer, applyMiddleware(thunk))
+const rootReducer = combineReducers({ reducer: reducer })
+const store = createStore(rootReducer, applyMiddleware(thunk))
 
 ReactDOM.render(
   <React.StrictMode>

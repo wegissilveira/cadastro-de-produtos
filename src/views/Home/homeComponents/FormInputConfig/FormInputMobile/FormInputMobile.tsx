@@ -7,9 +7,13 @@ import FormInputConfig from 'views/Home/homeComponents/FormInputConfig/FormInput
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 
-const FormInputMobile = (props) => {
+interface Props {
+   toggleForm: () => void
+}
+
+const FormInputMobile = ({ toggleForm }: Props) => {
    const closeResponsiveFormHandler = () => {
-      props.toggleForm()
+      toggleForm()
    }
 
    return (

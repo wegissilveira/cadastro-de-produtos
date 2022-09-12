@@ -12,8 +12,8 @@ const initialState: InitialState = {
    toastifyOpen: false
 }
 
-const reducer = ((
-   state: InitialState = initialState, 
+const reducer = (
+   state: InitialState = initialState,
    action: Action
 ) => {
    switch (action.type) {
@@ -21,7 +21,7 @@ const reducer = ((
          return {
             ...state,
             productsDataState: action.products,
-            listOrder: !action.listOrder ? state.listOrder : action.listOrder
+            listOrder: action.listOrder
          }
       case ActionType.SET_TOASTIFY:
          return {
@@ -39,6 +39,6 @@ const reducer = ((
       default:
          return state
    }
-})
+}
 
 export default reducer

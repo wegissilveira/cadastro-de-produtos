@@ -56,11 +56,12 @@ const useInitProducts = () => {
       // AUMENTAR QUANTIDADE, ADICIONAR ITEM, REMOVER ITEM
       if (action !== 'load') {
          productsData = products
+         list_orderingVar = JSON.parse(localStorage.getItem('list_ordering'))
 
          updateProducts(productsData, list_orderingVar)
          isSearchOn && updateSearch()
          const { errorMsg } = postProductsService(productsData, origin)
-         if (action === 'remove' || action === 'add') setToastify(errorMsg)
+         if(action === 'remove' || action === 'add') setToastify(errorMsg)
       }
    }
 

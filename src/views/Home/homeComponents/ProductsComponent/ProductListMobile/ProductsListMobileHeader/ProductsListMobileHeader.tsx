@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react'
 
 import classes from './ProductsListMobileHeader.module.scss'
 
+import { InitialState, ProductsList } from 'common/types'
+
 import { productsListHeaderItems } from 'helpers/items'
 import useSetOrder from 'hooks/useSetOrder'
 
@@ -9,20 +11,23 @@ import { useSelector } from 'react-redux'
 
 
 const ProductsListMobileHeader = () => {
-   const [listOrderState, setListOrder] = useState()
+   const [listOrderState, setListOrder] = useState<string[]>([''])
 
-   const listOrder= useSelector(state => state.listOrder)
+   const listOrder = useSelector((state: InitialState) => state.listOrder)
 
    const { setOrder } = useSetOrder()
 
-   const orderListHandler = (order, e) => {
-      if (order === listOrderState[1]) {
-         setListOrder(listOrderState[0] === 'up' ?
-            listOrderState[0] = 'down' :
-            listOrderState[0] = 'up'
-         )
+   const orderListHandler = (e: React.MouseEvent<HTMLParagraphElement>, order: string) => {
+      const orderArr = [...listOrderState]
+      if (order === orderArr[1]) {
+         orderArr[0] === 'up' ?
+            orderArr[0] = 'down' :
+            orderArr[0] = 'up'
+         
+         setListOrder(orderArr)
       } else {
-         setListOrder(listOrderState[0] = 'down')
+         orderArr[0] = 'down'
+         setListOrder(orderArr)
       }
 
       setOrder([listOrderState[0], order], false)
@@ -37,7 +42,7 @@ const ProductsListMobileHeader = () => {
       <div id='orderMobileContainer' className={classes.Products_Order_list}>
          {
             productsListHeaderItems.map((item, i) => {
-               return <p key={`${item}-${i}`} id={item.id} onClick={e => orderListHandler(item.id, e)}>{item.text}</p>
+               return <p key={`${item}-${i}`} id={item.id} onClick={e => orderListHandler(e, item.id)}>{item.text}</p>
             })
          }
       </div>

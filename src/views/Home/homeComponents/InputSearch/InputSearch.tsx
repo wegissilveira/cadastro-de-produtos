@@ -10,12 +10,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 const minCharLength = 2
 
 const InputSearch = () => {
-   const [errorMsg, setErrorMsg] = useState(null)
+   const [errorMsg, setErrorMsg] = useState<string | null>(null)
 
    const { updateSearch } = useUpdateSearch()
 
-   const searchProductHandler = e => {
-      let inputValue = e.currentTarget.parentNode.childNodes[1].value
+   const searchProductHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+      let inputValue: string = (e.currentTarget.parentNode!.childNodes[1] as HTMLInputElement).value
+
       let isSearchOn
       let errorMsg
       if (inputValue !== '') {
