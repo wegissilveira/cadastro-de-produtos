@@ -112,7 +112,6 @@ const FormInputConfig = () => {
    }
 
    const checkFormValidityHandler = (value: string | number, rules: Validation) => {
-      console.log('value: ', value)
       let isValid = false
       if (rules.required) {
          isValid = value.toString().trim() !== '' && value !== 0
@@ -122,8 +121,8 @@ const FormInputConfig = () => {
    }
 
    const inputChangeHandler = React.useCallback((e: React.ChangeEvent<HTMLInputElement>, i: number) => {
-      let updatedProduct = [...productForm]
-      let updatedProductField = { ...updatedProduct[i] }
+      const updatedProduct = [...productForm]
+      const updatedProductField = { ...updatedProduct[i] }
   
       let value = e.target.value
       let name = e.target.name
@@ -178,7 +177,7 @@ const FormInputConfig = () => {
    }
 
    const cleanForm = () => {
-      const productFormLocal = [ ...productForm ]
+      const productFormLocal = [...productForm]
 
       productFormLocal.forEach((item, i) => {
          item.config.value = ''

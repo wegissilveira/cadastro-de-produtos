@@ -7,60 +7,65 @@ import ProductsListQtde from '../ProductsListQtde/ProductsListQtde'
 
 import useSetOrder from 'hooks/useSetOrder'
 import useInitProducts from 'hooks/useInitProducts'
+import { InitialState, ProductsList, ProductForm, Validation } from 'common/types'
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useSelector } from 'react-redux'
 
 
-const ProductsList = () => {
-   const [order, setOrderState] = React.useState(null)
-   const [productsState, setProductsState] = React.useState(null)
-   const [emptySearchState, setEmptySearch] = React.useState(null)
+type DivWithPosition = HTMLDivElement & { yPos: number }
 
-   const { productsDataState, listOrder, searchProducts } = useSelector(state => state)
+const ProductsListComponent = () => {
+   const [order, setOrderState] = React.useState('')
+   const [productsState, setProductsState] = React.useState<ProductsList[] | null>(null)
+   const [emptySearchState, setEmptySearch] = React.useState(false)
+
+   const { productsDataState, listOrder, searchProducts } = useSelector((state: InitialState) => state)
    
    const { setOrder } = useSetOrder()
    const { initProducts } = useInitProducts()
 
    /* *Configuração Drag and drop* */
-   let currentNode
-   const editDraggableItem = e => {
+   let currentNode: HTMLDivElement
+   const editDraggableItem = (e: React.MouseEvent<HTMLDivElement>) => {
       e.currentTarget.style.backgroundColor = 'rgb(139, 207, 38)'
       currentNode = e.currentTarget
    }
 
-   let currentIndex
-   let currentId
+   let currentIndex: number
+   let currentId: string
    let selectedNodePos = 0
 
-   const dragStartHandler = (e, id, idx) => {
+   const dragStartHandler = (e: React.DragEvent<HTMLDivElement>, id: number, idx: number) => {
       currentIndex = idx
-      currentId = id
-      e.dataTransfer.setData('id', id)
+      currentId = id+''
+      e.dataTransfer.setData('id', currentId)
    }
 
-   const dragOverHandler = e => {
+   const dragOverHandler = (e: React.DragEvent<HTMLDivElement>) => {
       let parent = e.currentTarget
       e.preventDefault()
 
       whereAmI(e.clientY, parent)
    }
 
-   const resetNodes = nodes => {
+   const resetNodes = (nodes: HTMLDivElement) => {
       for (let i = 0; i < nodes.children.length; i++) {
-         document.getElementById(nodes.children[i]['id']).style.marginTop = '20px'
+         document.getElementById(nodes.children[i]['id'])!.style.marginTop = '20px'
       }
    }
-
-   const whereAmI = (currentYPos, nodes) => {
+   
+   const whereAmI = (currentYPos: number, nodes: HTMLDivElement) => {
       establishNodePositions(nodes)
 
       //identifica o nó logo acima do nó selecionado
       let nodeAbove
       let nodeBelow
       for (let i = 0; i < nodes.children.length; i++) {
+         const el = nodes.children[i]
+         const elWithPosition = el as DivWithPosition
 
-         if (nodes.children[i]['yPos'] < currentYPos) {
+         if (elWithPosition.yPos < currentYPos) {
             selectedNodePos = i + 1
             nodeAbove = document.getElementById(nodes.children[i]['id'])
          } else {
@@ -78,12 +83,14 @@ const ProductsList = () => {
       resetNodes(nodes)
 
       if (typeof nodeBelow === 'object') {
-         nodeBelow.style.marginTop = '3em'
-         nodeBelow.style.transition = '1.8s'
+         if (nodeBelow) {
+            nodeBelow.style.marginTop = '3em'
+            nodeBelow.style.transition = '1.8s'
+         }
       }
    }
 
-   const dropHandler = e => {
+   const dropHandler = (e: React.DragEvent<HTMLDivElement>) => {
       let parent = e.currentTarget
       parent.insertBefore(currentNode, parent.children[selectedNodePos])
 
@@ -94,7 +101,7 @@ const ProductsList = () => {
          return { ...item }
       })
 
-      let products = newProducts.filter((item, i) => item.id !== currentId)
+      let products = newProducts.filter((item, i) => item.id !== Number(currentId))
       products.splice(
          currentIndex < selectedNodePos ?
             selectedNodePos - 1 :
@@ -105,14 +112,17 @@ const ProductsList = () => {
       setOrder([null, null], true, products)
    }
 
-   const establishNodePositions = nodes => {
+   const establishNodePositions = (nodes: HTMLDivElement) => {
       for (let i = 0; i < nodes.children.length; i++) {
+         const el = nodes.children[i]
+         const elWithPosition = el as DivWithPosition
          const element = document.getElementById(nodes.children[i]['id'])
-         const position = element.getBoundingClientRect()
+         const position = element!.getBoundingClientRect()
          const yTop = position.top
          const yBottom = position.bottom
          const yCenter = yTop + ((yBottom - yTop) / 2)
-         nodes.children[i]['yPos'] = yCenter
+
+         elWithPosition.yPos = yCenter
       }
    }
 
@@ -123,7 +133,7 @@ const ProductsList = () => {
       }, 200)
    }
 
-   const removeProductHandler = id => {
+   const removeProductHandler = (id: number) => {
       const productsList =
          productsDataState.filter(product =>
             product.id !== id
@@ -139,12 +149,12 @@ const ProductsList = () => {
 
    React.useEffect(() => {
       const orderHeaderContainer = document.getElementById('orderContainer')
-      const icons = orderHeaderContainer.getElementsByTagName('svg')
+      const icons = orderHeaderContainer!.getElementsByTagName('svg')
 
       Array.from(icons).forEach(icon => {
          icon.style.color = 'rgb(126, 125, 125)'
 
-         if (icon.classList[1].match(order) && icon.parentElement.id === listOrder[1]) {
+         if (icon.classList[1].match(order) && icon.parentElement!.id === listOrder[1]) {
             icon.style.color = 'green'
          }
       })
@@ -171,21 +181,21 @@ const ProductsList = () => {
                   return <div
                      key={product.id}
                      className={classes.Product_container}
-                     id={index}
+                     id={index+''}
                      draggable
-                     onDragStart={e => dragStartHandler(e, product.id, index)}
+                     onDragStart={e => dragStartHandler(e, product.id!, index)}
                      onMouseDown={e => editDraggableItem(e)}
                      onClick={removeBg}
                   >
                      <p>{product.id}</p>
                      <p>{product.nome}</p>
                      <ProductsListQtde qtde={product.qtde} id={product.id} />
-                     <p>R$ {(product.valor).toFixed(2)}</p>
-                     <p onDragStart={e => dragStartHandler(e, product.id)} >R$ {(product.qtde * product.valor).toFixed(2)}</p>
+                     <p>R$ {(product.valor!).toFixed(2)}</p>
+                     <p onDragStart={e => dragStartHandler(e, product.id!, index)} >R$ {(product.qtde! * product.valor!).toFixed(2)}</p>
                      <FontAwesomeIcon
                         icon={["far", "trash-alt"]}
                         color="red"
-                        onClick={() => removeProductHandler(product.id)}
+                        onClick={() => removeProductHandler(product.id!)}
                      />
                   </div>
                }) :
@@ -197,4 +207,4 @@ const ProductsList = () => {
    )
 }
 
-export default ProductsList
+export default ProductsListComponent
