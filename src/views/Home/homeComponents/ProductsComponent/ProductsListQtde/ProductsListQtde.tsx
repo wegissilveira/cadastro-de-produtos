@@ -2,14 +2,22 @@ import classes from './ProductsListQtde.module.scss'
 
 import useInitProducts from 'hooks/useInitProducts'
 
+import { InitialState } from 'common/types'
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useSelector } from 'react-redux'
 
-const ProductsListQtde = (props) => {
-   const productsDataState = useSelector(state => state.productsDataState)
+
+interface Props {
+   qtde: number
+   id: number
+}
+
+const ProductsListQtde = ({qtde, id}: Props) => {
+   const productsDataState = useSelector((state: InitialState) => state.productsDataState)
    const { initProducts } = useInitProducts()
 
-   const removeProductHandler = id => {
+   const removeProductHandler = (id: number) => {
       const productsList =
          productsDataState.filter(product =>
             product.id !== id
@@ -18,26 +26,30 @@ const ProductsListQtde = (props) => {
       initProducts('remove', productsList)
    }
 
-   const updateQtdeHandler = (arg, id) => {
+   const updateQtdeHandler = (arg: string, id: number) => {
       let productsList = productsDataState.map(product => {
          return { ...product }
       })
 
-      let qtde = null
+      let localQty = null
 
       productsList.forEach((product, i) => {
          if (product.id === id) {
             if (arg === 'up') {
-               productsList[i].qtde = product.qtde + 1
-               productsList[i].valorTotal = product.qtde * product.valor
+               if (product.qtde && product.valor) {
+                  productsList[i].qtde = product.qtde + 1
+                  productsList[i].valorTotal = product.qtde * product.valor
+               }
             }
 
             if (arg === 'down') {
-               productsList[i].qtde = product.qtde - 1
-               productsList[i].valorTotal = product.qtde * product.valor
+               if (product.qtde && product.valor) {
+                  productsList[i].qtde = product.qtde - 1
+                  productsList[i].valorTotal = product.qtde * product.valor
+               }               
             }
 
-            qtde = productsList[i].qtde
+            localQty = productsList[i].qtde
          }
       })
 
@@ -55,13 +67,13 @@ const ProductsListQtde = (props) => {
          <FontAwesomeIcon
             icon="minus"
             color="rgb(126, 125, 125)"
-            onClick={() => updateQtdeHandler('down', props.id)}
+            onClick={() => updateQtdeHandler('down', id)}
          />
-         <p>{props.qtde}</p>
+         <p>{qtde}</p>
          <FontAwesomeIcon
             icon="plus"
             color="rgb(126, 125, 125)"
-            onClick={() => updateQtdeHandler('up', props.id)}
+            onClick={() => updateQtdeHandler('up', id)}
          />
       </div>
    )

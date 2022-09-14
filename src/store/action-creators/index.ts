@@ -11,7 +11,7 @@ export const updateProducts = (products: ProductsList[], productsOrder: string[]
    }
 }
 
-export const setToastify = (toastifyDetails: string[], open = true) => {
+export const setToastify = (toastifyDetails: string[] | string, open = true) => {
    return {
       type: ActionType.SET_TOASTIFY,
       toastify: toastifyDetails,

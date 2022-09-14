@@ -10,15 +10,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 const ProductsListHeader = () => {
    const { setOrder } = useSetOrder()
 
-   const orderListHandler = (order, direction, e) => {
+   const orderListHandler = (order: string, direction: string, e: React.MouseEvent<SVGSVGElement>) => {
       setOrder([direction, order], false)
-      let arrowOrder = e.currentTarget
-      Array.from(arrowOrder.parentNode.parentNode.children)
+      const arrowOrder = e.currentTarget
+      
+      Array.from(arrowOrder.parentNode!.parentNode!.children)
          .forEach(item => {
             Array.from(item.children)
                .forEach(subItem => {
-                  if (subItem.tagName) {
-                     subItem.style.color = 'rgb(126, 125, 125)'
+                  const el = subItem as HTMLElement
+                  if (el.tagName) {
+                     el.style.color = 'rgb(126, 125, 125)'
                   }
                })
          })

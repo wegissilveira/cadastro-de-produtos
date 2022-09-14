@@ -95,7 +95,7 @@ const ProductListMobile = () => {
                         </div>
                         <div>
                            <p>Quantidade: &nbsp;</p>
-                           <ProductsListQtde qtde={product.qtde} id={product.id} />
+                           <ProductsListQtde qtde={product.qtde!} id={product.id!} />
                         </div>
                         <div>
                            <p>Valor Unitário: &nbsp;</p>

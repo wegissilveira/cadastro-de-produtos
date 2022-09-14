@@ -7,7 +7,7 @@ import ProductsListQtde from '../ProductsListQtde/ProductsListQtde'
 
 import useSetOrder from 'hooks/useSetOrder'
 import useInitProducts from 'hooks/useInitProducts'
-import { InitialState, ProductsList, ProductForm, Validation } from 'common/types'
+import { InitialState, ProductsList } from 'common/types'
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useSelector } from 'react-redux'
@@ -189,7 +189,7 @@ const ProductsListComponent = () => {
                   >
                      <p>{product.id}</p>
                      <p>{product.nome}</p>
-                     <ProductsListQtde qtde={product.qtde} id={product.id} />
+                     <ProductsListQtde qtde={product.qtde!} id={product.id!} />
                      <p>R$ {(product.valor!).toFixed(2)}</p>
                      <p onDragStart={e => dragStartHandler(e, product.id!, index)} >R$ {(product.qtde! * product.valor!).toFixed(2)}</p>
                      <FontAwesomeIcon

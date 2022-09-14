@@ -4,6 +4,8 @@ import classes from './Toastify.module.scss'
 
 import { useActions } from 'hooks/useActions'
 
+import { InitialState } from 'common/types'
+
 import { useSelector } from 'react-redux'
 
 
@@ -11,8 +13,8 @@ let translateX = -110
 const Toastify = () => {
    const { setToastify } = useActions()
    
-   const toastifyOpen = useSelector(state => state.toastifyOpen)
-   const toastify = useSelector(state => state.toastify)
+   const toastifyOpen = useSelector((state: InitialState) => state.toastifyOpen)
+   const toastify = useSelector((state: InitialState) => state.toastify)
 
    if (toastifyOpen === true) {
       translateX = 0

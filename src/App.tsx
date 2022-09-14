@@ -32,7 +32,7 @@ library.add(
 function App() {
   return (
     <Home />
-  );
+  )
 }
 
 export default App;

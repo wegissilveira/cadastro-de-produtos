@@ -23,6 +23,7 @@ const store = createStore(reducer, applyMiddleware(thunk))
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
+      <h1>TESTE JS</h1>
       <App />
     </Provider>
   </React.StrictMode>,
