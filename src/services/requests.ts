@@ -1,17 +1,19 @@
+import { ProductsList } from 'common/types'
+
 export const getProductsService = () => {
-   let productsList_storage
-   let list_ordering
-   let unordered_list
+   let productsList_storage: ProductsList[] | null
+   let list_ordering: string[]
+   let unordered_list: boolean = false
    let error = false
-   let errorMsg
+   let errorMsg: string[] = ['']
 
    try {
-      productsList_storage = JSON.parse(localStorage.getItem('products_list'))
-      list_ordering = JSON.parse(localStorage.getItem('list_ordering'))
-      unordered_list = JSON.parse(localStorage.getItem('unordered_list'))
+      productsList_storage = JSON.parse(localStorage.getItem('products_list') || '')
+      list_ordering = JSON.parse(localStorage.getItem('list_ordering') || '')
+      unordered_list = JSON.parse(localStorage.getItem('unordered_list') || '')
    } catch (e) {
       productsList_storage = null
-      list_ordering = null
+      list_ordering = ['']
       error = true
       errorMsg = errorMsg = ['red', 'Algo saiu errado!', 'Os produtos não foram carregados.']
    }
@@ -19,9 +21,9 @@ export const getProductsService = () => {
    return { productsList_storage, list_ordering, unordered_list, error, errorMsg }
 }
 
-export const setListOrderService = (order, ul) => {
+export const setListOrderService = (order: (string | null)[], ul: boolean) => {
    let error = false
-   let errorMsg
+   let errorMsg: string[] = ['']
 
    try {
       localStorage.setItem('list_ordering', JSON.stringify(order))
@@ -34,7 +36,7 @@ export const setListOrderService = (order, ul) => {
    return { error, errorMsg }
 }
 
-export const postProductsService = (products, action) => {
+export const postProductsService = (products: ProductsList[], action?: string) => {
    let errorMsg = ['', '']
    try {
       localStorage.setItem('products_list', JSON.stringify(products))

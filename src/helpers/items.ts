@@ -1,4 +1,9 @@
-export const productsListHeaderItems = [
+interface HeaderTitle {
+   id: string
+   text: string
+}
+
+export const productsListHeaderItems: HeaderTitle[] = [
    {
       id: 'id',
       text: 'ID'

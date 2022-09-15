@@ -1,4 +1,6 @@
-export const orderList = (productsData, order, direction, ul) => {
+import { ProductsList } from 'common/types'
+
+export const orderList = (productsData: ProductsList[], order: string | null, direction: string | null, ul:boolean) => {
    let productsList = productsData
 
    if (!ul) {
@@ -26,7 +28,7 @@ export const orderList = (productsData, order, direction, ul) => {
 
 export const toggleMobileForm = () => {
    const formInput_El = document.getElementById('responsive_form')
-   const formInputStyle = formInput_El.style
+   const formInputStyle = formInput_El!.style
 
    if (formInputStyle.display === 'block') {
       formInputStyle.display = 'none'

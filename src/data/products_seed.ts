@@ -1,4 +1,6 @@
-const products_list = [
+import { ProductsList } from 'common/types' 
+
+const products_list: ProductsList[] = [
     {
         id: 1,
         nome: 'Produto 1',

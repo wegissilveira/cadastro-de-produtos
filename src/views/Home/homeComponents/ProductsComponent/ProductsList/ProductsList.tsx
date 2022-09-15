@@ -162,7 +162,7 @@ const ProductsListComponent = () => {
 
    React.useEffect(() => {
       const products = searchProducts.length > 0 ? searchProducts : productsDataState
-      const emptySearch = products[0] === 'empty search' ? true : false
+      const emptySearch = products.length > 0 && products[0].isEmpty ? true : false
       setProductsState(products)
       setEmptySearch(emptySearch)
    }, [productsDataState, searchProducts])

@@ -6,6 +6,7 @@ export interface ProductsList {
    qtde?: number
    valor?: number
    valorTotal?: number
+   isEmpty?: boolean
 }
 
 export interface InitialState {

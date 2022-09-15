@@ -4,6 +4,7 @@ import useUpdateSearch from 'hooks/useUpdateSearch'
 import productsSeed from 'data/products_seed'
 import { orderList } from "helpers/functions"
 import { postProductsService, getProductsService, setListOrderService } from 'services/requests'
+import { InitialState, ProductsList } from 'common/types'
 
 import { useSelector } from 'react-redux'
 
@@ -12,19 +13,16 @@ const useInitProducts = () => {
    const { updateProducts, setToastify } = useActions()  
    const { updateSearch } = useUpdateSearch()
    // const { listOrder, isSearchOn } = useSelector(state => state)   
-   const isSearchOn = useSelector(state => state.isSearchOn)   
+   const isSearchOn = useSelector((state: InitialState) => state.isSearchOn)   
    // const listOrder = useSelector(state => state.listOrder)
 
-   let productsData = []
-   let productsListVar = null 
-   let list_orderingVar = null 
-   let unordered_listVar = null 
-   let errorVar = null
+   let productsData: ProductsList[] = []
+   let productsListVar: ProductsList[] | null = null 
+   let list_orderingVar: string[] = [''] 
+   let unordered_listVar: boolean | null = null 
+   let errorVar: boolean | null = null
 
-   const initProducts = (action, products) => {
-      // CRIA A LISTA NO EVENTO DE LOAD
-      // SE HOUVER UMA LISTA ELA É RENDERIZADA
-      // CASO CONTRÁRIO É UTILIZADA A SEED
+   const initProducts = (action: string, products?: ProductsList[]) => {
       if (action === 'load') {
          const { 
             productsList_storage, 
@@ -52,11 +50,9 @@ const useInitProducts = () => {
          }
       }
 
-      // CRIA A LISTA EM TODOS OS EVENTOS DIFERENTES DE LOAD
-      // AUMENTAR QUANTIDADE, ADICIONAR ITEM, REMOVER ITEM
       if (action !== 'load') {
-         productsData = products
-         list_orderingVar = JSON.parse(localStorage.getItem('list_ordering'))
+         productsData = products!
+         list_orderingVar = JSON.parse(localStorage.getItem('list_ordering') || '')
 
          updateProducts(productsData, list_orderingVar)
          isSearchOn && updateSearch()
