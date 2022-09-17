@@ -2,7 +2,7 @@ import { useActions } from "./useActions"
 import { orderList } from "helpers/functions"
 import { setListOrderService, postProductsService } from 'services/requests'
 
-import { InitialState, ProductsList } from 'common/types'
+import { InitialState, ProductsList, ProductKeys } from 'common/types'
 
 import { useSelector } from 'react-redux'
 
@@ -18,8 +18,8 @@ const useSetOrder = () => {
    const searchProducts = useSelector((state: InitialState) => state.searchProducts)
    const isSearchOn = useSelector((state: InitialState) => state.isSearchOn)
    const inputValue = useSelector((state: InitialState) => state.inputValue)
-
-   const setOrder = (order: (string | null)[], ul: boolean, products?: ProductsList[]) => {
+   
+   const setOrder = (order: [string, ProductKeys], ul: boolean, products?: ProductsList[]) => {
       const { error, errorMsg } = setListOrderService(order, ul)
       const productsData: ProductsList[] = !products ? orderList(productsDataState, order[1], order[0], ul) : products
       

@@ -4,7 +4,7 @@ import useUpdateSearch from 'hooks/useUpdateSearch'
 import productsSeed from 'data/products_seed'
 import { orderList } from "helpers/functions"
 import { postProductsService, getProductsService, setListOrderService } from 'services/requests'
-import { InitialState, ProductsList } from 'common/types'
+import { InitialState, ProductsList, ProductKeys } from 'common/types'
 
 import { useSelector } from 'react-redux'
 
@@ -12,13 +12,12 @@ import { useSelector } from 'react-redux'
 const useInitProducts = () => {
    const { updateProducts, setToastify } = useActions()  
    const { updateSearch } = useUpdateSearch()
-   // const { listOrder, isSearchOn } = useSelector(state => state)   
+    
    const isSearchOn = useSelector((state: InitialState) => state.isSearchOn)   
-   // const listOrder = useSelector(state => state.listOrder)
 
    let productsData: ProductsList[] = []
    let productsListVar: ProductsList[] | null = null 
-   let list_orderingVar: string[] = [''] 
+   let list_orderingVar: [string, ProductKeys] 
    let unordered_listVar: boolean | null = null 
    let errorVar: boolean | null = null
 

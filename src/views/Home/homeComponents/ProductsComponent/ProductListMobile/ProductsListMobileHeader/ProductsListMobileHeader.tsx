@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 
 import classes from './ProductsListMobileHeader.module.scss'
 
-import { InitialState, ProductsList } from 'common/types'
+import { InitialState, ProductKeys } from 'common/types'
 
 import { productsListHeaderItems } from 'helpers/items'
 import useSetOrder from 'hooks/useSetOrder'
@@ -17,7 +17,7 @@ const ProductsListMobileHeader = () => {
 
    const { setOrder } = useSetOrder()
 
-   const orderListHandler = (e: React.MouseEvent<HTMLParagraphElement>, order: string) => {
+   const orderListHandler = (e: React.MouseEvent<HTMLParagraphElement>, order: ProductKeys) => {
       const orderArr = [...listOrderState]
       if (order === orderArr[1]) {
          orderArr[0] === 'up' ?

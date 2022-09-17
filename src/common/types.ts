@@ -1,5 +1,8 @@
 import { ActionType } from "store/actions/actionTypes"
 
+const keys = [ 'id', 'nome', 'qtde', 'valor', 'valorTotal' ] as const;
+export type ProductKeys = typeof keys[number]
+
 export interface ProductsList {
    id?: number
    nome?: string

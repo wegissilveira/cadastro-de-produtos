@@ -1,5 +1,7 @@
+import { ProductKeys } from 'common/types'
+
 interface HeaderTitle {
-   id: string
+   id: ProductKeys
    text: string
 }
 

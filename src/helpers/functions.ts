@@ -1,22 +1,26 @@
 import { ProductsList } from 'common/types'
 
-export const orderList = (productsData: ProductsList[], order: string | null, direction: string | null, ul:boolean) => {
+export const orderList = (
+   productsData: ProductsList[], 
+   order: Exclude<keyof ProductsList, 'isEmpty'>,  
+   direction: string, 
+   ul: boolean
+) => {
    let productsList = productsData
-
    if (!ul) {
       if (direction === 'up') {
          order !== 'nome' ?
-            productsList.sort((a, b) => b[order] - a[order]) :
-            productsList.sort((a, b) => b[order].localeCompare(
-               a[order],
+            productsList.sort((a, b) => b[order]! - a[order]!) :
+            productsList.sort((a, b) => b[order]!.localeCompare(
+               a[order]!,
                undefined,
                { numeric: true, sensitivity: 'base' }
             ))
       } else {
          order !== 'nome' ?
-            productsList.sort((a, b) => a[order] - b[order]) :
-            productsList.sort((a, b) => a[order].localeCompare(
-               b[order],
+            productsList.sort((a, b) => a[order]! - b[order]!) :
+            productsList.sort((a, b) => a[order]!.localeCompare(
+               b[order]!,
                undefined,
                { numeric: true, sensitivity: 'base' }
             ))

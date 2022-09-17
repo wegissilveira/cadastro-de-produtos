@@ -9,16 +9,10 @@ import './index.scss';
 
 import App from './App';
 
-import reducer from './store/reducers'
-
-// import { InitialState, Action, DispatchType } from 'common/types'
+import reducer from './store/reducers';
 
 
 const store = createStore(reducer, applyMiddleware(thunk))
-
-// const store: Store<InitialState, Action> & {
-//   dispatch: DispatchType
-// } = createStore(reducer, applyMiddleware(thunk))
 
 ReactDOM.render(
   <React.StrictMode>

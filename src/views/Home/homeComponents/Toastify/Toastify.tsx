@@ -12,7 +12,8 @@ import { useSelector } from 'react-redux'
 let translateX = -110
 const Toastify = () => {
    const { setToastify } = useActions()
-   
+   const state = useSelector((state: InitialState) => state)
+   console.log('TESTE Toastify state: ', state.reducer.toastify)
    const toastifyOpen = useSelector((state: InitialState) => state.toastifyOpen)
    const toastify = useSelector((state: InitialState) => state.toastify)
 
@@ -25,7 +26,7 @@ const Toastify = () => {
    setTimeout(() => {
       if (toastifyOpen) setToastify('_', false)
    }, 3000);
-
+   console.log('TESTE Toastify:  ', toastify)
    const bgColor = toastify[0]
    const header = toastify[1]
    const msg = toastify[2]

@@ -109,7 +109,7 @@ const ProductsListComponent = () => {
          0, newProducts[currentIndex]
       )
       
-      setOrder([null, null], true, products)
+      setOrder(['', 'id'], true, products)
    }
 
    const establishNodePositions = (nodes: HTMLDivElement) => {

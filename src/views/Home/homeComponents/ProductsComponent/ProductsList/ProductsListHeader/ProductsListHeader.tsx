@@ -5,12 +5,14 @@ import classes from './ProductsListHeader.module.scss'
 import { productsListHeaderItems } from 'helpers/items'
 import useSetOrder from 'hooks/useSetOrder'
 
+import { ProductKeys } from 'common/types'
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 const ProductsListHeader = () => {
    const { setOrder } = useSetOrder()
 
-   const orderListHandler = (order: string, direction: string, e: React.MouseEvent<SVGSVGElement>) => {
+   const orderListHandler = (order: ProductKeys, direction: string, e: React.MouseEvent<SVGSVGElement>) => {
       setOrder([direction, order], false)
       const arrowOrder = e.currentTarget
       
