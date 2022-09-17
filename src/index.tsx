@@ -11,8 +11,8 @@ import App from './App'
 
 import reducer from './store/reducers'
 
+// O index.js está sendo utilizado ao invés deste
 
-// const rootReducer = combineReducers({ reducer: reducer })
 const rootReducer = combineReducers({reducer})
 const store = createStore(rootReducer, applyMiddleware(thunk))
 
@@ -23,9 +23,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <h1>TESTE TS</h1>
       <App />
     </Provider>
-  </React.StrictMode>,
-  // document.getElementById('root') as HTMLElement
+  </React.StrictMode>
 )

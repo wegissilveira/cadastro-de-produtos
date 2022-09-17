@@ -31,7 +31,7 @@ const ProductsListQtde = ({qtde, id}: Props) => {
          return { ...product }
       })
 
-      let localQty = null
+      let localQty = 0
 
       productsList.forEach((product, i) => {
          if (product.id === id) {
@@ -49,11 +49,11 @@ const ProductsListQtde = ({qtde, id}: Props) => {
                }               
             }
 
-            localQty = productsList[i].qtde
+            localQty = productsList[i].qtde!
          }
       })
 
-      if (qtde > 0) {
+      if (localQty > 0) {
          initProducts('updQtde', productsList)
       } else {
          const remove = window.confirm('Quantidade deve ser maior que 0. \nO produto será excluído!')
