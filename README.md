@@ -48,4 +48,6 @@ If you'd like to request a new function, feel free to do so by opening an issue 
 
 - [React](https://reactjs.org/) - React makes it painless to create interactive UIs.
 - [Redux](https://redux.js.org/) - A Predictable State Container for JS Apps.
+- [TypeScript](https://www.typescriptlang.org/) - A strongly typed programming language that builds on JavaScript.
 - [CSS](https://www.w3schools.com/css/) - Cascading Style Sheets is a style sheet language used for describing the presentation of a document written in a markup language.
+- [SASS](https://sass-lang.com/) - Sass is the most mature, stable, and powerful professional grade CSS extension language in the world.e.
