@@ -1,5 +1,6 @@
 {
   "name": "cadastro-de-produtos",
+  "homepage": "https://wegis.com.br/products-registration",
   "version": "2.0.0",
   "private": true,
   "main": "src/index.tsx",
