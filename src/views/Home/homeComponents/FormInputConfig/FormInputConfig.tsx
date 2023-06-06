@@ -188,9 +188,9 @@ const FormInputConfig = () => {
       setProductForm(productFormLocal)
    }
 
-   useEffect(() => {
-      initProducts('load')
-   }, [])
+   // useEffect(() => {
+   //    initProducts('load')
+   // }, [])
 
 
    return (

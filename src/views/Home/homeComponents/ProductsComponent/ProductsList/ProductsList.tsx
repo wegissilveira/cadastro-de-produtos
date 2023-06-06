@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 
 import classes from './ProductsList.module.scss'
 
@@ -16,9 +16,9 @@ import { useSelector } from 'react-redux'
 type DivWithPosition = HTMLDivElement & { yPos: number }
 
 const ProductsListComponent = () => {
-   const [order, setOrderState] = React.useState('')
-   const [productsState, setProductsState] = React.useState<ProductsList[] | null>(null)
-   const [emptySearchState, setEmptySearch] = React.useState(false)
+   const [order, setOrderState] = useState('')
+   const [productsState, setProductsState] = useState<ProductsList[] | null>(null)
+   const [emptySearchState, setEmptySearch] = useState(false)
 
    const { productsDataState, listOrder, searchProducts } = useSelector((state: InitialState) => state)
    
@@ -142,35 +142,25 @@ const ProductsListComponent = () => {
       initProducts('remove', productsList)
    }
 
-
-   React.useEffect(() => {
+   useEffect(() => {
       setOrderState(listOrder[0])
    }, [listOrder])
 
-   React.useEffect(() => {
-      const orderHeaderContainer = document.getElementById('orderContainer')
-      const icons = orderHeaderContainer!.getElementsByTagName('svg')
-
-      Array.from(icons).forEach(icon => {
-         icon.style.color = 'rgb(126, 125, 125)'
-
-         if (icon.classList[1].match(order) && icon.parentElement!.id === listOrder[1]) {
-            icon.style.color = 'green'
-         }
-      })
-   })
-
-   React.useEffect(() => {
+   useEffect(() => {
       const products = searchProducts.length > 0 ? searchProducts : productsDataState
       const emptySearch = products.length > 0 && products[0].isEmpty ? true : false
       setProductsState(products)
       setEmptySearch(emptySearch)
    }, [productsDataState, searchProducts])
 
+   useEffect(() => {
+      initProducts('load')
+   }, [])
+
    
    return (
       <Fragment>
-         <ProductsListHeader />
+         <ProductsListHeader order={order} />
          <div
             className={classes.Products_list_container}
             onDragOver={e => dragOverHandler(e)}

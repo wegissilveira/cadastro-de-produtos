@@ -6,7 +6,11 @@ export const orderList = (
    direction: string, 
    ul: boolean
 ) => {
-   let productsList = productsData
+   if (!productsData) {
+      return []
+   }
+
+   const productsList = [...productsData]
    if (!ul) {
       if (direction === 'up') {
          order !== 'nome' ?

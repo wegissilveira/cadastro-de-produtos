@@ -7,7 +7,6 @@ import { InitialState } from 'common/types'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useSelector } from 'react-redux'
 
-
 interface Props {
    qtde: number
    id: number
@@ -15,7 +14,7 @@ interface Props {
 
 const ProductsListQtde = ({qtde, id}: Props) => {
    const productsDataState = useSelector((state: InitialState) => state.productsDataState)
-   const { initProducts } = useInitProducts()
+   const { initProducts } = useInitProducts() 
 
    const removeProductHandler = (id: number) => {
       const productsList =
@@ -25,19 +24,21 @@ const ProductsListQtde = ({qtde, id}: Props) => {
 
       initProducts('remove', productsList)
    }
-
+   
    const updateQtdeHandler = (arg: string, id: number) => {
       let productsList = productsDataState.map(product => {
          return { ...product }
       })
 
       let localQty = 0
-
-      productsList.forEach((product, i) => {
+      
+      productsList.forEach((product, i) => { 
          if (product.id === id) {
+            
             if (arg === 'up') {
                if (product.qtde && product.valor) {
-                  productsList[i].qtde = product.qtde + 1
+                  const newQty = product.qtde + 1
+                  productsList[i].qtde = newQty
                   productsList[i].valorTotal = product.qtde * product.valor
                }
             }
@@ -55,25 +56,29 @@ const ProductsListQtde = ({qtde, id}: Props) => {
 
       if (localQty > 0) {
          initProducts('updQtde', productsList)
+         const list_orderingVar = JSON.parse(localStorage.getItem('list_ordering') || 'null');
+         // updateProducts(productsList, list_orderingVar)
       } else {
          const remove = window.confirm('Quantidade deve ser maior que 0. \nO produto será excluído!')
 
          if (remove === true) removeProductHandler(id)
       }
    }
-
+   
    return (
       <div className={classes.Product_change_qtde}>
          <FontAwesomeIcon
             icon="minus"
             color="rgb(126, 125, 125)"
             onClick={() => updateQtdeHandler('down', id)}
+            aria-label="minus"
          />
-         <p>{qtde}</p>
+         <h4>{qtde}</h4>
          <FontAwesomeIcon
             icon="plus"
             color="rgb(126, 125, 125)"
             onClick={() => updateQtdeHandler('up', id)}
+            aria-label="plus"
          />
       </div>
    )

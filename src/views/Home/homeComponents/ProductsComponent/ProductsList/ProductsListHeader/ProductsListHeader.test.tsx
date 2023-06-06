@@ -1,15 +1,15 @@
-import { render, screen } from "@testing-library/react"
-import { toHaveClass } from "@testing-library/jest-dom/matchers"
+import { render, fireEvent, screen } from "@testing-library/react"
 import '@testing-library/jest-dom'
 
 import { store, Provider } from "test-setup"
 import { productsListHeaderItems } from "helpers/items"
 import ProductsListHeader from "./ProductsListHeader"
 
+
 const renderHeaderComponent = () => {
    const { container } = render(
       <Provider store={store}>
-         <ProductsListHeader />
+         <ProductsListHeader order="" />
       </Provider>
    )
 
@@ -19,7 +19,7 @@ const renderHeaderComponent = () => {
 }
 
 describe('all header options', () => {
-   const { container, headerColumns } = renderHeaderComponent()
+   const { headerColumns } = renderHeaderComponent()
    
    test('are in the document', () => {
       const columnsQty = Number(productsListHeaderItems.length)
@@ -29,25 +29,44 @@ describe('all header options', () => {
    })
 
    test('have the expected titles', () => {
-      const headerTitles = Array.from(headerColumns!.getElementsByTagName('p'))
-      
-      headerTitles?.forEach((title, i) => {
-         const titleText = title.textContent
+      const headerTitles = Array.from(headerColumns!.getElementsByTagName('p')) 
+      for (let i=0; i < headerTitles.length; i+=1) {
+         const titleText = headerTitles[i].textContent
          const headerListText = productsListHeaderItems[i].text
-         expect(headerListText).toEqual(titleText)
-      })
-   })
+         expect(titleText).toEqual(headerListText)
+      }
+   })    
 
    test('each one has an up sort arrow on its left and a down sort arrow its right on desk version', () => {      
       const headerColumnsDivs = headerColumns?.childNodes
-      
-      headerColumnsDivs?.forEach(column => {
-         const columnArrow = column.childNodes
-         const arrowUp = columnArrow[0]
-         const arrowDown = columnArrow[2]
+      if (headerColumnsDivs) {
+         for (let i=0; i < headerColumnsDivs?.length; i+=1) {
+            const columnArrow = headerColumnsDivs[i].childNodes
+            const arrowUp = columnArrow[0]
+            const arrowDown = columnArrow[2]
+   
+            expect(arrowUp).toHaveClass('svg-inline--fa fa-arrow-up-wide-short')
+            expect(arrowDown).toHaveClass('svg-inline--fa fa-arrow-down-short-wide')
+         }
+      }
+   })
+})
 
-         expect(arrowUp).toHaveClass('svg-inline--fa fa-arrow-up-wide-short')
-         expect(arrowDown).toHaveClass('svg-inline--fa fa-arrow-down-short-wide')
-      })
+describe('sort arrows', () => {
+   test('all arrows but the clicked one is grey after click', async () => {
+      const { container } = renderHeaderComponent()
+      const allArrows = container.querySelectorAll('.svg-inline--fa')
+      const firstArrow = allArrows[0]
+      let firstArrowColor = (allArrows[0] as HTMLElement).style.color
+      
+      expect(firstArrowColor).toEqual('rgb(126, 125, 125)')
+
+      fireEvent.click(firstArrow)  
+      
+      for (let i = 0; i < allArrows.length; i+=1) {
+         const currentArrowColor = (allArrows[i] as HTMLElement).style.color
+         const expectColor = i === 0 ? 'green' : 'rgb(126, 125, 125)'
+         expect(currentArrowColor).toEqual(expectColor)
+      }
    })
 })

@@ -54,6 +54,7 @@
     ]
   },
   "devDependencies": {
-    "@types/react-redux": "^7.1.24"
+    "@types/react-redux": "^7.1.24",
+    "redux-mock-store": "^1.5.4"
   }
 }
