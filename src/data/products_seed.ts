@@ -4,9 +4,9 @@ const products_list: ProductsList[] = [
     {
         id: 1,
         nome: 'Produto 1',
-        qtde: 5,
+        qtde: 2,
         valor: 10,
-        valorTotal: 490
+        valorTotal: 20
     },
     {
         id: 2,

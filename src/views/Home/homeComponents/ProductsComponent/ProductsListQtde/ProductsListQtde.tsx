@@ -56,8 +56,6 @@ const ProductsListQtde = ({qtde, id}: Props) => {
 
       if (localQty > 0) {
          initProducts('updQtde', productsList)
-         const list_orderingVar = JSON.parse(localStorage.getItem('list_ordering') || 'null');
-         // updateProducts(productsList, list_orderingVar)
       } else {
          const remove = window.confirm('Quantidade deve ser maior que 0. \nO produto será excluído!')
 
