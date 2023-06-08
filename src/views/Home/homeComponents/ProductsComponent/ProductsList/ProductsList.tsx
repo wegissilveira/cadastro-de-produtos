@@ -186,6 +186,7 @@ const ProductsListComponent = () => {
                         icon={["far", "trash-alt"]}
                         color="red"
                         onClick={() => removeProductHandler(product.id!)}
+                        aria-label="remove-product"
                      />
                   </div>
                }) :

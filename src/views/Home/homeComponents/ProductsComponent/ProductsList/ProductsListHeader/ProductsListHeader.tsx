@@ -72,11 +72,13 @@ const ProductsListHeader = (props: Props) => {
                      <FontAwesomeIcon
                         icon="sort-amount-up"
                         onClick={e => orderListHandler(item.id, 'up', e)}
+                        aria-label="arrow-up"
                      />
                      <p>{item.text}</p>
                      <FontAwesomeIcon
                         icon="sort-amount-down-alt"
                         onClick={e => orderListHandler(item.id, 'down', e)}
+                        aria-label="arrow-down"
                      />
                   </div>
                )
