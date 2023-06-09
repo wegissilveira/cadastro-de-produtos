@@ -16,7 +16,6 @@ const reducer = (
    state: InitialState = initialState,
    action: Action
 ) => {
-   // console.log('ACTION: ', action)
    switch (action.type) {
       case ActionType.UPDATE_PRODUCT:
          return {

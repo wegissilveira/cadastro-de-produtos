@@ -60,8 +60,8 @@ export const toBeSorted = (
                pass: false,
                message: () => `
                   Criteria: ${criteria} \n
-                  Expected: ${orderArr} \n
-                  Got: \x1b[31m${customSort(orderArr, action)}\x1b[0m
+                  Expected: \x1b[31m${customSort(orderArr, action)}\x1b[0m
+                  Received: ${orderArr} \n
                `,
             }
          }
@@ -71,8 +71,8 @@ export const toBeSorted = (
                pass: false,
                message: () =>`
                   Criteria: ${criteria} \n
-                  Expected: ${orderArr}\n
-                  Got: ${customSort(orderArr, action)}
+                  Expected: ${customSort(orderArr, action)}
+                  Received: ${orderArr}\n
                `,
             }
          }

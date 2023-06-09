@@ -108,8 +108,9 @@ const ProductsListComponent = () => {
             selectedNodePos,
          0, newProducts[currentIndex]
       )
-      
-      setOrder(['', 'id'], true, products)
+
+      const listOrdering = JSON.parse(localStorage.getItem('list_ordering') || '')
+      setOrder([listOrdering[0], listOrdering[1]], true, products)
    }
 
    const establishNodePositions = (nodes: HTMLDivElement) => {
