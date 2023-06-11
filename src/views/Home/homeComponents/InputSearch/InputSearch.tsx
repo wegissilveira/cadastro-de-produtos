@@ -7,7 +7,7 @@ import useUpdateSearch from 'hooks/useUpdateSearch'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 
-const minCharLength = 2
+const minCharLength = 3
 
 const InputSearch = () => {
    const [errorMsg, setErrorMsg] = useState<string | null>(null)
@@ -44,6 +44,7 @@ const InputSearch = () => {
             <FontAwesomeIcon
                icon="search"
                color="rgb(126, 125, 125)"
+               aria-label="search-icon"
             />
             <input
                placeholder="Busca por produtos"
