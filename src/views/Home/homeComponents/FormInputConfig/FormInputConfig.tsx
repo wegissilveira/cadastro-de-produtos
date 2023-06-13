@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
-
 import classes from './FormInputConfig.module.scss'
 
 import Input from 'views/Home/homeComponents/Input/Input'
 import useInitProducts from 'hooks/useInitProducts'
 import { InitialState, ProductsList, ProductForm, Validation } from 'common/types'
+import { outputForm } from 'helpers/outputForm'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useSelector } from 'react-redux'
@@ -12,82 +12,7 @@ import { useSelector } from 'react-redux'
 
 const FormInputConfig = () => {
    const [formIsValidState, setFormIsValidState] = useState(false)
-   const [productForm, setProductForm] = useState<ProductForm[]>([
-      {
-         field: 'id',
-         config: {
-            elementType: false,
-            value: '',
-            validation: {},
-            valid: true,
-            touched: false
-         }
-      },
-      {
-         field: 'nome',
-         config: {
-            elementType: 'input',
-            elementConfig: {
-               type: 'text',
-               placeholder: 'Nome do Produto',
-               name: 'nome',
-            },
-            label: 'Nome do Produto',
-            value: '',
-            validation: {
-               required: true,
-            },
-            valid: false,
-            touched: false
-         }
-      },
-      {
-         field: 'qtde',
-         config: {
-            elementType: 'input',
-            elementConfig: {
-               type: 'text',
-               placeholder: 'Quantidade',
-               name: 'qtde',
-            },
-            label: 'Quantidade',
-            value: '',
-            validation: {
-               required: true,
-            },
-            valid: false,
-            touched: false
-         }
-      },
-      {
-         field: 'valor',
-         config: {
-            elementType: 'input',
-            elementConfig: {
-               type: 'text',
-               placeholder: 'Valor Unitário',
-               name: 'valor',
-            },
-            label: 'Valor Unitário',
-            value: '',
-            validation: {
-               required: true,
-            },
-            valid: false,
-            touched: false
-         }
-      },
-      {
-         field: 'valorTotal',
-         config: {
-            elementType: false,
-            value: 0,
-            validation: {},
-            valid: true,
-            touched: false
-         }
-      }
-   ])
+   const [productForm, setProductForm] = useState<ProductForm[]>(outputForm)
  
    const productsDataState = useSelector((state: InitialState) => state.productsDataState)
    const { initProducts } = useInitProducts()
