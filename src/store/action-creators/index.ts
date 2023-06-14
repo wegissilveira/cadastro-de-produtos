@@ -1,9 +1,7 @@
 import { ActionType } from '../actions/actionTypes'
 import { ProductsList } from 'common/types'
 
-export const updateProducts = (products: ProductsList[], productsOrder: string[]) => {   
-   // console.log('products: ', products)
-   // console.log('productsOrder: ', productsOrder)
+export const updateProducts = (products: ProductsList[], productsOrder: string[]) => {
    return {
       type: ActionType.UPDATE_PRODUCT,
       products: products,
