@@ -77,8 +77,8 @@ const FormInputConfig = () => {
    }, [productForm])
 
    const submitProductHandler = (products: ProductsList[]) => {
-      initProducts('add', products)
       cleanForm()
+      initProducts('add', products)
    }
 
    const formatFormHandler = (e: React.FormEvent<HTMLFormElement>) => {

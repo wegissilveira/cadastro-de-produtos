@@ -51,7 +51,7 @@ const useInitProducts = () => {
 
       if (action !== 'load') {
          productsData = products!
-         list_orderingVar = JSON.parse(localStorage.getItem('list_ordering') || '')
+         list_orderingVar = JSON.parse(localStorage.getItem('list_ordering') || 'null')
 
          updateProducts(productsData, list_orderingVar)
          isSearchOn && updateSearch()
