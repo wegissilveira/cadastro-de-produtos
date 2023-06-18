@@ -3,8 +3,6 @@ import '@testing-library/jest-dom'
 import Home from "./Home"
 import { store, Provider } from "test-setup"
 import products_list from "data/products_seed"
-import productsSeed from 'data/products_seed'
-import { updateProducts } from "store/action-creators"
 
 const renderHomeComponent = () => {
    const { container } = render(<Provider store={store}>
@@ -53,5 +51,8 @@ describe('form submission', () => {
       fireEvent.click(submitButtonDesk)
 
       expect(productRows).toHaveLength(products_list.length+1)
+
+      const lastRow = productRows[productRows.length - 1].getElementsByTagName('p')[1]
+      expect(lastRow.textContent).toBe('Mock Product')
    })
 })
